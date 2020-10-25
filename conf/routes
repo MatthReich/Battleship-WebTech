@@ -4,9 +4,9 @@
 # ~~~~
 
 # An controller showing battleship game
-#GET        /        controllers.BattleshipController.battleship
+GET        /             controllers.BattleshipController.battleship
 # An controller showing about
-GET        /                    controllers.BattleshipController.about
+GET        /about        controllers.BattleshipController.about
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

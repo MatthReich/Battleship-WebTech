@@ -4,7 +4,7 @@
 # ~~~~
 
 # An controller showing battleship game
-#GET     /battleship                controllers.BattleshipController.battleship
+GET        /        controllers.BattleshipController.battleship
 # An controller showing about
 GET        /                    controllers.BattleshipController.about
 

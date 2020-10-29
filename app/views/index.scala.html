@@ -3,16 +3,48 @@
 * message to display.
 *@
 @()
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main("Welcome to Play") {
     @*
-    * Call the `main` template with two arguments. The first
-    * argument is a `String` with the title of the page, the second
-    * argument is an `Html` object containing the body of the page.
+    * Get an `Html` object by calling the built-in Play welcome
+    * template and passing a `String` message.
     *@
-    @main("Welcome to Play") {
-        @*
-        * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-        <h1>About Battleship</h1>
-
+    <h1>About Battleship</h1>
+    <hr>
+    <video width="1000" autoplay loop>
+        <source src="https://media.giphy.com/media/RKS1aUdDGFUKxRecSL/giphy.mp4" type="video/mp4">
+    </video>
+    <hr>
+    <div class="about_howTo">
+        <h2>How To Play</h2>
+        <p>The game is played on four grids, two for each player. The grids are typically square – usually 10×10 – and the individual squares in the grid are identified by letter and number. On one grid the player arranges ships and records the shots by the opponent. On the other grid the player records their own shots. Before play begins, each player secretly arranges their ships on their primary grid. Each ship occupies a number of consecutive squares on the grid, arranged either horizontally or vertically. The number of squares for each ship is determined by the type of the ship. The ships cannot overlap (i.e., only one ship can occupy any given square in the grid). The types and numbers of ships allowed are the same for each player. </p>
+        <dl>
+            <dt><b>Gamestates:</b></dt>
+            <dd>- set players</dd>
+            <dd>- set ships</dd>
+            <dd>- idle</dd>
+            <dd>- solved</dd>
+            <dd>- saved</dd>
+            <dd>- loaded</dd>
+        </dl>
+    </div>
+    <hr>
+    <video width="200" autoplay loop>
+        <source src="https://media.giphy.com/media/KbSB4TjuFhfHbFgdIt/giphy.mp4" type="video/mp4">
+    </video>
+    <hr>
+    <div class="about_developer">
+        <footer>
+            <h2>Developer</h2>
+            <table>
+                <th>first name</th><th>last name</th>
+                <tr><td>Marcel</td><td>Gaiser</td></tr>
+                <tr><td>Matthias</td><td>Reichenbach</td></tr>
+            </table>
+        </footer>
+    </div>
 }

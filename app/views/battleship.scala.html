@@ -1,0 +1,61 @@
+@(controller: Battleship.controller.InterfaceController)
+@main("Battleship") {
+    <div class="gamecontainer">
+        <div class="game">
+            <div class="player1">
+                @{
+                    controller.getPlayer1.toString
+                }
+                <div class="clear"></div>
+                @for(row <- 0 until 10) {
+                    <div class="field size 10">
+                    @for(col <- 0 until 10) {
+                        <span class="cell player1">
+                            <span class="@{
+                                "number"
+                            }">
+                            @{
+                                if(controller.getGridPlayer1.getField(row, col) == 0) {
+                                    "~"
+                                }
+                                else if(controller.getGridPlayer1.getField(row, col) == 1) {
+                                    "x"
+                                }
+                            }
+                            </span>
+                        </span>
+                    }
+                    </div>
+                    <div class="clear"></div>
+                }
+            </div>
+            <div class="player2">
+                @{
+                    "" + controller.getPlayer2.toString
+                }
+                <div class="clear"></div>
+                @for(row <- 0 until 10) {
+                    <div class="field size 10">
+                    @for(col <- 0 until 10) {
+                        <span class="cell player2">
+                            <span class="@{
+                                "number"
+                            }">
+                            @{
+                                if(controller.getGridPlayer2.getField(row, col) == 0) {
+                                    "~"
+                                }
+                                else if(controller.getGridPlayer2.getField(row, col) == 1) {
+                                    "x"
+                                }
+                            }
+                            </span>
+                        </span>
+                    }
+                    </div>
+                    <div class="clear"></div>
+                }
+            </div>
+        </div>
+    </div>
+}

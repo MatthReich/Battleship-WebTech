@@ -10,7 +10,9 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   val gameController = Game.controller;
 
   def battleship = Action {
-    Ok(battleshipAsText)
+    gameController.setPlayers("Marcel")
+    gameController.setPlayers("Matthias")
+    Ok(views.html.battleship(gameController))
   }
 
   def about = Action {

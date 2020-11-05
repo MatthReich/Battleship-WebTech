@@ -1,3 +1,4 @@
+@import Battleship.controller.ControllerBaseImpl.PlayerState
 @(controller: Battleship.controller.InterfaceController)
 @main("Battleship") {
     <div class="gamecontainer">
@@ -15,12 +16,22 @@
                                 "number"
                             }">
                             @{
-                                if(controller.getGridPlayer1.getValue(row, col) == 0) {
-                                    "~"
+                                if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                    if(controller.getGridPlayer1.getValue(row, col) == 0) {
+                                        "~"
+                                    }
+                                    else if(controller.getGridPlayer1.getValue(row, col) == 1) {
+                                        "x"
+                                    }
+                                } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                    if(controller.getGridPlayer1.getField(row, col) == 0) {
+                                        "~"
+                                    }
+                                    else if(controller.getGridPlayer1.getField(row, col) == 1) {
+                                        "x"
+                                    }
                                 }
-                                else if(controller.getGridPlayer1.getValue(row, col) == 1) {
-                                    "x"
-                                }
+
                             }
                             </span>
                         </span>
@@ -29,9 +40,12 @@
                     <div class="clear"></div>
                 }
             </div>
+            <br>
+            <hr>
+            <br>
             <div class="player2">
                 @{
-                    "" + controller.getPlayer2.toString
+                    controller.getPlayer2.toString
                 }
                 <div class="clear"></div>
                 @for(row <- 0 until 10) {
@@ -42,11 +56,20 @@
                                 "number"
                             }">
                             @{
-                                if(controller.getGridPlayer2.getValue(row, col) == 0) {
-                                    "~"
-                                }
-                                else if(controller.getGridPlayer2.getValue(row, col) == 1) {
-                                    "x"
+                                if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                    if(controller.getGridPlayer2.getValue(row, col) == 0) {
+                                        "~"
+                                    }
+                                    else if(controller.getGridPlayer2.getValue(row, col) == 1) {
+                                        "x"
+                                    }
+                                } else if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                    if(controller.getGridPlayer2.getField(row, col) == 0) {
+                                        "~"
+                                    }
+                                    else if(controller.getGridPlayer2.getField(row, col) == 1) {
+                                        "x"
+                                    }
                                 }
                             }
                             </span>

@@ -9,13 +9,14 @@ import play.api.mvc._;
 
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val gameController = Game.controller;
+  val gameController = Game.controller
 
-  def battleship = Action {
+  def battleship() = Action {
     if (gameController.getGameState == GameState.IDLE) {
       Ok(views.html.battleship(gameController))
+    } else {
+      Ok(views.html.setPlayer("Player 1, please add your name :-)"))
     }
-    Ok(views.html.setPlayer("Player 1, please add your name :-)"))
   }
 
   def setPlayer(name: String) = Action {
@@ -49,11 +50,16 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
             gameController.getNrPlayer2()(3) == 0) {
             gameController.setPlayerState(PlayerState.PLAYER_ONE)
             gameController.setGameState(GameState.IDLE)
+
           }
         }
       }
     }
-    Ok(views.html.setShip(gameController))
+    if (gameController.getGameState == GameState.SHIPSETTING) {
+      Ok(views.html.setShip(gameController))
+    } else {
+      Ok(views.html.battleship(gameController))
+    }
   }
 
   def about = Action {

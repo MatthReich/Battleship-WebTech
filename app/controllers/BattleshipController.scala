@@ -19,7 +19,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def setPlayer(name: String) = Action {
-    System.out.println("Spieler")
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       gameController.setPlayers(name)
     }
@@ -31,7 +30,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def setShip(ship: String) = Action {
-    System.out.println("Ships")
     if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.getPlayerState match {
         case PlayerState.PLAYER_ONE => {

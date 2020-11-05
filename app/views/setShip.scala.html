@@ -1,8 +1,10 @@
+@import Battleship.controller.ControllerBaseImpl.PlayerState
 @(controller: Battleship.controller.InterfaceController)
 @main("Battleship") {
     <div class="gamecontainer">
         <div class="game">
-            <div class="player1">
+            <div class="player">
+            @if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
                 @{
                     controller.getPlayer1.toString
                 }
@@ -11,9 +13,7 @@
                     <div class="field size 10">
                     @for(col <- 0 until 10) {
                         <span class="cell player1">
-                            <span class="@{
-                                "number"
-                            }">
+                            <span class="number">
                             @{
                                 if(controller.getGridPlayer1.getValue(row, col) == 0) {
                                     "~"
@@ -28,19 +28,27 @@
                     </div>
                     <div class="clear"></div>
                 }
-            </div>
-            <div class="player2">
+                <hr>
                 @{
-                    "" + controller.getPlayer2.toString
+                    "You can still place: "
+                }
+                <div class="clear"></div>
+                @for(nr <- 0 until 4) {
+                    @{
+                        controller.getNrPlayer1()(nr) + " of the " + (nr + 2) + " long ships"
+                    }
+                    <div class="clear"></div>
+                }
+            } else {
+                @{
+                    controller.getPlayer2.toString
                 }
                 <div class="clear"></div>
                 @for(row <- 0 until 10) {
                     <div class="field size 10">
                     @for(col <- 0 until 10) {
-                        <span class="cell player2">
-                            <span class="@{
-                                "number"
-                            }">
+                        <span class="cell player1">
+                            <span class="number">
                             @{
                                 if(controller.getGridPlayer2.getValue(row, col) == 0) {
                                     "~"
@@ -55,6 +63,18 @@
                     </div>
                     <div class="clear"></div>
                 }
+                <hr>
+                @{
+                    "You can still place: "
+                }
+                <div class="clear"></div>
+                @for(nr <- 0 until 4) {
+                    @{
+                        controller.getNrPlayer2()(nr) + " of the " + (nr + 2) + " long ships"
+                    }
+                    <div class="clear"></div>
+                }
+            }
             </div>
         </div>
     </div>

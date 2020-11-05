@@ -4,11 +4,14 @@
 # ~~~~
 
 # An controller showing battleship game
-GET        /             controllers.BattleshipController.battleship
+GET        /                       controllers.BattleshipController.battleship
+GET        /setPlayer/:name        controllers.BattleshipController.setPlayer(name)
+GET        /setShip/:ship          controllers.BattleshipController.setShip(ship)
+
 # An controller showing about
-GET        /about        controllers.BattleshipController.about
+GET        /about                  controllers.BattleshipController.about
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file           controllers.Assets.versioned(path="/public", file: Asset)
 
       

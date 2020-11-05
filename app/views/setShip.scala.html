@@ -4,9 +4,12 @@
     <div class="gamecontainer">
         <div class="game">
             <div class="player">
-            @if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
                 @{
-                    controller.getPlayer1.toString
+                    if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                        controller.getPlayer1.toString
+                    } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                        controller.getPlayer2.toString
+                    }
                 }
                 <div class="clear"></div>
                 @for(row <- 0 until 10) {
@@ -15,10 +18,17 @@
                         <span class="cell player1">
                             <span class="number">
                             @{
-                                if(controller.getGridPlayer1.getValue(row, col) == 0) {
+                                var valueOfField: Int = 0
+                                if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                    valueOfField = controller.getGridPlayer1.getValue(row, col)
+                                } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                    valueOfField = controller.getGridPlayer2.getValue(row, col)
+                                }
+
+                                if(valueOfField == 0) {
                                     "~"
                                 }
-                                else if(controller.getGridPlayer1.getValue(row, col) == 1) {
+                                else if(valueOfField == 1) {
                                     "x"
                                 }
                             }
@@ -35,46 +45,14 @@
                 <div class="clear"></div>
                 @for(nr <- 0 until 4) {
                     @{
-                        controller.getNrPlayer1()(nr) + " of the " + (nr + 2) + " long ships"
+                        if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                            controller.getNrPlayer1()(nr) + " of the " + (nr + 2) + " long ships"
+                        } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                            controller.getNrPlayer2()(nr) + " of the " + (nr + 2) + " long ships"
+                        }
                     }
                     <div class="clear"></div>
                 }
-            } else {
-                @{
-                    controller.getPlayer2.toString
-                }
-                <div class="clear"></div>
-                @for(row <- 0 until 10) {
-                    <div class="field size 10">
-                    @for(col <- 0 until 10) {
-                        <span class="cell player1">
-                            <span class="number">
-                            @{
-                                if(controller.getGridPlayer2.getValue(row, col) == 0) {
-                                    "~"
-                                }
-                                else if(controller.getGridPlayer2.getValue(row, col) == 1) {
-                                    "x"
-                                }
-                            }
-                            </span>
-                        </span>
-                    }
-                    </div>
-                    <div class="clear"></div>
-                }
-                <hr>
-                @{
-                    "You can still place: "
-                }
-                <div class="clear"></div>
-                @for(nr <- 0 until 4) {
-                    @{
-                        controller.getNrPlayer2()(nr) + " of the " + (nr + 2) + " long ships"
-                    }
-                    <div class="clear"></div>
-                }
-            }
             </div>
         </div>
     </div>

@@ -11,29 +11,33 @@
                 @for(row <- 0 until 10) {
                     <div class="field size 10">
                     @for(col <- 0 until 10) {
-                        <span class="cell player1">
-                            <span class="@{
-                                "number"
-                            }">
-                            @{
-                                if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
-                                    if(controller.getGridPlayer1.getValue(row, col) == 0) {
-                                        "~"
-                                    }
-                                    else if(controller.getGridPlayer1.getValue(row, col) == 1) {
-                                        "x"
-                                    }
-                                } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
-                                    if(controller.getGridPlayer1.getField(row, col) == 0) {
-                                        "~"
-                                    }
-                                    else if(controller.getGridPlayer1.getField(row, col) == 1) {
-                                        "x"
-                                    }
+                        <span class="cell">
+                        @{
+                            if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                if(controller.getGridPlayer1.getValue(row, col) == 0) {
+                                        <span class="blue">~</span>
                                 }
-
+                                else if(controller.getGridPlayer1.getValue(row, col) == 1) {
+                                        <span class="green">x</span>
+                                } else if(controller.getGridPlayer1.getValue(row, col) == 2) {
+                                        <span class="red">x</span>
+                                } else if(controller.getGridPlayer1.getValue(row, col) == 3) {
+                                        <span class="lightblue">0</span>
+                                }
+                            } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                if(controller.getGridPlayer1.getField(row, col) == 0) {
+                                        <span class="blue">~</span>
+                                }
+                                else if(controller.getGridPlayer1.getField(row, col) == 1) {
+                                        <span class="green">x</span>
+                                } else if(controller.getGridPlayer1.getField(row, col) == 2) {
+                                        <span class="red">x</span>
+                                } else if(controller.getGridPlayer1.getField(row, col) == 3) {
+                                        <span class="lightblue">0</span>
+                                }
                             }
-                            </span>
+
+                        }
                         </span>
                     }
                     </div>
@@ -51,28 +55,33 @@
                 @for(row <- 0 until 10) {
                     <div class="field size 10">
                     @for(col <- 0 until 10) {
-                        <span class="cell player2">
-                            <span class="@{
-                                "number"
-                            }">
-                            @{
-                                if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
-                                    if(controller.getGridPlayer2.getValue(row, col) == 0) {
-                                        "~"
-                                    }
-                                    else if(controller.getGridPlayer2.getValue(row, col) == 1) {
-                                        "x"
-                                    }
-                                } else if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
-                                    if(controller.getGridPlayer2.getField(row, col) == 0) {
-                                        "~"
-                                    }
-                                    else if(controller.getGridPlayer2.getField(row, col) == 1) {
-                                        "x"
-                                    }
+                        <span class="cell">
+                        @{
+                            if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                if(controller.getGridPlayer2.getValue(row, col) == 0) {
+                                        <span class="blue">~</span>
                                 }
+                                else if(controller.getGridPlayer2.getValue(row, col) == 1) {
+                                        <span class="green">x</span>
+                                } else if(controller.getGridPlayer2.getValue(row, col) == 2) {
+                                        <span class="red">x</span>
+                                } else if(controller.getGridPlayer2.getValue(row, col) == 3) {
+                                        <span class="lightblue">0</span>
+                                }
+                            } else if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                if(controller.getGridPlayer2.getField(row, col) == 0) {
+                                        <span class="blue">~</span>
+                                }
+                                else if(controller.getGridPlayer2.getField(row, col) == 1) {
+                                        <span class="green">x</span>
+                                } else if(controller.getGridPlayer2.getField(row, col) == 2) {
+                                        <span class="red">x</span>
+                                } else if(controller.getGridPlayer2.getField(row, col) == 3) {
+                                        <span class="lightblue">0</span>
+                                }
+
                             }
-                            </span>
+                        }
                         </span>
                     }
                     </div>

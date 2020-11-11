@@ -1,3 +1,36 @@
+#body_landingpage,
+#body_aboutpage {
+    background: black;
+}
+
+h1,
+h2,
+h3,
+p,
+.developer_aboutpage,
+.about_howTo {
+    font-family: "Times New Roman", sans-serif;
+    color: white;
+    text-align: center;
+    margin-bottom: 1ex;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+h3 {
+    font-size: 35px;
+}
+
+p {
+    font-size: 25px;
+}
+
 .gamecontainer {
     height: 100%;
     width: 100%;
@@ -31,6 +64,27 @@
     border-width: 0.05em;
     border-color: Black;
     text-align: center;
+}
+
+.span_command {
+    font-family: "Times New Roman", sans-serif;
+    font-style: italic;
+}
+
+.video_div, table {
+    text-align: center;
+}
+
+#video_landingpage {
+    width: 75%;
+}
+
+#video_aboutpage {
+    width: 50%;
+}
+
+#picture_aboutpage {
+    width: 10%;
 }
 
 .blue {

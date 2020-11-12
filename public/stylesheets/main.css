@@ -60,11 +60,8 @@ p {
     background: black;
 }
 
-.player1 {
+.playerName {
     margin-top: 10px;
-}
-
-.player2 {
     margin-bottom: 10px;
 }
 

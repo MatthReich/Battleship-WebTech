@@ -5,14 +5,16 @@
         <div class="gamecontainer">
             <div class="game">
                 <div class="player1">
+                    <div class="playerName">
                     @{
                         controller.getPlayer1.toString
                     }
+                    </div>
                     <div class="clear"></div>
                     @for(row <- 0 until 10) {
                         <div class="grid-container">
                         @for(col <- 0 until 10) {
-                            <span class="cell">
+                            <span class="grid-item">
                             @{
                                 if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
                                     if(controller.getGridPlayer1.getValue(row, col) == 0) {
@@ -45,16 +47,18 @@
                         <div class="clear"></div>
                     }
                 </div>
-                <hr>
+
                 <div class="player2">
+                    <div class="playerName">
                     @{
                         controller.getPlayer2.toString
                     }
+                    </div>
                     <div class="clear"></div>
                     @for(row <- 0 until 10) {
                         <div class="grid-container">
                         @for(col <- 0 until 10) {
-                            <span class="cell">
+                            <span class="grid-item">
                             @{
                                 if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
                                     if(controller.getGridPlayer2.getValue(row, col) == 0) {

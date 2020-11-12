@@ -4,7 +4,8 @@
 # ~~~~
 
 # An controller showing battleship game
-GET        /                       controllers.BattleshipController.battleship
+GET        /                       controllers.BattleshipController.landingpage
+GET        /:guess                 controllers.BattleshipController.battleship(guess)
 GET        /setPlayer/:name        controllers.BattleshipController.setPlayer(name)
 GET        /setShip/:ship          controllers.BattleshipController.setShip(ship)
 

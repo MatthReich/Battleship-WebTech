@@ -13,10 +13,29 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
 
   def battleship(coordinates: String) = Action {
     if (gameController.getGameState == GameState.IDLE) {
+      if (coordinates == "undo guess") {
+        if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
+          gameController.undoGuess(coordinates, gameController.getGridPlayer2)
+        } else {
+          gameController.undoGuess(coordinates, gameController.getGridPlayer2)
+        }
+      } else {
+        if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
+          gameController.checkGuess(coordinates, gameController.getGridPlayer2)
+          gameController.setLastGuess(coordinates)
+        }
+        else {
+          gameController.checkGuess(coordinates, gameController.getGridPlayer1)
+          gameController.setLastGuess(coordinates)
+        }
+      }
       Ok(views.html.battleship(gameController))
+    } else if (gameController.getGameState == GameState.SOLVED) {
+      Ok(views.html.winningpage(gameController))
     } else {
-      Ok(views.html.setPlayer("Player 1, please add your name :-)"))
+      Ok(views.html.setPlayer("your in the state: " + gameController.getGameState + "\n please look at about page for more infos"))
     }
+
   }
 
   def setPlayer(name: String) = Action {

@@ -11,9 +11,8 @@ import play.api.mvc._;
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   val gameController = Game.controller
 
-  def battleship(input: String) = Action {
+  def battleship(coordinates: String) = Action {
     if (gameController.getGameState == GameState.IDLE) {
-      print(input)
       Ok(views.html.battleship(gameController))
     } else {
       Ok(views.html.setPlayer("Player 1, please add your name :-)"))

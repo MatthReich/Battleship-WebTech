@@ -1,20 +1,68 @@
+@font-face {
+    font-family: MilitaryBattleship;
+    src: local("/images/stamped-navy/stamped_navy_font_bold.ttf");
+}
+
+#body_landingpage,
+#body_aboutpage,
+#body_gamepage,
+#body_setshippage {
+    background: black;
+}
+
+h1,
+h2,
+h3,
+p,
+.developer_aboutpage,
+.about_howTo {
+    font-family: MilitaryBattleship, "Times New Roman", sans-serif;
+    color: white;
+    text-align: center;
+    margin-bottom: 1ex;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+h3 {
+    font-size: 35px;
+}
+
+p {
+    font-size: 25px;
+}
+
 .gamecontainer {
-    height: 100%;
-    width: 100%;
+    height: 99%;
+    width: 99%;
     margin: 1em;
     display: flex;
     font-size: 30px;
-    font-family: "Verdana", Geneva, sans-serif;
+    font-family: MilitaryBattleship, "Times New Roman", sans-serif;
     font-weight: bold;
-    color: black;
+    color: white;
+    text-align: center;
 }
 
 .game {
     border-style: solid;
     border-width: 0.05em;
-    border-color: Black;
+    border-color: white;
     margin: auto;
-    width: auto;
+    width: 75%;
+    height: auto;
+    background: black;
+}
+
+.playerName {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .clear {
@@ -29,12 +77,33 @@
 .grid-item {
     border-style: solid;
     border-width: 0.05em;
-    border-color: Black;
+    border-color: white;
     text-align: center;
 }
 
+.span_command {
+    font-family: MilitaryBattleship, "Times New Roman", sans-serif;
+    font-style: italic;
+}
+
+.video_div, table {
+    text-align: center;
+}
+
+#video_landingpage {
+    width: 75%;
+}
+
+#video_aboutpage {
+    width: 50%;
+}
+
+#picture_aboutpage {
+    width: 10%;
+}
+
 .blue {
-    color: blue;
+    color: dodgerblue;
 }
 
 .red {
@@ -42,7 +111,7 @@
 }
 
 .green {
-    color: green;
+    color: greenyellow;
 }
 
 .lightblue {

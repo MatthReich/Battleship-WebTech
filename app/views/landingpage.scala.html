@@ -1,10 +1,27 @@
-@main("Battleship"){
-    <h1>About Battleship</h1>
-    <hr>
-    <video width="1000" autoplay loop>
-        <source src="https://media.giphy.com/media/RKS1aUdDGFUKxRecSL/giphy.mp4" type="video/mp4">
-    </video>
-    <hr>
-    <h2>How to start</h2>
-    <p>start with /setPlayer/"playername"</p>
+@main("Battleship") {
+    <body id="body_landingpage">
+        <h1>Battleship</h1>
+        <br>
+        <hr>
+        <br>
+        <div class="video_div">
+            <video autoplay loop id="video_landingpage">
+                <source src="@routes.Assets.versioned("images/battleship_intro.mp4")" type="video/mp4">
+            </video>
+        </div>
+        <br>
+        <hr>
+        <h2>How to start</h2>
+        <div class="text_landingpage">
+            <p>start the game with typing <span class="span_command">/setPlayer/"playername"</span></p>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <h2>More Information</h2>
+        <div class="text_landingpage">
+            <p>you can type <span class="span_command">/about/</span> to see the about page which documents all about the game </p>
+        </div>
+    </body>
+
 }

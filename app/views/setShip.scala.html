@@ -7,6 +7,8 @@
             <div class="game">
 
                 <div class="player">
+                    <div class="playerName">
+
                     @{
                         if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
                             controller.getPlayer1.toString
@@ -14,6 +16,7 @@
                             controller.getPlayer2.toString
                         }
                     }
+                    </div>
                     <div class="clear"></div>
                     @for(row <- 0 until 10) {
                         <div class="grid-container">
@@ -39,24 +42,28 @@
                         </div>
                         <div class="clear"></div>
                     }
-                    <hr>
-                    @{
-                        "You can still place: "
-                    }
-                    <div class="clear"></div>
-                    @for(nr <- 0 until 4) {
+                    <div class="shipSetPossibilities">
+
                         @{
-                            if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
-                                controller.getNrPlayer1()(nr) + " of the " + (nr + 2) + " long ships"
-                            } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
-                                controller.getNrPlayer2()(nr) + " of the " + (nr + 2) + " long ships"
-                            }
+                            "You can still place: "
                         }
                         <div class="clear"></div>
-                    }
+                        <div class="separation">
+                            @for(nr <- 0 until 4) {
+                                @{
+                                    if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                        controller.getNrPlayer1()(nr) + " of the " + (nr + 2) + " long ships"
+                                    } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                        controller.getNrPlayer2()(nr) + " of the " + (nr + 2) + " long ships"
+                                    }
+                                }
+                                <div class="clear"></div>
+                            }
+                            <div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
     </body>
 
 }

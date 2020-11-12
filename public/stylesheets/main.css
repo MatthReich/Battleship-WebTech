@@ -1,8 +1,3 @@
-@font-face {
-    font-family: MilitaryBattleship;
-    src: local("/images/stamped-navy/stamped_navy_font_bold.ttf");
-}
-
 #body_landingpage,
 #body_aboutpage,
 #body_gamepage,
@@ -16,7 +11,7 @@ h3,
 p,
 .developer_aboutpage,
 .about_howTo {
-    font-family: MilitaryBattleship, "Times New Roman", sans-serif;
+    font-family: "Big Shoulders Stencil Display", "Times New Roman", sans-serif;
     color: white;
     text-align: center;
     margin-bottom: 1ex;
@@ -44,10 +39,15 @@ p {
     margin: 1em;
     display: flex;
     font-size: 30px;
-    font-family: MilitaryBattleship, "Times New Roman", sans-serif;
+    font-family: "Big Shoulders Stencil Display", "Times New Roman", sans-serif;
     font-weight: bold;
     color: white;
     text-align: center;
+}
+
+.span_command {
+    font-family: "Big Shoulders Stencil Display", "Times New Roman", sans-serif;
+    font-style: italic;
 }
 
 .game {
@@ -60,9 +60,14 @@ p {
     background: black;
 }
 
-.playerName {
+.playerName,
+.shipSetPossibilities {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.separation {
+    margin-top: 10px;
 }
 
 .clear {
@@ -81,10 +86,6 @@ p {
     text-align: center;
 }
 
-.span_command {
-    font-family: MilitaryBattleship, "Times New Roman", sans-serif;
-    font-style: italic;
-}
 
 .video_div, table {
     text-align: center;

@@ -1,0 +1,232 @@
+<save>
+<grid size="10">
+    <cell row="0" col="0"> 1 </cell>
+    <cell row="0" col="1"> 1 </cell>
+    <cell row="0" col="2"> 0 </cell>
+    <cell row="0" col="3"> 0 </cell>
+    <cell row="0" col="4"> 0 </cell>
+    <cell row="0" col="5"> 0 </cell>
+    <cell row="0" col="6"> 0 </cell>
+    <cell row="0" col="7"> 0 </cell>
+    <cell row="0" col="8"> 0 </cell>
+    <cell row="0" col="9"> 0 </cell>
+    <cell row="1" col="0"> 0 </cell>
+    <cell row="1" col="1"> 0 </cell>
+    <cell row="1" col="2"> 0 </cell>
+    <cell row="1" col="3"> 0 </cell>
+    <cell row="1" col="4"> 0 </cell>
+    <cell row="1" col="5"> 0 </cell>
+    <cell row="1" col="6"> 0 </cell>
+    <cell row="1" col="7"> 0 </cell>
+    <cell row="1" col="8"> 0 </cell>
+    <cell row="1" col="9"> 0 </cell>
+    <cell row="2" col="0"> 0 </cell>
+    <cell row="2" col="1"> 0 </cell>
+    <cell row="2" col="2"> 1 </cell>
+    <cell row="2" col="3"> 0 </cell>
+    <cell row="2" col="4"> 0 </cell>
+    <cell row="2" col="5"> 0 </cell>
+    <cell row="2" col="6"> 0 </cell>
+    <cell row="2" col="7"> 0 </cell>
+    <cell row="2" col="8"> 0 </cell>
+    <cell row="2" col="9"> 0 </cell>
+    <cell row="3" col="0"> 0 </cell>
+    <cell row="3" col="1"> 0 </cell>
+    <cell row="3" col="2"> 1 </cell>
+    <cell row="3" col="3"> 0 </cell>
+    <cell row="3" col="4"> 0 </cell>
+    <cell row="3" col="5"> 0 </cell>
+    <cell row="3" col="6"> 0 </cell>
+    <cell row="3" col="7"> 0 </cell>
+    <cell row="3" col="8"> 0 </cell>
+    <cell row="3" col="9"> 0 </cell>
+    <cell row="4" col="0"> 0 </cell>
+    <cell row="4" col="1"> 0 </cell>
+    <cell row="4" col="2"> 1 </cell>
+    <cell row="4" col="3"> 0 </cell>
+    <cell row="4" col="4"> 0 </cell>
+    <cell row="4" col="5"> 0 </cell>
+    <cell row="4" col="6"> 0 </cell>
+    <cell row="4" col="7"> 0 </cell>
+    <cell row="4" col="8"> 0 </cell>
+    <cell row="4" col="9"> 0 </cell>
+    <cell row="5" col="0"> 0 </cell>
+    <cell row="5" col="1"> 0 </cell>
+    <cell row="5" col="2"> 0 </cell>
+    <cell row="5" col="3"> 0 </cell>
+    <cell row="5" col="4"> 0 </cell>
+    <cell row="5" col="5"> 1 </cell>
+    <cell row="5" col="6"> 1 </cell>
+    <cell row="5" col="7"> 0 </cell>
+    <cell row="5" col="8"> 0 </cell>
+    <cell row="5" col="9"> 0 </cell>
+    <cell row="6" col="0"> 0 </cell>
+    <cell row="6" col="1"> 0 </cell>
+    <cell row="6" col="2"> 0 </cell>
+    <cell row="6" col="3"> 0 </cell>
+    <cell row="6" col="4"> 0 </cell>
+    <cell row="6" col="5"> 0 </cell>
+    <cell row="6" col="6"> 0 </cell>
+    <cell row="6" col="7"> 0 </cell>
+    <cell row="6" col="8"> 0 </cell>
+    <cell row="6" col="9"> 0 </cell>
+    <cell row="7" col="0"> 0 </cell>
+    <cell row="7" col="1"> 0 </cell>
+    <cell row="7" col="2"> 0 </cell>
+    <cell row="7" col="3"> 0 </cell>
+    <cell row="7" col="4"> 0 </cell>
+    <cell row="7" col="5"> 0 </cell>
+    <cell row="7" col="6"> 0 </cell>
+    <cell row="7" col="7"> 0 </cell>
+    <cell row="7" col="8"> 0 </cell>
+    <cell row="7" col="9"> 0 </cell>
+    <cell row="8" col="0"> 0 </cell>
+    <cell row="8" col="1"> 0 </cell>
+    <cell row="8" col="2"> 0 </cell>
+    <cell row="8" col="3"> 0 </cell>
+    <cell row="8" col="4"> 0 </cell>
+    <cell row="8" col="5"> 0 </cell>
+    <cell row="8" col="6"> 0 </cell>
+    <cell row="8" col="7"> 0 </cell>
+    <cell row="8" col="8"> 0 </cell>
+    <cell row="8" col="9"> 0 </cell>
+    <cell row="9" col="0"> 0 </cell>
+    <cell row="9" col="1"> 0 </cell>
+    <cell row="9" col="2"> 0 </cell>
+    <cell row="9" col="3"> 0 </cell>
+    <cell row="9" col="4"> 0 </cell>
+    <cell row="9" col="5"> 0 </cell>
+    <cell row="9" col="6"> 0 </cell>
+    <cell row="9" col="7"> 0 </cell>
+    <cell row="9" col="8"> 0 </cell>
+    <cell row="9" col="9"> 0 </cell>
+</grid>
+<gridx sizex="10">
+    <cellx rowx="0" colx="0"> 0 </cellx>
+    <cellx rowx="0" colx="1"> 0 </cellx>
+    <cellx rowx="0" colx="2"> 0 </cellx>
+    <cellx rowx="0" colx="3"> 0 </cellx>
+    <cellx rowx="0" colx="4"> 0 </cellx>
+    <cellx rowx="0" colx="5"> 0 </cellx>
+    <cellx rowx="0" colx="6"> 0 </cellx>
+    <cellx rowx="0" colx="7"> 0 </cellx>
+    <cellx rowx="0" colx="8"> 0 </cellx>
+    <cellx rowx="0" colx="9"> 0 </cellx>
+    <cellx rowx="1" colx="0"> 0 </cellx>
+    <cellx rowx="1" colx="1"> 0 </cellx>
+    <cellx rowx="1" colx="2"> 0 </cellx>
+    <cellx rowx="1" colx="3"> 0 </cellx>
+    <cellx rowx="1" colx="4"> 0 </cellx>
+    <cellx rowx="1" colx="5"> 0 </cellx>
+    <cellx rowx="1" colx="6"> 0 </cellx>
+    <cellx rowx="1" colx="7"> 0 </cellx>
+    <cellx rowx="1" colx="8"> 0 </cellx>
+    <cellx rowx="1" colx="9"> 0 </cellx>
+    <cellx rowx="2" colx="0"> 0 </cellx>
+    <cellx rowx="2" colx="1"> 0 </cellx>
+    <cellx rowx="2" colx="2"> 0 </cellx>
+    <cellx rowx="2" colx="3"> 0 </cellx>
+    <cellx rowx="2" colx="4"> 0 </cellx>
+    <cellx rowx="2" colx="5"> 0 </cellx>
+    <cellx rowx="2" colx="6"> 0 </cellx>
+    <cellx rowx="2" colx="7"> 0 </cellx>
+    <cellx rowx="2" colx="8"> 0 </cellx>
+    <cellx rowx="2" colx="9"> 0 </cellx>
+    <cellx rowx="3" colx="0"> 0 </cellx>
+    <cellx rowx="3" colx="1"> 0 </cellx>
+    <cellx rowx="3" colx="2"> 0 </cellx>
+    <cellx rowx="3" colx="3"> 0 </cellx>
+    <cellx rowx="3" colx="4"> 0 </cellx>
+    <cellx rowx="3" colx="5"> 0 </cellx>
+    <cellx rowx="3" colx="6"> 0 </cellx>
+    <cellx rowx="3" colx="7"> 0 </cellx>
+    <cellx rowx="3" colx="8"> 0 </cellx>
+    <cellx rowx="3" colx="9"> 0 </cellx>
+    <cellx rowx="4" colx="0"> 0 </cellx>
+    <cellx rowx="4" colx="1"> 0 </cellx>
+    <cellx rowx="4" colx="2"> 0 </cellx>
+    <cellx rowx="4" colx="3"> 0 </cellx>
+    <cellx rowx="4" colx="4"> 0 </cellx>
+    <cellx rowx="4" colx="5"> 0 </cellx>
+    <cellx rowx="4" colx="6"> 0 </cellx>
+    <cellx rowx="4" colx="7"> 0 </cellx>
+    <cellx rowx="4" colx="8"> 0 </cellx>
+    <cellx rowx="4" colx="9"> 0 </cellx>
+    <cellx rowx="5" colx="0"> 0 </cellx>
+    <cellx rowx="5" colx="1"> 0 </cellx>
+    <cellx rowx="5" colx="2"> 0 </cellx>
+    <cellx rowx="5" colx="3"> 0 </cellx>
+    <cellx rowx="5" colx="4"> 0 </cellx>
+    <cellx rowx="5" colx="5"> 0 </cellx>
+    <cellx rowx="5" colx="6"> 0 </cellx>
+    <cellx rowx="5" colx="7"> 0 </cellx>
+    <cellx rowx="5" colx="8"> 0 </cellx>
+    <cellx rowx="5" colx="9"> 0 </cellx>
+    <cellx rowx="6" colx="0"> 0 </cellx>
+    <cellx rowx="6" colx="1"> 0 </cellx>
+    <cellx rowx="6" colx="2"> 0 </cellx>
+    <cellx rowx="6" colx="3"> 0 </cellx>
+    <cellx rowx="6" colx="4"> 0 </cellx>
+    <cellx rowx="6" colx="5"> 0 </cellx>
+    <cellx rowx="6" colx="6"> 0 </cellx>
+    <cellx rowx="6" colx="7"> 0 </cellx>
+    <cellx rowx="6" colx="8"> 0 </cellx>
+    <cellx rowx="6" colx="9"> 0 </cellx>
+    <cellx rowx="7" colx="0"> 0 </cellx>
+    <cellx rowx="7" colx="1"> 0 </cellx>
+    <cellx rowx="7" colx="2"> 0 </cellx>
+    <cellx rowx="7" colx="3"> 0 </cellx>
+    <cellx rowx="7" colx="4"> 0 </cellx>
+    <cellx rowx="7" colx="5"> 0 </cellx>
+    <cellx rowx="7" colx="6"> 0 </cellx>
+    <cellx rowx="7" colx="7"> 0 </cellx>
+    <cellx rowx="7" colx="8"> 0 </cellx>
+    <cellx rowx="7" colx="9"> 0 </cellx>
+    <cellx rowx="8" colx="0"> 0 </cellx>
+    <cellx rowx="8" colx="1"> 0 </cellx>
+    <cellx rowx="8" colx="2"> 0 </cellx>
+    <cellx rowx="8" colx="3"> 0 </cellx>
+    <cellx rowx="8" colx="4"> 0 </cellx>
+    <cellx rowx="8" colx="5"> 0 </cellx>
+    <cellx rowx="8" colx="6"> 0 </cellx>
+    <cellx rowx="8" colx="7"> 0 </cellx>
+    <cellx rowx="8" colx="8"> 0 </cellx>
+    <cellx rowx="8" colx="9"> 0 </cellx>
+    <cellx rowx="9" colx="0"> 0 </cellx>
+    <cellx rowx="9" colx="1"> 0 </cellx>
+    <cellx rowx="9" colx="2"> 0 </cellx>
+    <cellx rowx="9" colx="3"> 0 </cellx>
+    <cellx rowx="9" colx="4"> 0 </cellx>
+    <cellx rowx="9" colx="5"> 0 </cellx>
+    <cellx rowx="9" colx="6"> 0 </cellx>
+    <cellx rowx="9" colx="7"> 0 </cellx>
+    <cellx rowx="9" colx="8"> 0 </cellx>
+    <cellx rowx="9" colx="9"> 0 </cellx>
+</gridx>
+<player1>Merlin</player1>
+<player2>MA</player2>
+<shipSetting><array size="4">
+    <cell col="0"> 0 </cell>
+    <cell col="1"> 1 </cell>
+    <cell col="2"> 0 </cell>
+    <cell col="3"> 0 </cell>
+</array></shipSetting>
+<shipSetting2><array size="4">
+    <cell col="0"> 2 </cell>
+    <cell col="1"> 2 </cell>
+    <cell col="2"> 0 </cell>
+    <cell col="3"> 0 </cell>
+</array></shipSetting2>
+<ship></ship>
+<shipCoordsSetting><array size="4">
+    <cell col="0"> 2 </cell>
+    <cell col="1"> 2 </cell>
+    <cell col="2"> 4 </cell>
+    <cell col="3"> 2 </cell>
+</array></shipCoordsSetting>
+<shipSet>true</shipSet>
+<shipDelete>false</shipDelete>
+<lastGuess></lastGuess>
+<gameState>SHIPSETTING</gameState>
+<playerState>PLAYER_ONE</playerState>
+</save>

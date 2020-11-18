@@ -11,7 +11,7 @@ import play.api.mvc._;
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   val gameController = Game.controller
 
-  def battleship(coordinates: String) = Action {
+  def idle(coordinates: String) = Action {
     if (gameController.getGameState == GameState.IDLE) {
       if (coordinates == "undo guess") {
         if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
@@ -29,11 +29,11 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
           gameController.setLastGuess(coordinates)
         }
       }
-      Ok(views.html.battleship(gameController))
+      Ok(views.html.idlepage(gameController))
     } else if (gameController.getGameState == GameState.SOLVED) {
       Ok(views.html.winningpage(gameController))
     } else {
-      Ok(views.html.setPlayer("your in the state: " + gameController.getGameState + "\n please look at about page for more infos"))
+      Ok(views.html.setPlayer(gameController))
     }
 
   }
@@ -76,12 +76,46 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     if (gameController.getGameState == GameState.SHIPSETTING) {
       Ok(views.html.setShip(gameController))
     } else {
-      Ok(views.html.battleship(gameController))
+      Ok(views.html.idlepage(gameController))
     }
   }
 
   def about = Action {
-    Ok(views.html.index())
+    Ok(views.html.aboutpage())
+  }
+
+  def save = Action {
+    if (gameController.getGameState == GameState.PLAYERSETTING) {
+      gameController.save()
+      Ok(views.html.setPlayer(gameController))
+    } else if (gameController.getGameState == GameState.SHIPSETTING) {
+      gameController.save()
+      Ok(views.html.setShip(gameController))
+    } else if (gameController.getGameState == GameState.IDLE) {
+      gameController.save()
+      Ok(views.html.idlepage(gameController))
+    } else if (gameController.getGameState == GameState.SOLVED) {
+      gameController.save()
+      Ok(views.html.winningpage(gameController))
+    } else {
+      gameController.save()
+      Ok(views.html.landingpage())
+    }
+  }
+
+  def load = Action {
+    gameController.load()
+    if (gameController.getGameState == GameState.PLAYERSETTING) {
+      Ok(views.html.setPlayer(null))
+    } else if (gameController.getGameState == GameState.SHIPSETTING) {
+      Ok(views.html.setShip(gameController))
+    } else if (gameController.getGameState == GameState.IDLE) {
+      Ok(views.html.idlepage(gameController))
+    } else if (gameController.getGameState == GameState.SOLVED) {
+      Ok(views.html.winningpage(gameController))
+    } else {
+      Ok(views.html.landingpage())
+    }
   }
 
   def landingpage = Action {
@@ -89,4 +123,5 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def battleshipAsText = gameController.getGridPlayer1 + ControllerBaseImpl.GameState.message(gameController.getGameState)
+
 }

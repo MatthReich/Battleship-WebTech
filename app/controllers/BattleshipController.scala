@@ -39,14 +39,13 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def setPlayer(name: String) = Action {
-    if (gameController.getGameState == GameState.PLAYERSETTING) {
-      gameController.setPlayers(name)
-    }
-    if (gameController.getGameState == GameState.SHIPSETTING) {
-      Ok(views.html.setShip(gameController))
-    } else {
-      Ok(views.html.setPlayer("Player 2, please add your name :-)"))
-    }
+    var tmp = name.substring(name.indexOf("=") + 1)
+    System.out.println(tmp)
+    gameController.setPlayers(tmp.substring(tmp.indexOf("&")))
+    tmp = tmp.substring(tmp.indexOf("=") + 1)
+    System.out.println(tmp)
+    gameController.setPlayers(tmp.substring(tmp.indexOf("&")))
+    Ok(views.html.setShip(gameController))
   }
 
   def setShip(ship: String) = Action {

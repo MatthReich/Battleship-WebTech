@@ -87,6 +87,18 @@ p {
     text-align: center;
 }
 
+#startGame {
+    width: 400px;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.middleButton {
+    width: 200px;
+    margin: auto;
+}
+
 
 .video_div, table {
     text-align: center;

@@ -33,7 +33,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     } else if (gameController.getGameState == GameState.SOLVED) {
       Ok(views.html.winningpage(gameController))
     } else {
-      Ok(views.html.setPlayer("your in the state: " + gameController.getGameState + "\n please look at about page for more infos"))
+      Ok(views.html.setPlayer(gameController))
     }
 
   }
@@ -45,7 +45,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     if (gameController.getGameState == GameState.SHIPSETTING) {
       Ok(views.html.setShip(gameController))
     } else {
-      Ok(views.html.setPlayer("Player 2, please add your name :-)"))
+      Ok(views.html.setPlayer(gameController))
     }
   }
 
@@ -88,7 +88,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   def save = Action {
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       gameController.save()
-      Ok(views.html.setPlayer(null))
+      Ok(views.html.setPlayer(gameController))
     } else if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.save()
       Ok(views.html.setShip(gameController))

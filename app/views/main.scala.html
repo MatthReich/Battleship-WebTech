@@ -25,6 +25,25 @@
         <link href='https://fonts.googleapis.com/css?family=Big Shoulders Stencil Display' rel='stylesheet'>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Battleship</a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/setPlayer">Set Player</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/setShip">Set Ship</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/idle">Main Game</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
         @* And here's where we render the `Html` object containing
         * the page content. *@
         @content

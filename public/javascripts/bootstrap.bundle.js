@@ -4,23 +4,23 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
-      typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
-          (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.bootstrap = {}, global.jQuery));
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
+        typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
+            (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.bootstrap = {}, global.jQuery));
 }(this, (function (exports, $) {
-  'use strict';
+    'use strict';
 
-  function _interopDefaultLegacy(e) {
-    return e && typeof e === 'object' && 'default' in e ? e : {'default': e};
-  }
+    function _interopDefaultLegacy(e) {
+        return e && typeof e === 'object' && 'default' in e ? e : {'default': e};
+    }
 
-  var $__default = /*#__PURE__*/_interopDefaultLegacy($);
+    var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
+    function _defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
       if ("value" in descriptor) descriptor.writable = true;
       Object.defineProperty(target, descriptor.key, descriptor);
     }
@@ -113,7 +113,6 @@
     $__default['default'].fn.emulateTransitionEnd = transitionEndEmulator;
     $__default['default'].event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
   }
-
   /**
    * --------------------------------------------------------------------------
    * Public Util Api
@@ -1588,15 +1587,15 @@
 
   var supportsMicroTasks = isBrowser && window.Promise;
 
-  /**
-   * Create a debounced version of a method, that's asynchronously deferred
-   * but called in the minimum time possible.
-   *
-   * @method
-   * @memberof Popper.Utils
-   * @argument {Function} fn
-   * @returns {Function}
-   */
+    /**
+     * Create a debounced version of a method, that's asynchronously deferred
+     * but called in the minimum time possible.
+     *
+     * @method
+     * @memberof Popper.Utils
+     * @argument {Function} fn
+     * @returns {Function}
+     */
   var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
 
   /**
@@ -1914,7 +1913,7 @@
   }();
 
 
-  var defineProperty = function (obj, key, value) {
+    var defineProperty = function (obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
@@ -1972,15 +1971,15 @@
     // This isn't reproducible in IE10 compatibility mode of IE11
     try {
       if (isIE(10)) {
-        rect = element.getBoundingClientRect();
-        var scrollTop = getScroll(element, 'top');
-        var scrollLeft = getScroll(element, 'left');
-        rect.top += scrollTop;
-        rect.left += scrollLeft;
-        rect.bottom += scrollTop;
-        rect.right += scrollLeft;
+          rect = element.getBoundingClientRect();
+          var scrollTop = getScroll(element, 'top');
+          var scrollLeft = getScroll(element, 'left');
+          rect.top += scrollTop;
+          rect.left += scrollLeft;
+          rect.bottom += scrollTop;
+          rect.right += scrollLeft;
       } else {
-        rect = element.getBoundingClientRect();
+          rect = element.getBoundingClientRect();
       }
     } catch (e) {
     }
@@ -2146,8 +2145,8 @@
 
     // NOTE: 1 DOM access here
 
-    var boundaries = {top: 0, left: 0};
-    var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, getReferenceNode(reference));
+      var boundaries = {top: 0, left: 0};
+      var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, getReferenceNode(reference));
 
     // Handle viewport case
     if (boundariesElement === 'viewport') {
@@ -2306,7 +2305,7 @@
    * @returns {String} flipped placement
    */
   function getOppositePlacement(placement) {
-    var hash = {left: 'right', right: 'left', bottom: 'top', top: 'bottom'};
+      var hash = {left: 'right', right: 'left', bottom: 'top', top: 'bottom'};
     return placement.replace(/left|right|bottom|top/g, function (matched) {
       return hash[matched];
     });
@@ -2558,7 +2557,7 @@
   function attachToScrollParents(scrollParent, event, callback, scrollParents) {
     var isBody = scrollParent.nodeName === 'BODY';
     var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
-    target.addEventListener(event, callback, {passive: true});
+      target.addEventListener(event, callback, {passive: true});
 
     if (!isBody) {
       attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
@@ -2574,8 +2573,8 @@
    */
   function setupEventListeners(reference, options, state, updateBound) {
     // Resize event listener on window
-    state.updateBound = updateBound;
-    getWindow(reference).addEventListener('resize', state.updateBound, {passive: true});
+      state.updateBound = updateBound;
+      getWindow(reference).addEventListener('resize', state.updateBound, {passive: true});
 
     // Scroll event listener on scroll parents
     var scrollElement = getScrollParent(reference);
@@ -2735,7 +2734,7 @@
 
     // Apply `position` to popper before anything else because
     // without the position applied we can't guarantee correct computations
-    setStyles(popper, {position: options.positionFixed ? 'fixed' : 'absolute'});
+      setStyles(popper, {position: options.positionFixed ? 'fixed' : 'absolute'});
 
     return options;
   }
@@ -3299,26 +3298,26 @@
       // Most of the units rely on the orientation of the popper
       var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
       var mergeWithPrevious = false;
-      return op
-          // This aggregates any `+` or `-` sign that aren't considered operators
-          // e.g.: 10 + +5 => [10, +, +5]
-          .reduce(function (a, b) {
-            if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
-              a[a.length - 1] = b;
-              mergeWithPrevious = true;
-              return a;
-            } else if (mergeWithPrevious) {
-              a[a.length - 1] += b;
-              mergeWithPrevious = false;
-              return a;
-            } else {
-              return a.concat(b);
-            }
-          }, [])
-          // Here we convert the string values into number values (in px)
-          .map(function (str) {
-            return toValue(str, measurement, popperOffsets, referenceOffsets);
-          });
+        return op
+            // This aggregates any `+` or `-` sign that aren't considered operators
+            // e.g.: 10 + +5 => [10, +, +5]
+            .reduce(function (a, b) {
+                if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+                    a[a.length - 1] = b;
+                    mergeWithPrevious = true;
+                    return a;
+                } else if (mergeWithPrevious) {
+                    a[a.length - 1] += b;
+                    mergeWithPrevious = false;
+                    return a;
+                } else {
+                    return a.concat(b);
+                }
+            }, [])
+            // Here we convert the string values into number values (in px)
+            .map(function (str) {
+                return toValue(str, measurement, popperOffsets, referenceOffsets);
+            });
     });
 
     // Loop trough the offsets arrays and execute the operations
@@ -3944,32 +3943,32 @@
      */
     removeOnDestroy: false,
 
-    /**
-     * Callback called when the popper is created.<br />
-     * By default, it is set to no-op.<br />
-     * Access Popper.js instance with `data.instance`.
-     * @prop {onCreate}
-     */
-    onCreate: function onCreate() {
-    },
+      /**
+       * Callback called when the popper is created.<br />
+       * By default, it is set to no-op.<br />
+       * Access Popper.js instance with `data.instance`.
+       * @prop {onCreate}
+       */
+      onCreate: function onCreate() {
+      },
 
-    /**
-     * Callback called when the popper is updated. This callback is not called
-     * on the initialization/creation of the popper, but only on subsequent
-     * updates.<br />
-     * By default, it is set to no-op.<br />
-     * Access Popper.js instance with `data.instance`.
-     * @prop {onUpdate}
-     */
-    onUpdate: function onUpdate() {
-    },
+      /**
+       * Callback called when the popper is updated. This callback is not called
+       * on the initialization/creation of the popper, but only on subsequent
+       * updates.<br />
+       * By default, it is set to no-op.<br />
+       * Access Popper.js instance with `data.instance`.
+       * @prop {onUpdate}
+       */
+      onUpdate: function onUpdate() {
+      },
 
-    /**
-     * List of modifiers used to modify the offsets before they are applied to the popper.
-     * They provide most of the functionalities of Popper.js.
-     * @prop {modifiers}
-     */
-    modifiers: modifiers
+      /**
+       * List of modifiers used to modify the offsets before they are applied to the popper.
+       * They provide most of the functionalities of Popper.js.
+       * @prop {modifiers}
+       */
+      modifiers: modifiers
   };
 
   /**
@@ -3977,140 +3976,140 @@
    * @param {dataObject} data
    */
 
-  /**
-   * @callback onUpdate
-   * @param {dataObject} data
-   */
+    /**
+     * @callback onUpdate
+     * @param {dataObject} data
+     */
 
-      // Utils
-      // Methods
-  var Popper = function () {
-        /**
-         * Creates a new Popper.js instance.
-         * @class Popper
-         * @param {Element|referenceObject} reference - The reference element used to position the popper
-         * @param {Element} popper - The HTML / XML element used as the popper
-         * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
-         * @return {Object} instance - The generated Popper.js instance
-         */
-        function Popper(reference, popper) {
-          var _this = this;
+        // Utils
+        // Methods
+    var Popper = function () {
+            /**
+             * Creates a new Popper.js instance.
+             * @class Popper
+             * @param {Element|referenceObject} reference - The reference element used to position the popper
+             * @param {Element} popper - The HTML / XML element used as the popper
+             * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
+             * @return {Object} instance - The generated Popper.js instance
+             */
+            function Popper(reference, popper) {
+                var _this = this;
 
-          var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-          classCallCheck(this, Popper);
+                var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+                classCallCheck(this, Popper);
 
-          this.scheduleUpdate = function () {
-            return requestAnimationFrame(_this.update);
-          };
+                this.scheduleUpdate = function () {
+                    return requestAnimationFrame(_this.update);
+                };
 
-          // make update() debounced, so that it only runs at most once-per-tick
-          this.update = debounce(this.update.bind(this));
+                // make update() debounced, so that it only runs at most once-per-tick
+                this.update = debounce(this.update.bind(this));
 
-          // with {} we create a new object with the options inside it
-          this.options = _extends$1({}, Popper.Defaults, options);
+                // with {} we create a new object with the options inside it
+                this.options = _extends$1({}, Popper.Defaults, options);
 
-          // init state
-          this.state = {
-            isDestroyed: false,
-            isCreated: false,
-            scrollParents: []
-          };
+                // init state
+                this.state = {
+                    isDestroyed: false,
+                    isCreated: false,
+                    scrollParents: []
+                };
 
-          // get reference and popper elements (allow jQuery wrappers)
-          this.reference = reference && reference.jquery ? reference[0] : reference;
-          this.popper = popper && popper.jquery ? popper[0] : popper;
+                // get reference and popper elements (allow jQuery wrappers)
+                this.reference = reference && reference.jquery ? reference[0] : reference;
+                this.popper = popper && popper.jquery ? popper[0] : popper;
 
-          // Deep merge modifiers options
-          this.options.modifiers = {};
-          Object.keys(_extends$1({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
-            _this.options.modifiers[name] = _extends$1({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
-          });
+                // Deep merge modifiers options
+                this.options.modifiers = {};
+                Object.keys(_extends$1({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+                    _this.options.modifiers[name] = _extends$1({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+                });
 
-          // Refactoring modifiers' list (Object => Array)
-          this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
-            return _extends$1({
-              name: name
-            }, _this.options.modifiers[name]);
-          })
-              // sort the modifiers by order
-              .sort(function (a, b) {
-                return a.order - b.order;
-              });
+                // Refactoring modifiers' list (Object => Array)
+                this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+                    return _extends$1({
+                        name: name
+                    }, _this.options.modifiers[name]);
+                })
+                    // sort the modifiers by order
+                    .sort(function (a, b) {
+                        return a.order - b.order;
+                    });
 
-          // modifiers have the ability to execute arbitrary code when Popper.js get inited
-          // such code is executed in the same order of its modifier
-          // they could add new properties to their options configuration
-          // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
-          this.modifiers.forEach(function (modifierOptions) {
-            if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
-              modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+                // modifiers have the ability to execute arbitrary code when Popper.js get inited
+                // such code is executed in the same order of its modifier
+                // they could add new properties to their options configuration
+                // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+                this.modifiers.forEach(function (modifierOptions) {
+                    if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+                        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+                    }
+                });
+
+                // fire the first update to position the popper in the right place
+                this.update();
+
+                var eventsEnabled = this.options.eventsEnabled;
+                if (eventsEnabled) {
+                    // setup event listeners, they will take care of update the position in specific situations
+                    this.enableEventListeners();
+                }
+
+                this.state.eventsEnabled = eventsEnabled;
             }
-          });
 
-          // fire the first update to position the popper in the right place
-          this.update();
-
-          var eventsEnabled = this.options.eventsEnabled;
-          if (eventsEnabled) {
-            // setup event listeners, they will take care of update the position in specific situations
-            this.enableEventListeners();
-          }
-
-          this.state.eventsEnabled = eventsEnabled;
-        }
-
-        // We can't use class properties because they don't get listed in the
-        // class prototype and break stuff like Sinon stubs
+            // We can't use class properties because they don't get listed in the
+            // class prototype and break stuff like Sinon stubs
 
 
-        createClass(Popper, [{
-          key: 'update',
-          value: function update$$1() {
-            return update.call(this);
-          }
-        }, {
-          key: 'destroy',
-          value: function destroy$$1() {
-            return destroy.call(this);
-          }
-        }, {
-          key: 'enableEventListeners',
-          value: function enableEventListeners$$1() {
-            return enableEventListeners.call(this);
-          }
-        }, {
-          key: 'disableEventListeners',
-          value: function disableEventListeners$$1() {
-            return disableEventListeners.call(this);
-          }
+            createClass(Popper, [{
+                key: 'update',
+                value: function update$$1() {
+                    return update.call(this);
+                }
+            }, {
+                key: 'destroy',
+                value: function destroy$$1() {
+                    return destroy.call(this);
+                }
+            }, {
+                key: 'enableEventListeners',
+                value: function enableEventListeners$$1() {
+                    return enableEventListeners.call(this);
+                }
+            }, {
+                key: 'disableEventListeners',
+                value: function disableEventListeners$$1() {
+                    return disableEventListeners.call(this);
+                }
 
-          /**
-           * Schedules an update. It will run on the next UI update available.
-           * @method scheduleUpdate
-           * @memberof Popper
-           */
+                /**
+                 * Schedules an update. It will run on the next UI update available.
+                 * @method scheduleUpdate
+                 * @memberof Popper
+                 */
 
 
-          /**
-           * Collection of utilities useful when writing custom modifiers.
-           * Starting from version 1.7, this method is available only if you
-           * include `popper-utils.js` before `popper.js`.
-           *
-           * **DEPRECATION**: This way to access PopperUtils is deprecated
-           * and will be removed in v2! Use the PopperUtils module directly instead.
-           * Due to the high instability of the methods contained in Utils, we can't
-           * guarantee them to follow semver. Use them at your own risk!
-           * @static
-           * @private
-           * @type {Object}
-           * @deprecated since version 1.8
-           * @member Utils
-           * @memberof Popper
-           */
+                /**
+                 * Collection of utilities useful when writing custom modifiers.
+                 * Starting from version 1.7, this method is available only if you
+                 * include `popper-utils.js` before `popper.js`.
+                 *
+                 * **DEPRECATION**: This way to access PopperUtils is deprecated
+                 * and will be removed in v2! Use the PopperUtils module directly instead.
+                 * Due to the high instability of the methods contained in Utils, we can't
+                 * guarantee them to follow semver. Use them at your own risk!
+                 * @static
+                 * @private
+                 * @type {Object}
+                 * @deprecated since version 1.8
+                 * @member Utils
+                 * @memberof Popper
+                 */
 
-        }]);
-        return Popper;
-      }();
+            }]);
+            return Popper;
+        }();
 
   /**
    * The `referenceObject` is an object that provides an interface compatible with Popper.js
@@ -4951,12 +4950,12 @@
     _proto._enforceFocus = function _enforceFocus() {
       var _this5 = this;
 
-      $__default['default'](document).off(EVENT_FOCUSIN) // Guard against infinite focus loop
-          .on(EVENT_FOCUSIN, function (event) {
-            if (document !== event.target && _this5._element !== event.target && $__default['default'](_this5._element).has(event.target).length === 0) {
-              _this5._element.focus();
-            }
-          });
+        $__default['default'](document).off(EVENT_FOCUSIN) // Guard against infinite focus loop
+            .on(EVENT_FOCUSIN, function (event) {
+                if (document !== event.target && _this5._element !== event.target && $__default['default'](_this5._element).has(event.target).length === 0) {
+                    _this5._element.focus();
+                }
+            });
     };
 
     _proto._setEscapeEvent = function _setEscapeEvent() {
@@ -7029,7 +7028,7 @@
   exports.Tooltip = Tooltip;
   exports.Util = Util;
 
-  Object.defineProperty(exports, '__esModule', {value: true});
+    Object.defineProperty(exports, '__esModule', {value: true});
 
 })));
 //# sourceMappingURL=bootstrap.bundle.js.map

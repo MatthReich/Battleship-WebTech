@@ -38,14 +38,13 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
 
   }
 
-  def setPlayer(name: String) = Action {
-    var tmp = name.substring(name.indexOf("=") + 1)
-    System.out.println(tmp)
-    gameController.setPlayers(tmp.substring(tmp.indexOf("&")))
-    tmp = tmp.substring(tmp.indexOf("=") + 1)
-    System.out.println(tmp)
-    gameController.setPlayers(tmp.substring(tmp.indexOf("&")))
-    Ok(views.html.setShip(gameController))
+  def setPlayer() = Action { implicit request =>
+    val selection = request.body.asFormUrlEncoded
+    selection.map { args =>
+      gameController.setPlayers(args("namePlayer1").head)
+      gameController.setPlayers(args("namePlayer2").head)
+      Ok(views.html.setShip(gameController))
+    }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
   }
 
   def setShip(ship: String) = Action {
@@ -84,7 +83,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     Ok(views.html.aboutpage())
   }
 
-  def save = Action {
+  def save = Action { implicit request =>
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       gameController.save()
       Ok(views.html.setPlayer(gameController))
@@ -99,11 +98,11 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
       Ok(views.html.winningpage(gameController))
     } else {
       gameController.save()
-      Ok(views.html.landingpage())
+      Ok(views.html.landingpage()(request))
     }
   }
 
-  def load = Action {
+  def load = Action { implicit request =>
     gameController.load()
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       Ok(views.html.setPlayer(null))
@@ -114,12 +113,12 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     } else if (gameController.getGameState == GameState.SOLVED) {
       Ok(views.html.winningpage(gameController))
     } else {
-      Ok(views.html.landingpage())
+      Ok(views.html.landingpage()(request))
     }
   }
 
-  def landingpage = Action {
-    Ok(views.html.landingpage())
+  def landingpage = Action { implicit request =>
+    Ok(views.html.landingpage()(request))
   }
 
   def battleshipAsText = gameController.getGridPlayer1 + ControllerBaseImpl.GameState.message(gameController.getGameState)

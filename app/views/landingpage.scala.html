@@ -1,3 +1,4 @@
+@()(implicit request: RequestHeader)
 @main("Battleship") {
     <body id="body_landingpage">
         <h1>Battleship</h1>
@@ -17,7 +18,8 @@
         </div>
         <div id="demo" class="collapse">
             <br>
-            <form id="startGame" action="/setPlayer/" method="get">
+            <form id="startGame" action="@routes.BattleshipController.setPlayer" method="post">
+                @helper.CSRF.formField
                 <div class="form-group row">
                     <div class="col">
                         <input id="namePlayer1" name="namePlayer1" placeholder="Player 1" type="text" aria-describedby="namePlayer1HelpBlock" required="required" class="form-control">

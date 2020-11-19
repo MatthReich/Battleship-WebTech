@@ -2,8 +2,8 @@ package controllers
 
 import Battleship.Game.tui.{decreaseShipNumbersToPlace, shipProcessLong}
 import Battleship._
-import Battleship.controller.{ControllerBaseImpl, InterfaceController}
 import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
+import Battleship.controller.InterfaceController
 import javax.inject._
 import play.api.mvc._;
 

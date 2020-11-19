@@ -2,16 +2,16 @@ package controllers
 
 import Battleship.Game.tui.{decreaseShipNumbersToPlace, shipProcessLong}
 import Battleship._
-import Battleship.controller.ControllerBaseImpl
+import Battleship.controller.{ControllerBaseImpl, InterfaceController}
 import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
 import javax.inject._
 import play.api.mvc._;
 
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val gameController = Game.controller
+  val gameController: InterfaceController = Game.controller
 
-  def idle(coordinates: String) = Action {
+  def idle(coordinates: String): Action[AnyContent] = Action {
     if (gameController.getGameState == GameState.IDLE) {
       if (coordinates == "undo guess") {
         if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
@@ -38,7 +38,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
 
   }
 
-  def setPlayer() = Action { implicit request =>
+  def setPlayer(): Action[AnyContent] = Action { implicit request =>
     val selection = request.body.asFormUrlEncoded
     selection.map { args =>
       gameController.setPlayers(args("namePlayer1").head)
@@ -47,7 +47,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
   }
 
-  def setShip(ship: String) = Action {
+  def setShip(ship: String): Action[AnyContent] = Action {
     if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.getPlayerState match {
         case PlayerState.PLAYER_ONE => {
@@ -79,11 +79,11 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     }
   }
 
-  def about = Action {
+  def about: Action[AnyContent] = Action {
     Ok(views.html.aboutpage())
   }
 
-  def save = Action { implicit request =>
+  def save: Action[AnyContent] = Action { implicit request =>
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       gameController.save()
       Ok(views.html.setPlayer(gameController))
@@ -102,7 +102,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     }
   }
 
-  def load = Action { implicit request =>
+  def load: Action[AnyContent] = Action { implicit request =>
     gameController.load()
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       Ok(views.html.setPlayer(null))
@@ -117,18 +117,16 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     }
   }
 
-  def landingpage = Action { implicit request =>
+  def landingpage: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.landingpage()(request))
   }
 
-  def setShipView = Action { implicit request =>
+  def setShipView: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.setShip(gameController))
   }
 
-  def idleView = Action { implicit request =>
+  def idleView: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.idlepage(gameController))
   }
-
-  def battleshipAsText = gameController.getGridPlayer1 + ControllerBaseImpl.GameState.message(gameController.getGameState)
 
 }

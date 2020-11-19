@@ -121,6 +121,14 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     Ok(views.html.landingpage()(request))
   }
 
+  def setShipView = Action { implicit request =>
+    Ok(views.html.setShip(gameController))
+  }
+
+  def idleView = Action { implicit request =>
+    Ok(views.html.idlepage(gameController))
+  }
+
   def battleshipAsText = gameController.getGridPlayer1 + ControllerBaseImpl.GameState.message(gameController.getGameState)
 
 }

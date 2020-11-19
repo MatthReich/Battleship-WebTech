@@ -5,11 +5,14 @@
 
 # An controller showing idlepage game
 GET         /                         controllers.BattleshipController.landingpage
-GET         /idle/:coordinates        controllers.BattleshipController.idle(coordinates)
-POST        /setPlayer/name           controllers.BattleshipController.setPlayer
-GET         /setShip/:ship            controllers.BattleshipController.setShip(ship)
 GET         /save                     controllers.BattleshipController.save
 GET         /load                     controllers.BattleshipController.load
+GET         /setShip                  controllers.BattleshipController.setShipView
+GET         /idle                     controllers.BattleshipController.idleView
+GET         /setShip/:ship            controllers.BattleshipController.setShip(ship)
+GET         /idle/:coordinates        controllers.BattleshipController.idle(coordinates)
+
+POST        /setPlayer/name           controllers.BattleshipController.setPlayer
 
 # An controller showing about
 GET         /about                    controllers.BattleshipController.about

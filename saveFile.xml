@@ -1,17 +1,17 @@
 <save>
 <grid size="10">
-    <cell row="0" col="0"> 1 </cell>
-    <cell row="0" col="1"> 1 </cell>
-    <cell row="0" col="2"> 0 </cell>
-    <cell row="0" col="3"> 0 </cell>
-    <cell row="0" col="4"> 0 </cell>
-    <cell row="0" col="5"> 0 </cell>
-    <cell row="0" col="6"> 0 </cell>
-    <cell row="0" col="7"> 0 </cell>
-    <cell row="0" col="8"> 0 </cell>
-    <cell row="0" col="9"> 0 </cell>
-    <cell row="1" col="0"> 0 </cell>
-    <cell row="1" col="1"> 0 </cell>
+    <cell row="0" col="0">0</cell>
+    <cell row="0" col="1">0</cell>
+    <cell row="0" col="2">0</cell>
+    <cell row="0" col="3">0</cell>
+    <cell row="0" col="4">0</cell>
+    <cell row="0" col="5">0</cell>
+    <cell row="0" col="6">0</cell>
+    <cell row="0" col="7">0</cell>
+    <cell row="0" col="8">0</cell>
+    <cell row="0" col="9">0</cell>
+    <cell row="1" col="0">0</cell>
+    <cell row="1" col="1">0</cell>
     <cell row="1" col="2"> 0 </cell>
     <cell row="1" col="3"> 0 </cell>
     <cell row="1" col="4"> 0 </cell>
@@ -22,7 +22,7 @@
     <cell row="1" col="9"> 0 </cell>
     <cell row="2" col="0"> 0 </cell>
     <cell row="2" col="1"> 0 </cell>
-    <cell row="2" col="2"> 1 </cell>
+    <cell row="2" col="2">0</cell>
     <cell row="2" col="3"> 0 </cell>
     <cell row="2" col="4"> 0 </cell>
     <cell row="2" col="5"> 0 </cell>
@@ -32,7 +32,7 @@
     <cell row="2" col="9"> 0 </cell>
     <cell row="3" col="0"> 0 </cell>
     <cell row="3" col="1"> 0 </cell>
-    <cell row="3" col="2"> 1 </cell>
+    <cell row="3" col="2">0</cell>
     <cell row="3" col="3"> 0 </cell>
     <cell row="3" col="4"> 0 </cell>
     <cell row="3" col="5"> 0 </cell>
@@ -42,31 +42,31 @@
     <cell row="3" col="9"> 0 </cell>
     <cell row="4" col="0"> 0 </cell>
     <cell row="4" col="1"> 0 </cell>
-    <cell row="4" col="2"> 1 </cell>
+    <cell row="4" col="2">0</cell>
     <cell row="4" col="3"> 0 </cell>
     <cell row="4" col="4"> 0 </cell>
-    <cell row="4" col="5"> 0 </cell>
-    <cell row="4" col="6"> 0 </cell>
-    <cell row="4" col="7"> 0 </cell>
-    <cell row="4" col="8"> 0 </cell>
-    <cell row="4" col="9"> 0 </cell>
-    <cell row="5" col="0"> 0 </cell>
-    <cell row="5" col="1"> 0 </cell>
-    <cell row="5" col="2"> 0 </cell>
-    <cell row="5" col="3"> 0 </cell>
-    <cell row="5" col="4"> 0 </cell>
-    <cell row="5" col="5"> 1 </cell>
-    <cell row="5" col="6"> 1 </cell>
-    <cell row="5" col="7"> 0 </cell>
-    <cell row="5" col="8"> 0 </cell>
-    <cell row="5" col="9"> 0 </cell>
-    <cell row="6" col="0"> 0 </cell>
-    <cell row="6" col="1"> 0 </cell>
-    <cell row="6" col="2"> 0 </cell>
-    <cell row="6" col="3"> 0 </cell>
-    <cell row="6" col="4"> 0 </cell>
-    <cell row="6" col="5"> 0 </cell>
-    <cell row="6" col="6"> 0 </cell>
+    <cell row="4" col="5">0</cell>
+    <cell row="4" col="6">0</cell>
+    <cell row="4" col="7">0</cell>
+    <cell row="4" col="8">0</cell>
+    <cell row="4" col="9">0</cell>
+    <cell row="5" col="0">0</cell>
+    <cell row="5" col="1">0</cell>
+    <cell row="5" col="2">0</cell>
+    <cell row="5" col="3">0</cell>
+    <cell row="5" col="4">0</cell>
+    <cell row="5" col="5">0</cell>
+    <cell row="5" col="6">0</cell>
+    <cell row="5" col="7">0</cell>
+    <cell row="5" col="8">0</cell>
+    <cell row="5" col="9">0</cell>
+    <cell row="6" col="0">0</cell>
+    <cell row="6" col="1">0</cell>
+    <cell row="6" col="2">0</cell>
+    <cell row="6" col="3">0</cell>
+    <cell row="6" col="4">0</cell>
+    <cell row="6" col="5">0</cell>
+    <cell row="6" col="6">0</cell>
     <cell row="6" col="7"> 0 </cell>
     <cell row="6" col="8"> 0 </cell>
     <cell row="6" col="9"> 0 </cell>
@@ -193,40 +193,44 @@
     <cellx rowx="8" colx="8"> 0 </cellx>
     <cellx rowx="8" colx="9"> 0 </cellx>
     <cellx rowx="9" colx="0"> 0 </cellx>
-    <cellx rowx="9" colx="1"> 0 </cellx>
-    <cellx rowx="9" colx="2"> 0 </cellx>
-    <cellx rowx="9" colx="3"> 0 </cellx>
-    <cellx rowx="9" colx="4"> 0 </cellx>
-    <cellx rowx="9" colx="5"> 0 </cellx>
-    <cellx rowx="9" colx="6"> 0 </cellx>
-    <cellx rowx="9" colx="7"> 0 </cellx>
-    <cellx rowx="9" colx="8"> 0 </cellx>
-    <cellx rowx="9" colx="9"> 0 </cellx>
+    <cellx rowx="9" colx="1">0</cellx>
+    <cellx rowx="9" colx="2">0</cellx>
+    <cellx rowx="9" colx="3">0</cellx>
+    <cellx rowx="9" colx="4">0</cellx>
+    <cellx rowx="9" colx="5">0</cellx>
+    <cellx rowx="9" colx="6">0</cellx>
+    <cellx rowx="9" colx="7">0</cellx>
+    <cellx rowx="9" colx="8">0</cellx>
+    <cellx rowx="9" colx="9">0</cellx>
 </gridx>
-<player1>Merlin</player1>
-<player2>MA</player2>
-<shipSetting><array size="4">
-    <cell col="0"> 0 </cell>
-    <cell col="1"> 1 </cell>
-    <cell col="2"> 0 </cell>
-    <cell col="3"> 0 </cell>
-</array></shipSetting>
-<shipSetting2><array size="4">
-    <cell col="0"> 2 </cell>
-    <cell col="1"> 2 </cell>
-    <cell col="2"> 0 </cell>
+    <player1></player1>
+    <player2></player2>
+    <shipSetting>
+        <array size="4">
+            <cell col="0">2</cell>
+            <cell col="1">2</cell>
+            <cell col="2">0</cell>
+            <cell col="3">0</cell>
+        </array>
+    </shipSetting>
+    <shipSetting2>
+        <array size="4">
+            <cell col="0">2</cell>
+            <cell col="1">2</cell>
+            <cell col="2">0</cell>
     <cell col="3"> 0 </cell>
 </array></shipSetting2>
 <ship></ship>
-<shipCoordsSetting><array size="4">
-    <cell col="0"> 2 </cell>
-    <cell col="1"> 2 </cell>
-    <cell col="2"> 4 </cell>
-    <cell col="3"> 2 </cell>
-</array></shipCoordsSetting>
-<shipSet>true</shipSet>
+<shipCoordsSetting>
+    <array size="4">
+        <cell col="0">0</cell>
+        <cell col="1">0</cell>
+        <cell col="2">0</cell>
+        <cell col="3">0</cell>
+    </array></shipCoordsSetting>
+    <shipSet>false</shipSet>
 <shipDelete>false</shipDelete>
 <lastGuess></lastGuess>
-<gameState>SHIPSETTING</gameState>
+    <gameState>PLAYERSETTING</gameState>
 <playerState>PLAYER_ONE</playerState>
 </save>

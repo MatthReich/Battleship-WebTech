@@ -29,18 +29,18 @@
                                 } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
                                     valueOfField = controller.getGridPlayer2.getValue(row, col)
                                 }
-
+                                var cellId = Array(row, col)
                                 if(valueOfField == 0) {
-                                        <button onClick="clicking(CELLID)" name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="blue">~</span></button>
+                                        <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="blue">~</span></button>
                                 }
                                 else if(valueOfField == 1) {
-                                        <button onClick="clicking(CELLID)" name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="green">x</span></button>
+                                        <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="green">x</span></button>
                                 }
+
                             }
                             </span>
                         }
                         </div>
-                        <div class="clear"></div>
                     }
                     <div class="shipSetPossibilities">
 

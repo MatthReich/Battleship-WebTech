@@ -1,3 +1,3 @@
-function handleClick(variable, variable2) {
-    alert(variable + " " + variable2)
+function handleClick(row, col) {
+    alert(row + " " + col)
 }

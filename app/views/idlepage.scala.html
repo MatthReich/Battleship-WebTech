@@ -15,7 +15,7 @@
                         <div class="grid-container">
                         @for(col <- 0 until 10) {
                             <span class="grid-item">
-                                <button name="submit" type="button" class="btn btn-outline-secondary buttonSize">
+                                <button name="submit" type="button" class="btn btn-outline-secondary buttonSize" onclick="handleClick(@row, @col)">
                                 @{
                                     if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
                                         if(controller.getGridPlayer1.getValue(row, col) == 0) {

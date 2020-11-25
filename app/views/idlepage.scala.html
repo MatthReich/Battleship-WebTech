@@ -15,32 +15,34 @@
                         <div class="grid-container">
                         @for(col <- 0 until 10) {
                             <span class="grid-item">
-                            @{
-                                if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
-                                    if(controller.getGridPlayer1.getValue(row, col) == 0) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="blue">~</span></button>
-                                    }
-                                    else if(controller.getGridPlayer1.getValue(row, col) == 1) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="green">x</span></button>
-                                    } else if(controller.getGridPlayer1.getValue(row, col) == 2) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="red">x</span></button>
-                                    } else if(controller.getGridPlayer1.getValue(row, col) == 3) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="lightblue">0</span></button>
-                                    }
-                                } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
-                                    if(controller.getGridPlayer1.getField(row, col) == 0) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="blue">~</span></button>
-                                    }
-                                    else if(controller.getGridPlayer1.getField(row, col) == 1) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="green">x</span></button>
-                                    } else if(controller.getGridPlayer1.getField(row, col) == 2) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="red">x</span></button>
-                                    } else if(controller.getGridPlayer1.getField(row, col) == 3) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="lightblue">0</span></button>
+                                <button name="submit" type="button" class="btn btn-outline-secondary buttonSize">
+                                @{
+                                    if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                        if(controller.getGridPlayer1.getValue(row, col) == 0) {
+                                                <span class="blue">~</span>
+                                        }
+                                        else if(controller.getGridPlayer1.getValue(row, col) == 1) {
+                                                <span class="green">x</span>
+                                        } else if(controller.getGridPlayer1.getValue(row, col) == 2) {
+                                                <span class="red">x</span>
+                                        } else if(controller.getGridPlayer1.getValue(row, col) == 3) {
+                                                <span class="lightblue">0</span>
+                                        }
+                                    } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                        if(controller.getGridPlayer1.getField(row, col) == 0) {
+                                                <span class="blue">~</span>
+                                        }
+                                        else if(controller.getGridPlayer1.getField(row, col) == 1) {
+                                                <span class="green">x</span>
+                                        } else if(controller.getGridPlayer1.getField(row, col) == 2) {
+                                                <span class="red">x</span>
+                                        } else if(controller.getGridPlayer1.getField(row, col) == 3) {
+                                                <span class="lightblue">0</span>
+                                        }
                                     }
                                 }
+                                </button>
 
-                            }
                             </span>
                         }
                         </div>
@@ -59,32 +61,35 @@
                         <div class="grid-container">
                         @for(col <- 0 until 10) {
                             <span class="grid-item">
-                            @{
-                                if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
-                                    if(controller.getGridPlayer2.getValue(row, col) == 0) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="blue">~</span></button>
-                                    }
-                                    else if(controller.getGridPlayer2.getValue(row, col) == 1) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="green">x</span></button>
-                                    } else if(controller.getGridPlayer2.getValue(row, col) == 2) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="red">x</span></button>
-                                    } else if(controller.getGridPlayer2.getValue(row, col) == 3) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="lightblue">0</span></button>
-                                    }
-                                } else if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
-                                    if(controller.getGridPlayer2.getField(row, col) == 0) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="blue">~</span></button>
-                                    }
-                                    else if(controller.getGridPlayer2.getField(row, col) == 1) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="green">x</span></button>
-                                    } else if(controller.getGridPlayer2.getField(row, col) == 2) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="red">x</span></button>
-                                    } else if(controller.getGridPlayer2.getField(row, col) == 3) {
-                                            <button name="submit" type="button" class="btn btn-outline-secondary buttonSize"><span class="lightblue">0</span></button>
-                                    }
+                                <button name="submit" type="button" class="btn btn-outline-secondary buttonSize">
 
+                                @{
+                                    if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                                        if(controller.getGridPlayer2.getValue(row, col) == 0) {
+                                                <span class="blue">~</span>
+                                        }
+                                        else if(controller.getGridPlayer2.getValue(row, col) == 1) {
+                                                <span class="green">x</span>
+                                        } else if(controller.getGridPlayer2.getValue(row, col) == 2) {
+                                                <span class="red">x</span>
+                                        } else if(controller.getGridPlayer2.getValue(row, col) == 3) {
+                                                <span class="lightblue">0</span>
+                                        }
+                                    } else if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                                        if(controller.getGridPlayer2.getField(row, col) == 0) {
+                                                <span class="blue">~</span>
+                                        }
+                                        else if(controller.getGridPlayer2.getField(row, col) == 1) {
+                                                <span class="green">x</span>
+                                        } else if(controller.getGridPlayer2.getField(row, col) == 2) {
+                                                <span class="red">x</span>
+                                        } else if(controller.getGridPlayer2.getField(row, col) == 3) {
+                                                <span class="lightblue">0</span>
+                                        }
+
+                                    }
                                 }
-                            }
+                                </button>
                             </span>
                         }
                         </div>

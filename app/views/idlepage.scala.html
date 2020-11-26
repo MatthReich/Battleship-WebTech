@@ -3,8 +3,8 @@
 @main("Battleship") {
     <body id="body_gamepage">
         <div class="gamecontainer">
-            <div class="game">
-                <div class="player1">
+            <div class="game row">
+                <div class="player1 col-md-6">
                     <div class="playerName">
                     @{
                         controller.getPlayer1.toString
@@ -50,7 +50,7 @@
                     }
                 </div>
 
-                <div class="player2">
+                <div class="player2 col-md-6">
                     <div class="playerName">
                     @{
                         controller.getPlayer2.toString

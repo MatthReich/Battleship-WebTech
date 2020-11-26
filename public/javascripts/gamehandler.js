@@ -5,7 +5,7 @@ function handleShipSetClick(row, col) {
     if (startIsSet) {
         call += " " + row + " " + col
         startIsSet = false
-        window.location = "http://localhost:9000/setShip/" + call
+        window.location = "/setShip/" + call
     } else {
         call = row + " " + col
         startIsSet = true
@@ -13,9 +13,9 @@ function handleShipSetClick(row, col) {
 }
 
 function handleClick(row, col) {
-    window.location = "http://localhost:9000/idle/" + row + " " + col
+    window.location = "/idle/" + row + " " + col
 }
 
 function playAgain() {
-    window.location = "http://localhost:9000/playAgain"
+    window.location = "/playAgain"
 }

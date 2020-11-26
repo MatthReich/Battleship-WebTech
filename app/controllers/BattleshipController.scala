@@ -15,6 +15,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   def playAgain(): Action[AnyContent] = Action { implicit request =>
     val injector = Guice.createInjector(new GameModule)
     gameController = injector.getInstance(classOf[InterfaceController])
+    gameController.init()
     Ok(views.html.landingpage()(request))
   }
 

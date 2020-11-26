@@ -2,6 +2,8 @@
 @(controller: Battleship.controller.InterfaceController)
 @main("Battleship") {
     <body id="body_winningpage">
+        <br>
+        <br>
         <h1>
         @{
             if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
@@ -16,6 +18,7 @@
                 <source src="@routes.Assets.versioned("images/great_success.mp4")" type="video/mp4">
             </video>
         </div>
+        <button name="submit" type="button" class="btn btn-outline-secondary buttonSize" onclick="playAgain()">Play Again</button>
     </body>
 
 }

@@ -15,3 +15,7 @@ function handleShipSetClick(row, col) {
 function handleClick(row, col) {
     window.location = "http://localhost:9000/idle/" + row + " " + col
 }
+
+function playAgain() {
+    window.location = "http://localhost:9000/playAgain"
+}

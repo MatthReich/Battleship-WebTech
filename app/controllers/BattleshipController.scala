@@ -9,7 +9,12 @@ import play.api.mvc._;
 
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val gameController: InterfaceController = Game.controller
+  var gameController: InterfaceController = Game.controller
+
+  def playAgain(): Action[AnyContent] = Action { implicit request =>
+    gameController = Game.injector.getInstance(classOf[InterfaceController])
+    Ok(views.html.landingpage()(request))
+  }
 
   def idle(coordinates: String): Action[AnyContent] = Action {
     if (gameController.getGameState == GameState.IDLE) {

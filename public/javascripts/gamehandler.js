@@ -1,16 +1,14 @@
-var lastCall;
-var startisSet = false;
-var endcall;
+let startIsSet = false;
+let call = "";
 
 function handleShipSetClick(row, col) {
-    if (startisSet) {
-        endcall = lastCall + " " + row + " " + col
-        lastCall = null
-        startisSet = false
-        window.location = "http://localhost:9000/setShip/" + endcall
+    if (startIsSet) {
+        call += " " + row + " " + col
+        startIsSet = false
+        window.location = "http://localhost:9000/setShip/" + call
     } else {
-        lastCall = row + " " + col
-        startisSet = true
+        call = row + " " + col
+        startIsSet = true
     }
 }
 

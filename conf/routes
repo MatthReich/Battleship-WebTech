@@ -3,12 +3,22 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An controller showing battleship game
-GET        /             controllers.BattleshipController.battleship
+# An controller showing idlepage game
+GET         /                         controllers.BattleshipController.landingpage
+GET         /save                     controllers.BattleshipController.save
+GET         /load                     controllers.BattleshipController.load
+GET         /setShip                  controllers.BattleshipController.setShipView
+GET         /idle                     controllers.BattleshipController.idleView
+GET         /setShip/:ship            controllers.BattleshipController.setShip(ship)
+GET         /idle/:coordinates        controllers.BattleshipController.idle(coordinates)
+GET         /playAgain                controllers.BattleshipController.playAgain
+
+POST        /setPlayer/name           controllers.BattleshipController.setPlayer
+
 # An controller showing about
-GET        /about        controllers.BattleshipController.about
+GET         /about                    controllers.BattleshipController.about
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
 
       

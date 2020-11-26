@@ -1,0 +1,26 @@
+@import Battleship.controller.ControllerBaseImpl.PlayerState
+@(controller: Battleship.controller.InterfaceController)
+@main("Battleship") {
+    <body id="body_winningpage">
+        <br>
+        <br>
+        <h1>
+        @{
+            if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                controller.getPlayer1.toString
+            } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                controller.getPlayer2.toString
+            }
+        }
+        </h1>
+        <div class="video_div">
+            <video autoplay loop id="video_winningpage">
+                <source src="@routes.Assets.versioned("images/great_success.mp4")" type="video/mp4">
+            </video>
+        </div>
+        <div class="form-group row col middleButton">
+            <button name="submit" type="submit" class="btn btn-primary middleButton" onclick="playAgain()">Play Again</button>
+        </div>
+    </body>
+
+}

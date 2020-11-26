@@ -6,13 +6,15 @@ import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
 import Battleship.controller.InterfaceController
 import javax.inject._
 import play.api.mvc._;
+import com.google.inject.Guice
 
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   var gameController: InterfaceController = Game.controller
 
   def playAgain(): Action[AnyContent] = Action { implicit request =>
-    gameController = Game.injector.getInstance(classOf[InterfaceController])
+    val injector = Guice.createInjector(new GameModule)
+    gameController = injector.getInstance(classOf[InterfaceController])
     Ok(views.html.landingpage()(request))
   }
 

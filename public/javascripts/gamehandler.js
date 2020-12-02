@@ -1,6 +1,6 @@
 let startIsSet = false;
 let call = "";
-var Data = {}
+let playerState
 
 function handleShipSetClick(row, col) {
     if (startIsSet) {
@@ -35,8 +35,16 @@ function sendRequest(type, path, payload) {
 }
 
 function readJson(json) {
-    updateGrid(json[0].grid1.cells, "1")
-    updateGrid(json[1].grid2.cells, "2")
+    gameState = json[3].gameState
+    if (gameState == "IDLE"){
+        playerState = json[4].playerState
+        updateGrid(json[0].grid1.cells, "1")
+        updateGrid(json[1].grid2.cells, "2")
+    } else if (gameState == "SOLVED"){
+        window.location = "/winningpage"
+    } else if (gameState == "SHIPSETTING"){
+
+    }
 }
 
 function playAgain() {
@@ -47,11 +55,13 @@ function updateGrid(cells, id) {
     let col = 0
     let row = 0;
     for (let index = 0; index < 100; index++) {
-        console.log(("#" +id+ row + col))
         if (cells[index].valueY == 0) {
             $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
         } else if (cells[index].valueY == 1) {
-            $("#" +id+ row + col).html("<span class=\"green\">x</span>");
+            if ((id == 1 && playerState == "PLAYER_TWO")||(id == 2 && playerState == "PLAYER_ONE"))
+                $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
+            else
+                $("#" +id+ row + col).html("<span class=\"green\">x</span>");
 
         } else if (cells[index].valueY == 2) {
             $("#" +id+ row + col).html("<span class=\"red\">x</span>");

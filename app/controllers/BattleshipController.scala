@@ -151,4 +151,8 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     ((value\"row").get.toString(), (value\"col").get.toString())
   }
 
+  def winningpage() = Action {
+    Ok(views.html.winningpage(gameController))
+  }
+
 }

@@ -11,6 +11,7 @@ GET         /setShip                         controllers.BattleshipController.se
 GET         /idle                            controllers.BattleshipController.idleView
 GET         /setShip/:ship                   controllers.BattleshipController.setShip(ship)
 GET         /playAgain                       controllers.BattleshipController.playAgain
+GET         /winningpage                      controllers.BattleshipController.winningpage
 # GET         /json                            controllers.BattleshipController.
 
 

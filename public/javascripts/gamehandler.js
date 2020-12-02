@@ -39,8 +39,9 @@ function sendRequest(type, path, payload) {
 }
 
 function readJson(json){
-    Data[0] = json[0].replaceAll('"',"");
-    Data[1] = json[1].replaceAll('"',"");
+    Data[0] = json[0]
+    Data[1] = json[1]
+    console.log(Data[0])
 }
 
 function playAgain() {

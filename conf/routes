@@ -4,25 +4,24 @@
 # ~~~~
 
 # An controller showing idlepage game
-GET         /                                controllers.BattleshipController.landingpage
-GET         /save                            controllers.BattleshipController.save
-GET         /load                            controllers.BattleshipController.load
-GET         /setShip                         controllers.BattleshipController.setShipView
-GET         /idle                            controllers.BattleshipController.idleView
-GET         /setShip/:ship                   controllers.BattleshipController.setShip(ship)
-GET         /playAgain                       controllers.BattleshipController.playAgain
-GET         /winningpage                      controllers.BattleshipController.winningpage
-# GET         /json                            controllers.BattleshipController.
+GET         /                              controllers.BattleshipController.landingpage
+GET         /save                          controllers.BattleshipController.save
+GET         /load                          controllers.BattleshipController.load
+GET         /setShip                       controllers.BattleshipController.setShipView
+GET         /idle                          controllers.BattleshipController.idleView
+GET         /setShip/:ship                 controllers.BattleshipController.setShip(ship)
+GET         /playAgain                     controllers.BattleshipController.playAgain
+GET         /winningpage                   controllers.BattleshipController.winningpage
 
 
-POST        /setPlayer/name                  controllers.BattleshipController.setPlayer
+POST        /setPlayer/name                controllers.BattleshipController.setPlayer
 +nocsrf
 POST        /battleship/api/command        controllers.BattleshipController.jsonInput
 
 # An controller showing about
-GET         /about                           controllers.BattleshipController.about
+GET         /about                         controllers.BattleshipController.about
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)
 
       

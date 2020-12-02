@@ -4,9 +4,13 @@ import Battleship.Game.tui.{decreaseShipNumbersToPlace, shipProcessLong}
 import Battleship._
 import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
 import Battleship.controller.InterfaceController
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.scala.ScalaObjectMapper
+
 import javax.inject._
-import play.api.mvc._;
+import play.api.mvc._
 import com.google.inject.Guice
+import play.api.libs.json.JsValue
 
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -75,7 +79,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
             gameController.getNrPlayer2()(3) == 0) {
             gameController.setPlayerState(PlayerState.PLAYER_ONE)
             gameController.setGameState(GameState.IDLE)
-
           }
         }
       }
@@ -135,6 +138,23 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
 
   def idleView: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.idlepage(gameController))
+  }
+
+  def jsonInput = Action(parse.json) {
+    request: Request[JsValue] => {
+      val data = readCommand(request.body)
+      println(data._1, data._2)
+    }
+      Ok(toJson(null))
+  }
+
+  def toJson(value: Any): String = {
+    val JacksMapper = new ObjectMapper() with ScalaObjectMapper
+    JacksMapper.writeValueAsString(value)
+  }
+
+  def readCommand(value: JsValue): (String, String) = {
+    ((value\"row").get.toString(), (value\"col").get.toString())
   }
 
 }

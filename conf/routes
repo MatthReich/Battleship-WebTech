@@ -10,7 +10,6 @@ GET         /load                            controllers.BattleshipController.lo
 GET         /setShip                         controllers.BattleshipController.setShipView
 GET         /idle                            controllers.BattleshipController.idleView
 GET         /setShip/:ship                   controllers.BattleshipController.setShip(ship)
-GET         /idle/:coordinates               controllers.BattleshipController.idle(coordinates)
 GET         /playAgain                       controllers.BattleshipController.playAgain
 # GET         /json                            controllers.BattleshipController.
 

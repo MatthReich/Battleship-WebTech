@@ -4,13 +4,11 @@ import Battleship.Game.tui.{decreaseShipNumbersToPlace, shipProcessLong}
 import Battleship._
 import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
 import Battleship.controller.InterfaceController
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.ScalaObjectMapper
-
-import javax.inject._
-import play.api.mvc._
 import com.google.inject.Guice
+import javax.inject._
 import play.api.libs.json.JsValue
+import play.api.mvc._
+import utils.GridtoJson
 
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -21,33 +19,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     gameController = injector.getInstance(classOf[InterfaceController])
     gameController.init()
     Ok(views.html.landingpage()(request))
-  }
-
-  def idle(coordinates: String): Action[AnyContent] = Action {
-    if (gameController.getGameState == GameState.IDLE) {
-      if (coordinates == "undo guess") {
-        if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
-          gameController.undoGuess(coordinates, gameController.getGridPlayer2)
-        } else {
-          gameController.undoGuess(coordinates, gameController.getGridPlayer2)
-        }
-      } else {
-        if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
-          gameController.checkGuess(coordinates, gameController.getGridPlayer2)
-          gameController.setLastGuess(coordinates)
-        }
-        else {
-          gameController.checkGuess(coordinates, gameController.getGridPlayer1)
-          gameController.setLastGuess(coordinates)
-        }
-      }
-      Ok(views.html.idlepage(gameController))
-    } else if (gameController.getGameState == GameState.SOLVED) {
-      Ok(views.html.winningpage(gameController))
-    } else {
-      Ok(views.html.setPlayer(gameController))
-    }
-
   }
 
   def setPlayer(): Action[AnyContent] = Action { implicit request =>
@@ -144,13 +115,36 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     request: Request[JsValue] => {
       val data = readCommand(request.body)
       println(data._1, data._2)
+      test(data._1 +" "+ data._2)
     }
-      Ok(toJson(null))
+      Ok(toJson())
   }
 
-  def toJson(value: Any): String = {
-    val JacksMapper = new ObjectMapper() with ScalaObjectMapper
-    JacksMapper.writeValueAsString(value)
+  def test(coordinates:String): Unit ={
+    println("YES")
+    if (gameController.getGameState == GameState.IDLE) {
+      if (coordinates == "undo guess") {
+        if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
+          gameController.undoGuess(coordinates, gameController.getGridPlayer2)
+        } else {
+          gameController.undoGuess(coordinates, gameController.getGridPlayer2)
+        }
+      } else {
+        if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
+          gameController.checkGuess(coordinates, gameController.getGridPlayer2)
+          gameController.setLastGuess(coordinates)
+        }
+        else {
+          gameController.checkGuess(coordinates, gameController.getGridPlayer1)
+          gameController.setLastGuess(coordinates)
+        }
+      }
+    }
+  }
+
+  def toJson(): String = {
+    val gridtoJson = new GridtoJson()
+    return gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer1(), gameController.getGameState, gameController.getPlayerState)
   }
 
   def readCommand(value: JsValue): (String, String) = {

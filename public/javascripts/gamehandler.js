@@ -14,7 +14,6 @@ function handleShipSetClick(row, col) {
 }
 
 function handleClick(row, col) {
-    window.location = "/idle/" + row + " " + col
     var payload = {
         "row": row,
         "col": col
@@ -29,21 +28,44 @@ function sendRequest(type, path, payload) {
         data: JSON.stringify(payload),
         dataType: "json",
         contentType: "application/json",
-        success: function(JsonAr){
+        success: function (JsonAr) {
             readJson(JsonAr)
         }
-    })
-    request.done(function(JsonAr) {
-        readJson(JsonAr)
     });
 }
 
-function readJson(json){
-    Data[0] = json[0]
-    Data[1] = json[1]
-    console.log(Data[0])
+function readJson(json) {
+    updateGrid(json[0].grid1.cells, "1")
+    updateGrid(json[1].grid2.cells, "2")
 }
 
 function playAgain() {
     window.location = "/playAgain"
 }
+
+function updateGrid(cells, id) {
+    let col = 0
+    let row = 0;
+    for (let index = 0; index < 100; index++) {
+        console.log(("#" +id+ row + col))
+        if (cells[index].valueY == 0) {
+            $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
+        } else if (cells[index].valueY == 1) {
+            $("#" +id+ row + col).html("<span class=\"green\">x</span>");
+
+        } else if (cells[index].valueY == 2) {
+            $("#" +id+ row + col).html("<span class=\"red\">x</span>");
+
+        } else if (cells[index].valueY == 3) {
+            $("#" +id+ row + col).html("<span class=\"lightblue\">0</span>");
+        }
+
+        if (col == 9){
+            row++
+            col = 0
+        }else{
+            col++
+        }
+    }
+}
+

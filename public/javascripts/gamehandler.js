@@ -89,7 +89,7 @@ function updateGrid(cells, id) {
         if (cells[index].valueY === 0) {
             $("#" + id + row + col).html("<span class=\"blue\">~</span>");
         } else if (cells[index].valueY === 1) {
-            if ((id == 1 && playerState === "PLAYER_TWO") || (id == 2 && playerState === "PLAYER_ONE"))
+            if ((id === "1" && playerState === "PLAYER_TWO") || (id === "2" && playerState === "PLAYER_ONE"))
                 $("#" + id + row + col).html("<span class=\"blue\">~</span>");
             else
                 $("#" + id + row + col).html("<span class=\"green\">x</span>");

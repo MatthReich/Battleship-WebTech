@@ -60,11 +60,9 @@ function readJson(json) {
     } else if (gameState === "SHIPSETTING") {
         updatePlayerName()
         if (playerState === "PLAYER_ONE") {
-            updatePlayerName()
             updateGrid(json[0].grid1.cells, "")
             setShips(json[2].arraysInt.shipSetting)
         } else {
-            updatePlayerName()
             updateGrid(json[1].grid2.cells, "")
             setShips(json[2].arraysInt.shipSetting2)
         }

@@ -60,15 +60,12 @@ function readJson(json) {
     } else if (gameState === "SHIPSETTING") {
         updatePlayerName()
         if (playerState === "PLAYER_ONE") {
+            updatePlayerName()
             updateGrid(json[0].grid1.cells, "")
-            console.log(json[2])
-            console.log(json)
-            console.log(json[2].arraysInt.shipSetting + " 1asdkfhsdlkjfh")
             setShips(json[2].arraysInt.shipSetting)
         } else {
+            updatePlayerName()
             updateGrid(json[1].grid2.cells, "")
-            console.log(json[2])
-            console.log(json[2].arraysInt.shipSetting2 + " 2asdkfhsdlkjfh")
             setShips(json[2].arraysInt.shipSetting2)
         }
         gameLastState = "SHIPSETTING"
@@ -77,9 +74,9 @@ function readJson(json) {
 
 function updatePlayerName() {
     if (playerState === "PLAYER_ONE") {
-        $("#" + "playerName").html("<span>Merlin</span>")
+        $("." + "playerName").html("<span>Merlin</span>")
     } else {
-        $("#" + "playerName").html("<span>Matthias</span>")
+        $("." + "playerName").html("<span>Matthias</span>")
     }
 }
 

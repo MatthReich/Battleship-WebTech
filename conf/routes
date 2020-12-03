@@ -4,13 +4,12 @@
 # ~~~~
 
 # An controller showing idlepage game
-GET         /                                controllers.BattleshipController.landingpage
-GET         /save                            controllers.BattleshipController.save
-GET         /load                            controllers.BattleshipController.load
-GET         /playAgain                       controllers.BattleshipController.playAgain
-GET         /winningpage                      controllers.BattleshipController.winningpage
-GET         /toIdle                          controllers.BattleshipController.toIdle
-# GET         /json                            controllers.BattleshipController.
+GET         /                              controllers.BattleshipController.landingpage
+GET         /save                          controllers.BattleshipController.save
+GET         /load                          controllers.BattleshipController.load
+GET         /playAgain                     controllers.BattleshipController.playAgain
+GET         /winningpage                   controllers.BattleshipController.winningpage
+GET         /toIdle                        controllers.BattleshipController.toIdle
 
 
 POST        /setPlayer/name                controllers.BattleshipController.setPlayer

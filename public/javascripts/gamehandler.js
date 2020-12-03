@@ -2,7 +2,7 @@ let startIsSet = false;
 let playerState
 let colTmp
 let rowTmp
-let gameLastState
+let gameLastState = ""
 
 function handleShipSetClick(row, col) {
     if (startIsSet) {
@@ -47,24 +47,39 @@ function sendRequest(type, path, payload) {
 function readJson(json) {
     gameState = json[3].gameState
     playerState = json[4].playerState
-    if (gameState === gameLastState){
-        window.location = "/toIdle"
-    }
-    if (gameState === "IDLE"){
+
+    if (gameState === "IDLE") {
+        if ("SHIPSETTING" === gameLastState) {
+            window.location = "/toIdle"
+            gameLastState = ""
+        }
         updateGrid(json[0].grid1.cells, "1")
         updateGrid(json[1].grid2.cells, "2")
-    } else if (gameState === "SOLVED"){
+    } else if (gameState === "SOLVED") {
         window.location = "/winningpage"
     } else if (gameState === "SHIPSETTING") {
-        console.log(playerState)
-        if (playerState == "PLAYER_ONE") {
-            updateGrid(json[0].grid1.cells,"")
+        updatePlayerName()
+        if (playerState === "PLAYER_ONE") {
+            updateGrid(json[0].grid1.cells, "")
+            console.log(json[2])
+            console.log(json)
+            console.log(json[2].arraysInt.shipSetting + " 1asdkfhsdlkjfh")
             setShips(json[2].arraysInt.shipSetting)
         } else {
-            updateGrid(json[1].grid2.cells,"")
+            updateGrid(json[1].grid2.cells, "")
+            console.log(json[2])
+            console.log(json[2].arraysInt.shipSetting2 + " 2asdkfhsdlkjfh")
             setShips(json[2].arraysInt.shipSetting2)
         }
+        gameLastState = "SHIPSETTING"
+    }
+}
 
+function updatePlayerName() {
+    if (playerState === "PLAYER_ONE") {
+        $("#" + "playerName").html("<span>Merlin</span>")
+    } else {
+        $("#" + "playerName").html("<span>Matthias</span>")
     }
 }
 
@@ -77,32 +92,32 @@ function updateGrid(cells, id) {
     let row = 0;
     for (let index = 0; index < 100; index++) {
         if (cells[index].valueY === 0) {
-            $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
+            $("#" + id + row + col).html("<span class=\"blue\">~</span>");
         } else if (cells[index].valueY === 1) {
-            if ((id == 1 && playerState === "PLAYER_TWO")||(id == 2 && playerState === "PLAYER_ONE"))
-                $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
+            if ((id == 1 && playerState === "PLAYER_TWO") || (id == 2 && playerState === "PLAYER_ONE"))
+                $("#" + id + row + col).html("<span class=\"blue\">~</span>");
             else
-                $("#" +id+ row + col).html("<span class=\"green\">x</span>");
+                $("#" + id + row + col).html("<span class=\"green\">x</span>");
 
         } else if (cells[index].valueY === 2) {
-            $("#" +id+ row + col).html("<span class=\"red\">x</span>");
+            $("#" + id + row + col).html("<span class=\"red\">x</span>");
 
         } else if (cells[index].valueY === 3) {
-            $("#" +id+ row + col).html("<span class=\"lightblue\">0</span>");
+            $("#" + id + row + col).html("<span class=\"lightblue\">0</span>");
         }
 
-        if (col === 9){
+        if (col === 9) {
             row++
             col = 0
-        }else{
+        } else {
             col++
         }
     }
 }
 
-function setShips(ships){
-    for (let index=0; index < 4; index++){
-        $("#ship" + index).html(ships[index]+" of the "+(index+2)+" long ships");
+function setShips(ships) {
+    for (let index = 0; index < 4; index++) {
+        $("#ship" + index).html(ships[index] + " of the " + (index + 2) + " long ships");
     }
 }
 

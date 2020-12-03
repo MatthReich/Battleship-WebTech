@@ -98,7 +98,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def idle(coordinates:String): Unit ={
-    println("YES")
     if (gameController.getGameState == GameState.IDLE) {
       if (coordinates == "undo guess") {
         if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {

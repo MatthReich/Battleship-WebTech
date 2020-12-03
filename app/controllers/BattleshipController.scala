@@ -30,37 +30,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
   }
 
-  def setShip(ship: String): Action[AnyContent] = Action {
-    if (gameController.getGameState == GameState.SHIPSETTING) {
-      gameController.getPlayerState match {
-        case PlayerState.PLAYER_ONE => {
-          gameController.setShipSet(false)
-          shipProcessLong(ship)
-          decreaseShipNumbersToPlace(gameController.getShip, gameController.getShipSet, gameController.getShipDelete)
-          if ((gameController.getNrPlayer1()(0) + gameController.getNrPlayer1()(1) + gameController.getNrPlayer1()(2) +
-            gameController.getNrPlayer1()(3)) == 0) {
-            gameController.setPlayerState(PlayerState.PLAYER_TWO)
-          }
-        }
-        case PlayerState.PLAYER_TWO => {
-          gameController.setShipSet(false)
-          shipProcessLong(ship)
-          decreaseShipNumbersToPlace(gameController.getShip, gameController.getShipSet, gameController.getShipDelete)
-          if (gameController.getNrPlayer2()(0) + gameController.getNrPlayer2()(1) + gameController.getNrPlayer2()(2) +
-            gameController.getNrPlayer2()(3) == 0) {
-            gameController.setPlayerState(PlayerState.PLAYER_ONE)
-            gameController.setGameState(GameState.IDLE)
-          }
-        }
-      }
-    }
-    if (gameController.getGameState == GameState.SHIPSETTING) {
-      Ok(views.html.setShip(gameController))
-    } else {
-      Ok(views.html.idlepage(gameController))
-    }
-  }
-
   def about: Action[AnyContent] = Action {
     Ok(views.html.aboutpage())
   }
@@ -104,7 +73,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def setShipView: Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.setShip(gameController))
+    Ok(views.html.landingpage()(request))
   }
 
   def idleView: Action[AnyContent] = Action { implicit request =>
@@ -114,13 +83,21 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   def jsonInput = Action(parse.json) {
     request: Request[JsValue] => {
       val data = readCommand(request.body)
-      println(data._1, data._2)
-      test(data._1 +" "+ data._2)
+      if (gameController.getGameState == GameState.IDLE){
+        idle(data._1 +" "+ data._2)
+      } else if (gameController.getGameState == GameState.SHIPSETTING){
+        setShip(data._1 +" "+data._2+" "+data._3+" "+data._4)
+      }
+
     }
       Ok(toJson())
   }
 
-  def test(coordinates:String): Unit ={
+  def toIdle()=Action {
+    Ok(views.html.idlepage(gameController))
+  }
+
+  def idle(coordinates:String): Unit ={
     println("YES")
     if (gameController.getGameState == GameState.IDLE) {
       if (coordinates == "undo guess") {
@@ -142,13 +119,40 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     }
   }
 
+  def setShip(coordinates:String): Unit ={
+    println(coordinates)
+    if (gameController.getGameState == GameState.SHIPSETTING) {
+      gameController.getPlayerState match {
+        case PlayerState.PLAYER_ONE => {
+          gameController.setShipSet(false)
+          shipProcessLong(coordinates)
+          decreaseShipNumbersToPlace(gameController.getShip, gameController.getShipSet, gameController.getShipDelete)
+          if ((gameController.getNrPlayer1()(0) + gameController.getNrPlayer1()(1) + gameController.getNrPlayer1()(2) +
+            gameController.getNrPlayer1()(3)) == 0) {
+            gameController.setPlayerState(PlayerState.PLAYER_TWO)
+          }
+        }
+        case PlayerState.PLAYER_TWO => {
+          gameController.setShipSet(false)
+          shipProcessLong(coordinates)
+          decreaseShipNumbersToPlace(gameController.getShip, gameController.getShipSet, gameController.getShipDelete)
+          if (gameController.getNrPlayer2()(0) + gameController.getNrPlayer2()(1) + gameController.getNrPlayer2()(2) +
+            gameController.getNrPlayer2()(3) == 0) {
+            gameController.setPlayerState(PlayerState.PLAYER_ONE)
+            gameController.setGameState(GameState.IDLE)
+          }
+        }
+      }
+    }
+  }
+
   def toJson(): String = {
     val gridtoJson = new GridtoJson()
     return gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer1(), gameController.getGameState, gameController.getPlayerState)
   }
 
-  def readCommand(value: JsValue): (String, String) = {
-    ((value\"row").get.toString(), (value\"col").get.toString())
+  def readCommand(value: JsValue): (String, String, String, String) = {
+    ((value\"row").get.toString(), (value\"col").get.toString(), (value\"row2").get.toString(), (value\"col2").get.toString())
   }
 
   def winningpage() = Action {

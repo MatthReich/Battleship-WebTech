@@ -1,14 +1,22 @@
 let startIsSet = false;
-let call = "";
 let playerState
+let colTmp
+let rowTmp
+let gameLastState
 
 function handleShipSetClick(row, col) {
     if (startIsSet) {
-        call += " " + row + " " + col
         startIsSet = false
-        window.location = "/setShip/" + call
+        var payload = {
+            "row": rowTmp,
+            "col": colTmp,
+            "row2": row,
+            "col2": col
+        }
+        sendRequest("POST", "/battleship/api/command", payload)
     } else {
-        call = row + " " + col
+        colTmp = col
+        rowTmp = row
         startIsSet = true
     }
 }
@@ -16,7 +24,9 @@ function handleShipSetClick(row, col) {
 function handleClick(row, col) {
     var payload = {
         "row": row,
-        "col": col
+        "col": col,
+        "row2": "",
+        "col2": ""
     }
     sendRequest("POST", "/battleship/api/command", payload)
 }
@@ -36,13 +46,24 @@ function sendRequest(type, path, payload) {
 
 function readJson(json) {
     gameState = json[3].gameState
-    if (gameState == "IDLE"){
-        playerState = json[4].playerState
+    playerState = json[4].playerState
+    if (gameState === gameLastState){
+        window.location = "/toIdle"
+    }
+    if (gameState === "IDLE"){
         updateGrid(json[0].grid1.cells, "1")
         updateGrid(json[1].grid2.cells, "2")
-    } else if (gameState == "SOLVED"){
+    } else if (gameState === "SOLVED"){
         window.location = "/winningpage"
-    } else if (gameState == "SHIPSETTING"){
+    } else if (gameState === "SHIPSETTING") {
+        console.log(playerState)
+        if (playerState == "PLAYER_ONE") {
+            updateGrid(json[0].grid1.cells,"")
+            setShips(json[2].arraysInt.shipSetting)
+        } else {
+            updateGrid(json[1].grid2.cells,"")
+            setShips(json[2].arraysInt.shipSetting2)
+        }
 
     }
 }
@@ -55,27 +76,33 @@ function updateGrid(cells, id) {
     let col = 0
     let row = 0;
     for (let index = 0; index < 100; index++) {
-        if (cells[index].valueY == 0) {
+        if (cells[index].valueY === 0) {
             $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
-        } else if (cells[index].valueY == 1) {
-            if ((id == 1 && playerState == "PLAYER_TWO")||(id == 2 && playerState == "PLAYER_ONE"))
+        } else if (cells[index].valueY === 1) {
+            if ((id == 1 && playerState === "PLAYER_TWO")||(id == 2 && playerState === "PLAYER_ONE"))
                 $("#" +id+ row + col).html("<span class=\"blue\">~</span>");
             else
                 $("#" +id+ row + col).html("<span class=\"green\">x</span>");
 
-        } else if (cells[index].valueY == 2) {
+        } else if (cells[index].valueY === 2) {
             $("#" +id+ row + col).html("<span class=\"red\">x</span>");
 
-        } else if (cells[index].valueY == 3) {
+        } else if (cells[index].valueY === 3) {
             $("#" +id+ row + col).html("<span class=\"lightblue\">0</span>");
         }
 
-        if (col == 9){
+        if (col === 9){
             row++
             col = 0
         }else{
             col++
         }
+    }
+}
+
+function setShips(ships){
+    for (let index=0; index < 4; index++){
+        $("#ship" + index).html(ships[index]+" of the "+(index+2)+" long ships");
     }
 }
 

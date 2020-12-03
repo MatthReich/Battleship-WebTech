@@ -22,7 +22,7 @@
                         <div class="grid-container">
                         @for(col <- 0 until 10) {
                             <span class="grid-item">
-                                <button name="submit" type="button" class="btn btn-outline-secondary buttonSize" onclick="handleShipSetClick(@row, @col)">
+                                <button name="submit" type="button" class="btn btn-outline-secondary buttonSize" id="@row@col" onclick="handleShipSetClick(@row, @col)">
                                 @{
                                     var valueOfField: Int = 0
                                     if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
@@ -52,13 +52,7 @@
                         <div class="clear"></div>
                         <div class="separation">
                             @for(nr <- 0 until 4) {
-                                @{
-                                    if(controller.getPlayerState == PlayerState.PLAYER_ONE) {
-                                        controller.getNrPlayer1()(nr) + " of the " + (nr + 2) + " long ships"
-                                    } else if(controller.getPlayerState == PlayerState.PLAYER_TWO) {
-                                        controller.getNrPlayer2()(nr) + " of the " + (nr + 2) + " long ships"
-                                    }
-                                }
+                                <div id="ship@nr"></div>
                                 <div class="clear"></div>
                             }
                             <div>

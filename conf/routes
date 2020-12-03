@@ -7,11 +7,9 @@
 GET         /                                controllers.BattleshipController.landingpage
 GET         /save                            controllers.BattleshipController.save
 GET         /load                            controllers.BattleshipController.load
-GET         /setShip                         controllers.BattleshipController.setShipView
-GET         /idle                            controllers.BattleshipController.idleView
-GET         /setShip/:ship                   controllers.BattleshipController.setShip(ship)
 GET         /playAgain                       controllers.BattleshipController.playAgain
 GET         /winningpage                      controllers.BattleshipController.winningpage
+GET         /toIdle                          controllers.BattleshipController.toIdle
 # GET         /json                            controllers.BattleshipController.
 
 

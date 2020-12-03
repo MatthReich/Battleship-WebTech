@@ -119,7 +119,6 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def setShip(coordinates:String): Unit ={
-    println(coordinates)
     if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.getPlayerState match {
         case PlayerState.PLAYER_ONE => {
@@ -147,7 +146,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
 
   def toJson(): String = {
     val gridtoJson = new GridtoJson()
-    return gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState)
+    gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState)
   }
 
   def readCommand(value: JsValue): (String, String, String, String) = {

@@ -13,14 +13,14 @@ GET         /toIdle                          controllers.BattleshipController.to
 # GET         /json                            controllers.BattleshipController.
 
 
-POST        /setPlayer/name                  controllers.BattleshipController.setPlayer
+POST        /setPlayer/name                controllers.BattleshipController.setPlayer
 +nocsrf
 POST        /battleship/api/command        controllers.BattleshipController.jsonInput
 
 # An controller showing about
-GET         /about                           controllers.BattleshipController.about
+GET         /about                         controllers.BattleshipController.about
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)
 
       

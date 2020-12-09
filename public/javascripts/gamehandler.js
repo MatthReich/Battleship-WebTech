@@ -56,6 +56,10 @@ function connectWebSocket(){
     };
 }
 
+function disconnectWebSocket() {
+    websocket.close()
+}
+
 function readJson(json) {
     gameState = json[3].gameState
     playerState = json[4].playerState

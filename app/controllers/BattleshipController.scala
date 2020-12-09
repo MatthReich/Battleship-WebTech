@@ -2,16 +2,20 @@ package controllers
 
 import Battleship.Game.tui.{decreaseShipNumbersToPlace, shipProcessLong}
 import Battleship._
-import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
+import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
 import Battleship.controller.InterfaceController
+import akka.actor.{ActorSystem, _}
 import com.google.inject.Guice
 import javax.inject._
-import play.api.libs.json.JsValue
+import play.api.libs.json.{JsValue, Json}
+import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 import utils.GridtoJson
 
+import scala.swing.Reactor
+
 @Singleton
-class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class BattleshipController @Inject()(cc: ControllerComponents) (implicit system: ActorSystem) extends AbstractController(cc) {
   var gameController: InterfaceController = Game.controller
 
   def playAgain(): Action[AnyContent] = Action { implicit request =>
@@ -157,4 +161,36 @@ class BattleshipController @Inject()(cc: ControllerComponents) extends AbstractC
     Ok(views.html.winningpage(gameController))
   }
 
+  def socket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef {
+      out => Props(new MyWebSocketActor(out))
+    }
+  }
+
+  class MyWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(gameController)
+      reactions += {
+        case event: CellChanged =>
+          println("cell-changed")
+          out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
+        case event: PlayerChanged =>
+          println("player-changed")
+          out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
+        case other => println("Unmanaged event: " + other.getClass.getName)
+    }
+
+    override def receive: Receive = {
+      case "Trying to connect to Server" =>
+        println("is connected")
+        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
+      case x: String if x.length != 0 =>
+        println("eingabe: " + x)
+        val eingabe = x.split(" ");
+        if (gameController.getGameState == GameState.IDLE){
+          idle(eingabe(0)+" "+ eingabe(1))
+        } else if (gameController.getGameState == GameState.SHIPSETTING){
+          setShip(eingabe(0) +" "+eingabe(1)+" "+eingabe(2)+" "+eingabe(3))
+        }
+    }
+  }
 }

@@ -11,6 +11,8 @@ GET         /playAgain                     controllers.BattleshipController.play
 GET         /winningpage                   controllers.BattleshipController.winningpage
 GET         /toIdle                        controllers.BattleshipController.toIdle
 
+GET         /websocket                     controllers.BattleshipController.socket
+
 
 POST        /setPlayer/name                controllers.BattleshipController.setPlayer
 +nocsrf

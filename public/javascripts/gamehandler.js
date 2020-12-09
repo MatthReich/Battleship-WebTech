@@ -3,17 +3,12 @@ let playerState
 let colTmp
 let rowTmp
 let gameLastState = ""
+let websocket
 
 function handleShipSetClick(row, col) {
     if (startIsSet) {
         startIsSet = false
-        var payload = {
-            "row": rowTmp,
-            "col": colTmp,
-            "row2": row,
-            "col2": col
-        }
-        sendRequest("POST", "/battleship/api/command", payload)
+        websocket.send(rowTmp+" "+colTmp+" "+row+" "+col)
     } else {
         colTmp = col
         rowTmp = row
@@ -22,26 +17,44 @@ function handleShipSetClick(row, col) {
 }
 
 function handleClick(row, col) {
-    var payload = {
-        "row": row,
-        "col": col,
-        "row2": "",
-        "col2": ""
-    }
-    sendRequest("POST", "/battleship/api/command", payload)
+    websocket.send(row+" "+col+" "+"test"+" "+"test")
 }
 
-function sendRequest(type, path, payload) {
-    var request = $.ajax({
-        method: type,
-        url: path,
-        data: JSON.stringify(payload),
-        dataType: "json",
-        contentType: "application/json",
-        success: function (JsonAr) {
-            readJson(JsonAr)
+function connectWebSocket(){
+    console.log("Connecting to Websocket");
+    websocket = new WebSocket("ws://localhost:9000/websocket");
+    console.log("Connected to Websocket");
+
+    websocket.onopen = function (event){
+        console.log("Trying to connect to Server");
+        websocket.send("Trying to connect to Server");
+    }
+
+    websocket.onclose = function () {
+        console.log('Connection Closed!');
+        setTimeout(connectWebSocket, 2000);
+    };
+
+    websocket.onerror = function (error) {
+        console.log('Error Occured: ' + error);
+    };
+
+    websocket.onmessage = function (message) {
+        try{
+            const { event, object } = JSON.parse(message.data);
+            switch (event){
+                case "cell-changed":
+                    console.log("cell-changed");
+                    readJson(object)
+                    break
+                case "player-changed":
+                    readJson(object)
+                    break
+            }
+        }catch (e) {
+            console.error(e)
         }
-    });
+    };
 }
 
 function readJson(json) {
@@ -116,3 +129,6 @@ function setShips(ships) {
     }
 }
 
+document.onreadystatechange = () => {
+    connectWebSocket();
+};

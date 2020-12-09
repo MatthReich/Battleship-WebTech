@@ -8,7 +8,7 @@ let websocket
 function handleShipSetClick(row, col) {
     if (startIsSet) {
         startIsSet = false
-        websocket.send(rowTmp+" "+colTmp+" "+row+" "+col)
+        websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
     } else {
         colTmp = col
         rowTmp = row
@@ -17,15 +17,15 @@ function handleShipSetClick(row, col) {
 }
 
 function handleClick(row, col) {
-    websocket.send(row+" "+col+" "+"test"+" "+"test")
+    websocket.send(row + " " + col + " " + "test" + " " + "test")
 }
 
-function connectWebSocket(){
+function connectWebSocket() {
     console.log("Connecting to Websocket");
     websocket = new WebSocket("ws://localhost:9000/websocket");
     console.log("Connected to Websocket");
 
-    websocket.onopen = function (event){
+    websocket.onopen = function (event) {
         console.log("Trying to connect to Server");
         websocket.send("Trying to connect to Server");
     }
@@ -40,9 +40,9 @@ function connectWebSocket(){
     };
 
     websocket.onmessage = function (message) {
-        try{
-            const { event, object } = JSON.parse(message.data);
-            switch (event){
+        try {
+            const {event, object} = JSON.parse(message.data);
+            switch (event) {
                 case "cell-changed":
                     readJson(JSON.parse(object))
                     break
@@ -50,7 +50,7 @@ function connectWebSocket(){
                     readJson(JSON.parse(object))
                     break
             }
-        }catch (e) {
+        } catch (e) {
             console.error(e)
         }
     };
@@ -133,7 +133,6 @@ function setShips(ships) {
 }
 
 document.onreadystatechange = () => {
-    // prevent from loading multiple times
     if (document.readyState === "complete") {
         connectWebSocket();
     }

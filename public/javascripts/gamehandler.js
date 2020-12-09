@@ -44,11 +44,10 @@ function connectWebSocket(){
             const { event, object } = JSON.parse(message.data);
             switch (event){
                 case "cell-changed":
-                    console.log("cell-changed");
-                    readJson(object)
+                    readJson(JSON.parse(object))
                     break
                 case "player-changed":
-                    readJson(object)
+                    readJson(JSON.parse(object))
                     break
             }
         }catch (e) {
@@ -68,7 +67,6 @@ function readJson(json) {
         }
         updateGrid(json[0].grid1.cells, "1")
         updateGrid(json[1].grid2.cells, "2")
-        console.log("updated grids idle")
     } else if (gameState === "SOLVED") {
         window.location = "/winningpage"
     } else if (gameState === "SHIPSETTING") {
@@ -76,11 +74,9 @@ function readJson(json) {
         if (playerState === "PLAYER_ONE") {
             updateGrid(json[0].grid1.cells, "")
             setShips(json[2].arraysInt.shipSetting)
-            console.log("updated grid 1 shipsetting")
         } else {
             updateGrid(json[1].grid2.cells, "")
             setShips(json[2].arraysInt.shipSetting2)
-            console.log("updated grid 2 shipsetting")
         }
         gameLastState = "SHIPSETTING"
     }
@@ -133,5 +129,8 @@ function setShips(ships) {
 }
 
 document.onreadystatechange = () => {
-    connectWebSocket();
+    // prevent from loading multiple times
+    if (document.readyState === "complete") {
+        connectWebSocket();
+    }
 };

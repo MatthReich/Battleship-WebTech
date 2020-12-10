@@ -12,7 +12,7 @@ function handleShipSetClick(row, col) {
         try {
             websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
         } catch (e) {
-            if (websocketClosed) {
+            if (!websocketClosed) {
                 connectWebSocket();
                 websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
             }
@@ -28,7 +28,7 @@ function handleClick(row, col) {
     try {
         websocket.send(row + " " + col + " " + "test" + " " + "test")
     } catch (e) {
-        if (!websocketClosed && websocket != null) {
+        if (!websocketClosed) {
             connectWebSocket();
             websocket.send(row + " " + col + " " + "test" + " " + "test")
         }

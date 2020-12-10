@@ -11,7 +11,6 @@ function handleShipSetClick(row, col) {
         startIsSet = false
         try {
             websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
-
         } catch (e) {
             if (websocketClosed) {
                 connectWebSocket();

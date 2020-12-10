@@ -59,6 +59,7 @@ function connectWebSocket() {
     websocket.onmessage = function (message) {
         try {
             const {event, object} = JSON.parse(message.data);
+            console.log("websocket receiving message: " + event + " | " + object)
             switch (event) {
                 case "cell-changed":
                     readJson(JSON.parse(object))
@@ -76,16 +77,20 @@ function connectWebSocket() {
 function disconnectWebSocket() {
     websocket.close()
     websocketClosed = true
+    console.log("user disconnected")
 }
 
 function reconnectWebSocket() {
     websocketClosed = false
     connectWebSocket()
+    console.log("user connected")
+
 }
 
 function readJson(json) {
     gameState = json[3].gameState
     playerState = json[4].playerState
+    console.log("reading json in gameState: " + gameState + " and playerState: " + playerState)
 
     if (gameState === "IDLE") {
         if ("SHIPSETTING" === gameLastState) {

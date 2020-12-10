@@ -15,7 +15,7 @@ import utils.GridtoJson
 import scala.swing.Reactor
 
 @Singleton
-class BattleshipController @Inject()(cc: ControllerComponents) (implicit system: ActorSystem) extends AbstractController(cc) {
+class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
   var gameController: InterfaceController = Game.controller
 
   def playAgain(): Action[AnyContent] = Action { implicit request =>
@@ -87,21 +87,21 @@ class BattleshipController @Inject()(cc: ControllerComponents) (implicit system:
   def jsonInput = Action(parse.json) {
     request: Request[JsValue] => {
       val data = readCommand(request.body)
-      if (gameController.getGameState == GameState.IDLE){
-        idle(data._1 +" "+ data._2)
-      } else if (gameController.getGameState == GameState.SHIPSETTING){
-        setShip(data._1 +" "+data._2+" "+data._3+" "+data._4)
+      if (gameController.getGameState == GameState.IDLE) {
+        idle(data._1 + " " + data._2)
+      } else if (gameController.getGameState == GameState.SHIPSETTING) {
+        setShip(data._1 + " " + data._2 + " " + data._3 + " " + data._4)
       }
 
     }
       Ok(toJson())
   }
 
-  def toIdle()=Action {
+  def toIdle() = Action {
     Ok(views.html.idlepage(gameController))
   }
 
-  def idle(coordinates:String): Unit ={
+  def idle(coordinates: String): Unit = {
     if (gameController.getGameState == GameState.IDLE) {
       if (coordinates == "undo guess") {
         if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
@@ -122,7 +122,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) (implicit system:
     }
   }
 
-  def setShip(coordinates:String): Unit ={
+  def setShip(coordinates: String): Unit = {
     if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.getPlayerState match {
         case PlayerState.PLAYER_ONE => {
@@ -154,7 +154,7 @@ class BattleshipController @Inject()(cc: ControllerComponents) (implicit system:
   }
 
   def readCommand(value: JsValue): (String, String, String, String) = {
-    ((value\"row").get.toString(), (value\"col").get.toString(), (value\"row2").get.toString(), (value\"col2").get.toString())
+    ((value \ "row").get.toString(), (value \ "col").get.toString(), (value \ "row2").get.toString(), (value \ "col2").get.toString())
   }
 
   def winningpage() = Action {
@@ -169,28 +169,29 @@ class BattleshipController @Inject()(cc: ControllerComponents) (implicit system:
 
   class MyWebSocketActor(out: ActorRef) extends Actor with Reactor {
     listenTo(gameController)
-      reactions += {
-        case event: CellChanged =>
-          println("cell-changed")
-          out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
-        case event: PlayerChanged =>
-          println("player-changed")
-          out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
-        case other => println("Unmanaged event: " + other.getClass.getName)
+    reactions += {
+      case event: CellChanged =>
+        println("cell-changed")
+        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
+      case event: PlayerChanged =>
+        println("player-changed")
+        out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
+      case other => println("Unmanaged event: " + other.getClass.getName)
     }
 
     override def receive: Receive = {
       case "Trying to connect to Server" =>
         println("is connected")
         out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
-      case x: String if x.length != 0 =>
+      case x: String if x.nonEmpty =>
         println("eingabe: " + x)
         val eingabe = x.split(" ");
-        if (gameController.getGameState == GameState.IDLE){
-          idle(eingabe(0)+" "+ eingabe(1))
-        } else if (gameController.getGameState == GameState.SHIPSETTING){
-          setShip(eingabe(0) +" "+eingabe(1)+" "+eingabe(2)+" "+eingabe(3))
+        if (gameController.getGameState == GameState.IDLE) {
+          idle(eingabe(0) + " " + eingabe(1))
+        } else if (gameController.getGameState == GameState.SHIPSETTING) {
+          setShip(eingabe(0) + " " + eingabe(1) + " " + eingabe(2) + " " + eingabe(3))
         }
     }
   }
+
 }

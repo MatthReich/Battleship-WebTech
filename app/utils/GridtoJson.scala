@@ -2,18 +2,20 @@ package utils
 
 import Battleship.controller.ControllerBaseImpl.GameState.GameState
 import Battleship.controller.ControllerBaseImpl.PlayerState.PlayerState
+import Battleship.model.Person.InterfacePerson
 import Battleship.model.gridComponent.InterfaceGrid
 import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 
 class GridtoJson {
 
-  def save(grid: InterfaceGrid, grid2: InterfaceGrid, shipSetting: Array[Int], shipSetting2: Array[Int], gameState: GameState, playerState: PlayerState):String = {
-    return (Json.prettyPrint(getAllObj(grid, grid2, shipSetting, shipSetting2, gameState, playerState)))
+  def save(grid: InterfaceGrid, grid2: InterfaceGrid, shipSetting: Array[Int], shipSetting2: Array[Int], gameState: GameState, playerState: PlayerState, player: InterfacePerson, player2: InterfacePerson): String = {
+    (Json.prettyPrint(getAllObj(grid, grid2, shipSetting, shipSetting2, gameState, playerState, player, player2)))
   }
 
-  def getAllObj(grid: InterfaceGrid, grid2: InterfaceGrid, shipSetting: Array[Int], shipSetting2: Array[Int], gameStateX: GameState, playerStateX: PlayerState): JsValue = {
+  def getAllObj(grid: InterfaceGrid, grid2: InterfaceGrid, shipSetting: Array[Int], shipSetting2: Array[Int], gameStateX: GameState, playerStateX: PlayerState, player: InterfacePerson, player2x: InterfacePerson): JsValue = {
     val array: Array[Array[Int]] = Array(shipSetting, shipSetting2)
-    return Json.toJson(List(grid1ToJson(grid), grid2ToJson(grid2), arrayToJson.writes(array), gameState.writes(gameStateX), playerState.writes(playerStateX)))
+    val players: Array[InterfacePerson] = Array(player, player2x)
+    Json.toJson(List(grid1ToJson(grid), grid2ToJson(grid2), arrayToJson.writes(array), gameState.writes(gameStateX), playerState.writes(playerStateX), playerToJson.writes(players)))
   }
 
   implicit val arrayToJson = new Writes[Array[Array[Int]]] {
@@ -80,6 +82,15 @@ class GridtoJson {
             )
           }
         )
+      )
+    )
+  }
+
+  implicit val playerToJson = new Writes[Array[InterfacePerson]] {
+    override def writes(player: Array[InterfacePerson]): JsValue = Json.obj(
+      "players" -> Json.obj(
+        "player1" -> Json.toJson(player(0).toString),
+        "player2" -> Json.toJson(player(1).toString)
       )
     )
   }

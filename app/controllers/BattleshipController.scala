@@ -150,7 +150,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
 
   def toJson(): String = {
     val gridtoJson = new GridtoJson()
-    gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState)
+    gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState, gameController.getPlayer1, gameController.getPlayer2)
   }
 
   def readCommand(value: JsValue): (String, String, String, String) = {

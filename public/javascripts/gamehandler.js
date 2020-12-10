@@ -102,7 +102,7 @@ function readJson(json) {
     } else if (gameState === "SOLVED") {
         window.location = "/winningpage"
     } else if (gameState === "SHIPSETTING") {
-        updatePlayerName()
+        updatePlayerName(json[5].players.player1, json[5].players.player2)
         if (playerState === "PLAYER_ONE") {
             updateGrid(json[0].grid1.cells, "")
             setShips(json[2].arraysInt.shipSetting)
@@ -114,11 +114,11 @@ function readJson(json) {
     }
 }
 
-function updatePlayerName() {
+function updatePlayerName(playerOne, playerTwo) {
     if (playerState === "PLAYER_ONE") {
-        $("." + "playerName").html("<span>Merlin</span>")
+        $("." + "playerName").html("<span>" + playerOne + "</span>")
     } else {
-        $("." + "playerName").html("<span>Matthias</span>")
+        $("." + "playerName").html("<span>" + playerTwo + "</span>")
     }
 }
 

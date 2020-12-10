@@ -4,11 +4,20 @@ let colTmp
 let rowTmp
 let gameLastState = ""
 let websocket
+let websocketClosed = false
 
 function handleShipSetClick(row, col) {
     if (startIsSet) {
         startIsSet = false
-        websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
+        try {
+            websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
+
+        } catch (e) {
+            if (websocketClosed) {
+                connectWebSocket();
+                websocket.send(rowTmp + " " + colTmp + " " + row + " " + col)
+            }
+        }
     } else {
         colTmp = col
         rowTmp = row
@@ -17,13 +26,22 @@ function handleShipSetClick(row, col) {
 }
 
 function handleClick(row, col) {
-    websocket.send(row + " " + col + " " + "test" + " " + "test")
+    try {
+        websocket.send(row + " " + col + " " + "test" + " " + "test")
+    } catch (e) {
+        if (!websocketClosed && websocket != null) {
+            connectWebSocket();
+            websocket.send(row + " " + col + " " + "test" + " " + "test")
+        }
+    }
 }
 
 function connectWebSocket() {
-    console.log("Connecting to Websocket");
-    websocket = new WebSocket("ws://localhost:9000/websocket");
-    console.log("Connected to Websocket");
+    if (!websocketClosed) {
+        console.log("Connecting to Websocket");
+        websocket = new WebSocket("ws://localhost:9000/websocket");
+        console.log("Connected to Websocket");
+    }
 
     websocket.onopen = function (event) {
         console.log("Trying to connect to Server");
@@ -58,6 +76,12 @@ function connectWebSocket() {
 
 function disconnectWebSocket() {
     websocket.close()
+    websocketClosed = true
+}
+
+function reconnectWebSocket() {
+    websocketClosed = false
+    connectWebSocket()
 }
 
 function readJson(json) {

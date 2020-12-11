@@ -1,6 +1,5 @@
 package controllers
 
-import Battleship.Game.tui.{decreaseShipNumbersToPlace, shipProcessLong}
 import Battleship._
 import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
 import Battleship.controller.InterfaceController
@@ -127,8 +126,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
       gameController.getPlayerState match {
         case PlayerState.PLAYER_ONE => {
           gameController.setShipSet(false)
-          shipProcessLong(coordinates)
-          decreaseShipNumbersToPlace(gameController.getShip, gameController.getShipSet, gameController.getShipDelete)
+          gameController.setShip(coordinates)
           if ((gameController.getNrPlayer1()(0) + gameController.getNrPlayer1()(1) + gameController.getNrPlayer1()(2) +
             gameController.getNrPlayer1()(3)) == 0) {
             gameController.setPlayerState(PlayerState.PLAYER_TWO)
@@ -136,8 +134,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         }
         case PlayerState.PLAYER_TWO => {
           gameController.setShipSet(false)
-          shipProcessLong(coordinates)
-          decreaseShipNumbersToPlace(gameController.getShip, gameController.getShipSet, gameController.getShipDelete)
+          gameController.setShip(coordinates)
           if (gameController.getNrPlayer2()(0) + gameController.getNrPlayer2()(1) + gameController.getNrPlayer2()(2) +
             gameController.getNrPlayer2()(3) == 0) {
             gameController.setPlayerState(PlayerState.PLAYER_ONE)

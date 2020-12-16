@@ -128,7 +128,7 @@ function updatePlayerName(playerOne, playerTwo) {
 }
 
 function playAgain() {
-    window.location = "/playAgain"
+    window.location = "/"
 }
 
 function updateGrid(cells, id, state) {

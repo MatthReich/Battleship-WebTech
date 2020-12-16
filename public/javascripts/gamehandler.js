@@ -97,52 +97,57 @@ function readJson(json) {
             window.location = "/toIdle"
             gameLastState = ""
         }
-        updateGrid(json[0].grid1.cells, "1")
-        updateGrid(json[1].grid2.cells, "2")
+        updatePlayerName(json[5].players.player1, json[5].players.player2)
+        updateGrid(json[0].grid1.cells, "1","")
+        updateGrid(json[1].grid2.cells, "2","")
     } else if (gameState === "SOLVED") {
         window.location = "/winningpage"
     } else if (gameState === "SHIPSETTING") {
-        updatePlayerName(json[5].players.player1, json[5].players.player2)
+        updatePlayerNameSetShip(json[5].players.player1, json[5].players.player2)
         if (playerState === "PLAYER_ONE") {
-            updateGrid(json[0].grid1.cells, "")
+            updateGrid(json[0].grid1.cells, "","ShipSet")
             setShips(json[2].arraysInt.shipSetting)
         } else {
-            updateGrid(json[1].grid2.cells, "")
+            updateGrid(json[1].grid2.cells, "","ShipSet")
             setShips(json[2].arraysInt.shipSetting2)
         }
         gameLastState = "SHIPSETTING"
     }
 }
 
-function updatePlayerName(playerOne, playerTwo) {
+function updatePlayerNameSetShip(playerOne, playerTwo) {
     if (playerState === "PLAYER_ONE") {
         $("." + "playerName").html("<span>" + playerOne + "</span>")
     } else {
         $("." + "playerName").html("<span>" + playerTwo + "</span>")
     }
 }
+function updatePlayerName(playerOne, playerTwo) {
+        $("." + "playerName1").html("<span>" + playerOne + "</span>")
+        $("." + "playerName2").html("<span>" + playerTwo + "</span>")
+}
 
 function playAgain() {
     window.location = "/playAgain"
 }
 
-function updateGrid(cells, id) {
+function updateGrid(cells, id, state) {
     let col = 0
     let row = 0;
     for (let index = 0; index < 100; index++) {
         if (cells[index].valueY === 0) {
-            $("#" + id + row + col).html("<span class=\"blue\">~</span>");
+            $("#" + id + row + col).html("<button name=\"submit\" type=\"button\" class=\"btn btn-outline-secondary buttonSize\" id=\""+row+''+col+"\" onclick=\"handle"+state+"Click("+row+','+col+")\"><span class=\"blue\">~</span></button>");
         } else if (cells[index].valueY === 1) {
             if ((id === "1" && playerState === "PLAYER_TWO") || (id === "2" && playerState === "PLAYER_ONE"))
-                $("#" + id + row + col).html("<span class=\"blue\">~</span>");
+                $("#" + id + row + col).html("<button name=\"submit\" type=\"button\" class=\"btn btn-outline-secondary buttonSize\" id=\""+row+''+col+"\" onclick=\"handle"+state+"Click("+row+','+col+")\"><span class=\"blue\">~</span></button>");
             else
-                $("#" + id + row + col).html("<span class=\"green\">x</span>");
+                $("#" + id + row + col).html("<button name=\"submit\" type=\"button\" class=\"btn btn-outline-secondary buttonSize\" id=\""+row+''+col+"\" onclick=\"handle"+state+"Click("+row+','+col+")\"><span class=\"green\">x</span></button>");
 
         } else if (cells[index].valueY === 2) {
-            $("#" + id + row + col).html("<span class=\"red\">x</span>");
+            $("#" + id + row + col).html("<button name=\"submit\" type=\"button\" class=\"btn btn-outline-secondary buttonSize\" id=\""+row+''+col+"\" onclick=\"handle"+state+"Click("+row+','+col+")\"><span class=\"red\">x</span></button>");
 
         } else if (cells[index].valueY === 3) {
-            $("#" + id + row + col).html("<span class=\"lightblue\">0</span>");
+            $("#" + id + row + col).html("<button name=\"submit\" type=\"button\" class=\"btn btn-outline-secondary buttonSize\" id=\""+row+''+col+"\" onclick=\"handle"+state+"Click("+row+','+col+")\"><span class=\"lightblue\">0</span></button>");
         }
 
         if (col === 9) {

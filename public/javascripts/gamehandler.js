@@ -95,13 +95,15 @@ function readJson(json) {
     if (gameState === "IDLE") {
         if ("SHIPSETTING" === gameLastState) {
             window.location = "/toIdle"
-            gameLastState = ""
         }
         updatePlayerName(json[5].players.player1, json[5].players.player2)
         updateGrid(json[0].grid1.cells, "1","")
         updateGrid(json[1].grid2.cells, "2","")
+        gameLastState = "IDLE"
     } else if (gameState === "SOLVED") {
-        window.location = "/winningpage"
+        if ("IDLE" === gameLastState) {
+            window.location = "/winningpage"
+        }
     } else if (gameState === "SHIPSETTING") {
         updatePlayerNameSetShip(json[5].players.player1, json[5].players.player2)
         if (playerState === "PLAYER_ONE") {

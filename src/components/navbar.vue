@@ -12,7 +12,6 @@
       </v-toolbar-title>
       <v-toolbar-items>
         <v-btn depressed
-            flat
             v-for="item in menuItems"
             :key="item.title"
             :to="item.path">

@@ -3,17 +3,17 @@
       class="mx-auto mt-4" max-width="960" align="center">
     <v-row
         no-gutters
-        v-for="n in 10"
-        :key="n">
+        v-for="row in 10"
+        :key="row">
       <v-col
-          v-for="n in fieldValue"
-          :key="n">
+          v-for="col in fieldValue"
+          :key="col">
         <v-btn
             block
             outlined
             tile
-            :color="n.color">
-          {{ n.text }}
+            :color="col.color">
+          {{ col.text }}
         </v-btn>
       </v-col>
     </v-row>

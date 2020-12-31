@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-container class="mx-auto text-center">
       <h1>Battleship</h1>
       <v-img
@@ -29,7 +29,6 @@
             </v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="firstname"
                   label="Your Name"
                   required
               ></v-text-field>
@@ -57,7 +56,7 @@
       <h2>How to start</h2>
       <p>start the game with typing <code>/setPlayer/"playername"</code></p>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>

@@ -17,6 +17,8 @@ GET         /websocket                     controllers.BattleshipController.sock
 POST        /setPlayer/name                controllers.BattleshipController.setPlayer
 +nocsrf
 POST        /battleship/api/command        controllers.BattleshipController.jsonInput
+GET         /json                          controllers.BattleshipController.getJson
+
 
 # An controller showing about
 GET         /about                         controllers.BattleshipController.about

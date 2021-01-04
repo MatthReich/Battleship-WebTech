@@ -37,6 +37,10 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     Ok(views.html.aboutpage())
   }
 
+  def getJson = Action(parse.json) {
+      Ok(toJson()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+  }
+
   def save: Action[AnyContent] = Action { implicit request =>
     if (gameController.getGameState == GameState.PLAYERSETTING) {
       gameController.save()

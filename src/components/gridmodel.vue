@@ -4,16 +4,17 @@
     <v-row
         no-gutters
         v-for="row in 10"
-        :key="row">
+        :key="row-1">
       <v-col
-          v-for="col in fieldValue"
-          :key="col">
+          v-for="col in 10"
+          :key="col-1">
         <v-btn
             block
             outlined
             tile
+            :key="(row-1).toString() + (col-1).toString()"
             :color="col.color">
-          {{ col.text }}
+          {{ grid1(row, col) }}
         </v-btn>
       </v-col>
     </v-row>
@@ -23,19 +24,16 @@
 <script>
 export default {
   name: "gridmodel",
-    data: () => ({
-      fieldValue: [
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" },
-        { text: "x", color: "red--text text--lighten-1" }
-      ],
-    }),
+  data:() =>({
+    grid1:this.$store.getters.getGrid1
+  }),
+  mounted() {
+    this.$store.dispatch("getJson")
+  },
+  methods:{
+    getGrid:function (){
+      this.$store.dispatch("getJson")
+    }
+  }
 }
 </script>

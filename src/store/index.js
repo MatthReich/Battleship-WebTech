@@ -22,7 +22,7 @@ const store = new Vuex.Store({
     actions: {
         getJson({commit}) {
             $.ajax({
-                method: "GET", url: "http://localhost:9000/json", dataType: "json", contentType: "application/json",
+                method: "POST", url: "http://localhost:9000/battleship/api/command", dataType: "json", contentType: "application/json",
                 success: function (response) {
                     console.log("Connected")
                     commit('SET_OBJECT', response)
@@ -44,6 +44,11 @@ const store = new Vuex.Store({
             state.player1 = object
             state.player2 = object
         }
+    },
+    getters:{
+        getGrid1(){
+            return initState.grid1
+        }
     }
 })
 
@@ -59,6 +64,7 @@ websocket.onerror = function (error) {
 websocket.onmessage = function (message){
     const object = JSON.parse(message.data);
     console.log("Reseived Message")
+    console.log(object)
     store.commit('SET_OBJECT', object)
 }
 

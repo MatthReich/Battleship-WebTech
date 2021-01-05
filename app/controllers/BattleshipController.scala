@@ -167,6 +167,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
       out => Props(new MyWebSocketActor(out))
     }
   }
+  //
 
   class MyWebSocketActor(out: ActorRef) extends Actor with Reactor {
     listenTo(gameController)

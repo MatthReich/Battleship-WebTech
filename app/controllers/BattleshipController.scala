@@ -16,6 +16,7 @@ import scala.swing.Reactor
 @Singleton
 class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
   var gameController: InterfaceController = Game.controller
+  var isFirst = false
 
   def playAgain(): Action[AnyContent] = Action { implicit request =>
     val injector = Guice.createInjector(new GameModule)
@@ -173,10 +174,15 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     reactions += {
       case event: CellChanged =>
         println("cell-changed")
-        out ! toJson()
+        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
       case event: PlayerChanged =>
         println("player-changed")
-        out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
+        if (isFirst == true){
+          out ! Json.obj("event" -> "start-game").toString()
+          isFirst = false
+        } else {
+          out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
+        }
       case other => println("Unmanaged event: " + other.getClass.getName)
     }
 
@@ -186,11 +192,21 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
       case x: String if x.nonEmpty =>
         println("eingabe: " + x)
-        val eingabe = x.split(" ");
         if (gameController.getGameState == GameState.IDLE) {
+          val eingabe = x.split(" ");
           idle(eingabe(0) + " " + eingabe(1))
         } else if (gameController.getGameState == GameState.SHIPSETTING) {
+          val eingabe = x.split(" ");
           setShip(eingabe(0) + " " + eingabe(1) + " " + eingabe(2) + " " + eingabe(3))
+        } else if (gameController.getGameState == GameState.PLAYERSETTING){
+          if (gameController.getPlayerState == PlayerState.PLAYER_ONE){
+            out ! Json.obj("event" -> "send-id", "object" -> "player1").toString()
+          } else {
+            out ! Json.obj("event" -> "send-id", "object" -> "player2").toString()
+            isFirst = true
+          }
+          gameController.setPlayers(x)
+
         }
     }
   }

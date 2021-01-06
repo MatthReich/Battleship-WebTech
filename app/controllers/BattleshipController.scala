@@ -17,6 +17,7 @@ import scala.swing.Reactor
 class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
   var gameController: InterfaceController = Game.controller
   var isFirst = false
+  var isLast = true
 
   def playAgain(): Action[AnyContent] = Action { implicit request =>
     val injector = Guice.createInjector(new GameModule)
@@ -179,7 +180,10 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         println("player-changed")
         if (isFirst == true){
           out ! Json.obj("event" -> "start-game").toString()
-          isFirst = false
+          if (isLast == false)
+            isFirst = false
+          else
+            isLast = false
         } else {
           out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
         }

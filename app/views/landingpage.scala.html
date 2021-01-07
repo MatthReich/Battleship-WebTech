@@ -14,46 +14,27 @@
         <br>
         <hr>
         <br>
-        <div class="middleButton">
-            <button type="button" class="btn btn-primary middleButton" data-toggle="collapse" data-target="#demo">Play</button>
-        </div>
-        <div id="demo" class="collapse">
-            <br>
-            <form id="startGame" action="@routes.BattleshipController.setPlayer" method="post">
-                @helper.CSRF.formField
-                <div class="form-group row">
-                    <div class="col">
-                        <input id="namePlayer1" name="namePlayer1" placeholder="Player 1" type="text" aria-describedby="namePlayer1HelpBlock" required="required" class="form-control">
-                        <span id="namePlayer1HelpBlock" class="form-text text-muted">
-                            Please add the name for player 1 here.</span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col">
-                        <input id="namePlayer2" name="namePlayer2" placeholder="Player 2" type="text" class="form-control" aria-describedby="namePlayer2HelpBlock">
-                        <span id="namePlayer2HelpBlock" class="form-text text-muted">
-                            Please add the name for player 2 here.</span>
-                    </div>
-                </div>
-                <div class="form-group row col middleButton">
-                    <button name="submit" type="submit" class="btn btn-primary middleButton">Play</button>
-                </div>
-            </form>
-        </div>
+
         <br>
         <hr>
         <h2>How to start</h2>
         <div class="text_landingpage">
-            <p>start the game with typing <span class="span_command">/setPlayer/"playername"</span></p>
+            <p>This is just the server page. To switch to the game just click the button:</p>
+            <div class="middleButton">
+                <button type="button" class="btn btn-primary middleButton" onclick="window.location.href='http://localhost:8080/#/'">Play</button>
+            </div>
         </div>
         <br>
         <hr>
         <br>
         <h2>More Information</h2>
         <div class="text_landingpage">
-            <p>you can type <span class="span_command">/about</span>
-                to see the about page which documents all about the game </p>
+            <p>you can switch to the <a href="/about">ABOUT</a> Page
+                to see more informations </p>
         </div>
+        <br>
+        <hr>
+        <br>
     </body>
 
 }

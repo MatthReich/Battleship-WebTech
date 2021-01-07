@@ -1,8 +1,4 @@
-#body_landingpage,
-#body_aboutpage,
-#body_gamepage,
-#body_setshippage,
-#body_winningpage{
+body {
     background: black;
 }
 

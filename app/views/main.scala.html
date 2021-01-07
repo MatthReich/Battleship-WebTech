@@ -30,31 +30,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/setShip">Set Ship</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/toIdle">Main Game</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/load">Load</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/save">Save</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="reconnectWebSocket()">Connect</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="disconnectWebSocket()">Disconnect</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        @* And here's where we render the `Html` object containing
-        * the page content. *@
         @content
     </body>
 </html>

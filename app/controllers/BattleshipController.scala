@@ -20,9 +20,6 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
   var isLast = true
 
   def playAgain(): Action[AnyContent] = Action { implicit request =>
-    val injector = Guice.createInjector(new GameModule)
-    gameController = injector.getInstance(classOf[InterfaceController])
-    gameController.init()
     Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
@@ -31,12 +28,8 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     selection.map { args =>
       gameController.setPlayers(args("namePlayer1").head)
       gameController.setPlayers(args("namePlayer2").head)
-      Ok(views.html.setShip(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+      Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
     }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
-  }
-
-  def about: Action[AnyContent] = Action {
-    Ok(views.html.aboutpage())
   }
 
   def getJson = Action(parse.json) {
@@ -44,49 +37,17 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
   }
 
   def save: Action[AnyContent] = Action { implicit request =>
-    if (gameController.getGameState == GameState.PLAYERSETTING) {
-      gameController.save()
-      Ok(views.html.setPlayer(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else if (gameController.getGameState == GameState.SHIPSETTING) {
-      gameController.save()
-      Ok(views.html.setShip(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else if (gameController.getGameState == GameState.IDLE) {
-      gameController.save()
-      Ok(views.html.idlepage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else if (gameController.getGameState == GameState.SOLVED) {
-      gameController.save()
-      Ok(views.html.winningpage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else {
-      gameController.save()
-      Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    }
+    gameController.save()
+    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def load: Action[AnyContent] = Action { implicit request =>
     gameController.load()
-    if (gameController.getGameState == GameState.PLAYERSETTING) {
-      Ok(views.html.setPlayer(null)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else if (gameController.getGameState == GameState.SHIPSETTING) {
-      Ok(views.html.setShip(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else if (gameController.getGameState == GameState.IDLE) {
-      Ok(views.html.idlepage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else if (gameController.getGameState == GameState.SOLVED) {
-      Ok(views.html.winningpage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    } else {
-      Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    }
+    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def landingpage: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
-  def setShipView: Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
-  def idleView: Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.idlepage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def jsonInput = Action(parse.json) {
@@ -100,10 +61,6 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
 
     }
       Ok(toJson()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
-  def toIdle() = Action {
-    Ok(views.html.idlepage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def idle(coordinates: String): Unit = {
@@ -160,10 +117,6 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     ((value \ "row").get.toString(), (value \ "col").get.toString(), (value \ "row2").get.toString(), (value \ "col2").get.toString())
   }
 
-  def winningpage() = Action {
-    Ok(views.html.winningpage(gameController)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
   def socket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef {
       out => Props(new MyWebSocketActor(out))
@@ -178,9 +131,9 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
       case event: PlayerChanged =>
         println("player-changed")
-        if (isFirst == true){
+        if (isFirst){
           out ! Json.obj("event" -> "start-game").toString()
-          if (isLast == false)
+          if (!isLast)
             isFirst = false
           else
             isLast = false
@@ -210,7 +163,6 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
             isFirst = true
           }
           gameController.setPlayers(x)
-
         }
     }
   }

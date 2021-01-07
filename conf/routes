@@ -7,21 +7,14 @@
 GET         /                              controllers.BattleshipController.landingpage
 GET         /save                          controllers.BattleshipController.save
 GET         /load                          controllers.BattleshipController.load
-GET         /playAgain                     controllers.BattleshipController.playAgain
-GET         /winningpage                   controllers.BattleshipController.winningpage
-GET         /toIdle                        controllers.BattleshipController.toIdle
+GET         /playAgain                     controllers.BattleshipController.playAgain()
 
 GET         /websocket                     controllers.BattleshipController.socket
 
 
-POST        /setPlayer/name                controllers.BattleshipController.setPlayer
 +nocsrf
 POST        /battleship/api/command        controllers.BattleshipController.jsonInput
 GET         /json                          controllers.BattleshipController.getJson
-
-
-# An controller showing about
-GET         /about                         controllers.BattleshipController.about
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)

@@ -31,8 +31,8 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
   }
 
-  def getJson = Action(parse.json) {
-      Ok(toJson()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+  def getJson: Action[AnyContent] = Action(parse.json) {
+      Ok(toJson).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def save: Action[AnyContent] = Action {
@@ -49,7 +49,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
-  def jsonInput = Action(parse.json) {
+  def jsonInput: Action[JsValue] = Action(parse.json) {
     request: Request[JsValue] => {
       val data = readCommand(request.body)
       if (gameController.getGameState == GameState.IDLE) {
@@ -59,7 +59,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
       }
 
     }
-      Ok(toJson()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+      Ok(toJson).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def idle(coordinates: String): Unit = {
@@ -107,7 +107,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     }
   }
 
-  def toJson(): String = {
+  def toJson: String = {
     val gridtoJson = new GridtoJson()
     gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState, gameController.getPlayer1, gameController.getPlayer2)
   }
@@ -116,7 +116,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     ((value \ "row").get.toString(), (value \ "col").get.toString(), (value \ "row2").get.toString(), (value \ "col2").get.toString())
   }
 
-  def socket = WebSocket.accept[String, String] { request =>
+  def socket: WebSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef {
       out => Props(new MyWebSocketActor(out))
     }
@@ -126,10 +126,10 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     listenTo(gameController)
     reactions += {
       case event: CellChanged =>
-        println("cell-changed")
+        println("cell-changed:" + event)
         out ! Json.obj("event" -> "cell-changed").toString()
       case event: PlayerChanged =>
-        println("player-changed")
+        println("player-changed:" + event)
         if (isFirst){
           out ! Json.obj("event" -> "start-game").toString()
           if (!isLast)

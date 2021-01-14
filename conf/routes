@@ -3,7 +3,6 @@
 # ~~~~
 
 # Home page
-GET         /                                controllers.ApplicationController.index
 GET         /signOut                         controllers.ApplicationController.signOut
 GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
 
@@ -31,6 +30,17 @@ POST        /password/change                 controllers.ChangePasswordControlle
 
 GET         /account/email/:email            controllers.ActivateAccountController.send(email: String)
 GET         /account/activate/:token         controllers.ActivateAccountController.activate(token: java.util.UUID)
+
+GET         /                              controllers.BattleshipController.landingpage
+GET         /save                          controllers.BattleshipController.save
+GET         /load                          controllers.BattleshipController.load
+GET         /playAgain                     controllers.BattleshipController.playAgain()
+
+GET         /websocket                     controllers.BattleshipController.socket
+
++nocsrf
+POST        /battleship/api/command        controllers.BattleshipController.jsonInput
+GET         /json                          controllers.BattleshipController.getJson
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.versioned(file)

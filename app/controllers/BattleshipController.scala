@@ -4,7 +4,6 @@ import Battleship._
 import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
 import Battleship.controller.InterfaceController
 import akka.actor.{ActorSystem, _}
-import com.google.inject.Guice
 import javax.inject._
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.streams.ActorFlow
@@ -19,8 +18,8 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
   var isFirst = false
   var isLast = true
 
-  def playAgain(): Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+  def playAgain(): Action[AnyContent] = Action {
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def setPlayer(): Action[AnyContent] = Action { implicit request =>
@@ -36,18 +35,18 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
       Ok(toJson()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
-  def save: Action[AnyContent] = Action { implicit request =>
+  def save: Action[AnyContent] = Action {
     gameController.save()
-    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
-  def load: Action[AnyContent] = Action { implicit request =>
+  def load: Action[AnyContent] = Action {
     gameController.load()
-    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
-  def landingpage: Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+  def landingpage: Action[AnyContent] = Action {
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
   }
 
   def jsonInput = Action(parse.json) {
@@ -128,7 +127,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     reactions += {
       case event: CellChanged =>
         println("cell-changed")
-        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
+        out ! Json.obj("event" -> "cell-changed").toString()
       case event: PlayerChanged =>
         println("player-changed")
         if (isFirst){
@@ -138,15 +137,14 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
           else
             isLast = false
         } else {
-          out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
+          out ! Json.obj("event" -> "player-changed").toString()
         }
       case other => println("Unmanaged event: " + other.getClass.getName)
     }
 
     override def receive: Receive = {
-      case "Trying to connect to Server" =>
-        println("is connected")
-        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
+      case "Connect to Server" =>
+        println("New client is connected")
       case x: String if x.nonEmpty =>
         println("eingabe: " + x)
         if (gameController.getGameState == GameState.IDLE) {

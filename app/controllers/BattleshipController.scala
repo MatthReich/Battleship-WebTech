@@ -1,15 +1,15 @@
 package controllers
 
 import Battleship.Game
-import Battleship.controller.ControllerBaseImpl.{ CellChanged, GameState, PlayerChanged, PlayerState }
+import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
 import Battleship.controller.InterfaceController
-import akka.actor.{ ActorSystem, _ }
-import play.api.libs.json.{ JsValue, Json }
+import akka.actor.{ActorSystem, _}
+import javax.inject._
+import play.api.libs.json.{JsValue, Json}
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 import utils.GridtoJson
 
-import javax.inject._
 import scala.swing.Reactor
 
 @Singleton

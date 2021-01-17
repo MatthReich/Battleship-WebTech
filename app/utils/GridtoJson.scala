@@ -1,5 +1,9 @@
 package utils
 
+import Battleship.controller.ControllerBaseImpl.GameState.GameState
+import Battleship.controller.ControllerBaseImpl.PlayerState.PlayerState
+import Battleship.model.Person.InterfacePerson
+import Battleship.model.gridComponent.InterfaceGrid
 import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 
 class GridtoJson {

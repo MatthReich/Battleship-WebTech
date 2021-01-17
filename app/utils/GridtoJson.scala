@@ -43,7 +43,6 @@ class GridtoJson {
     def writes(grid2: InterfaceGrid): JsValue = grid2ToJson(grid2)
   }
 
-
   def grid1ToJson(grid: InterfaceGrid) = {
     val gridSize = grid.getSize
     Json.obj(

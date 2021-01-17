@@ -2,15 +2,19 @@ import com.typesafe.sbt.SbtScalariform._
 
 import scalariform.formatter.preferences._
 
-name := "play-silhouette-seed"
+name := "Battleshipwebtech"
 
-version := "6.0.0"
+version := "1.0"
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.12.2"
 
 resolvers += Resolver.jcenterRepo
 
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+
+resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+
+resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
 libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "6.1.1",
@@ -32,10 +36,30 @@ libraryDependencies ++= Seq(
   specs2 % Test,
   ehcache,
   guice,
-  filters
+  filters,
+  jdbc,
+  ws
 )
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+libraryDependencies += guice
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+
+libraryDependencies += "com.h2database" % "h2" % "1.4.196"
+
+libraryDependencies += "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3"
+
+libraryDependencies += "com.google.inject" % "guice" % "3.0"
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
+
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.6"
+
+libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
+
+lazy val `battleshipwebtech` = (project in file(".")).enablePlugins(PlayScala)
 
 routesImport += "utils.route.Binders._"
 

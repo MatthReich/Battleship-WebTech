@@ -1,22 +1,25 @@
 package controllers
 
 import Battleship.Game
+import Battleship.controller.ControllerBaseImpl.{ CellChanged, GameState, PlayerChanged, PlayerState }
 import Battleship.controller.InterfaceController
-import akka.actor.{ActorSystem, _}
-import play.api.libs.json.{JsValue, Json}
+import akka.actor.{ ActorSystem, _ }
+import play.api.libs.json.{ JsValue, Json }
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
+import utils.GridtoJson
 
 import javax.inject._
+import scala.swing.Reactor
 
 @Singleton
-class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
+class BattleshipController @Inject() (cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
   var gameController: InterfaceController = Game.controller
   var isFirst = false
   var isLast = true
 
   def playAgain(): Action[AnyContent] = Action {
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def setPlayer(): Action[AnyContent] = Action { implicit request =>
@@ -24,39 +27,40 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
     selection.map { args =>
       gameController.setPlayers(args("namePlayer1").head)
       gameController.setPlayers(args("namePlayer2").head)
-      Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+      Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
     }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
   }
 
   def getJson: Action[AnyContent] = Action(parse.json) {
-      Ok(toJson).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(toJson).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def save: Action[AnyContent] = Action {
     gameController.save()
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def load: Action[AnyContent] = Action {
     gameController.load()
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def landingpage: Action[AnyContent] = Action {
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def jsonInput: Action[JsValue] = Action(parse.json) {
-    request: Request[JsValue] => {
-      val data = readCommand(request.body)
-      if (gameController.getGameState == GameState.IDLE) {
-        idle(data._1 + " " + data._2)
-      } else if (gameController.getGameState == GameState.SHIPSETTING) {
-        setShip(data._1 + " " + data._2 + " " + data._3 + " " + data._4)
-      }
+    request: Request[JsValue] =>
+      {
+        val data = readCommand(request.body)
+        if (gameController.getGameState == GameState.IDLE) {
+          idle(data._1 + " " + data._2)
+        } else if (gameController.getGameState == GameState.SHIPSETTING) {
+          setShip(data._1 + " " + data._2 + " " + data._3 + " " + data._4)
+        }
 
-    }
-      Ok(toJson).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+      }
+      Ok(toJson).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def idle(coordinates: String): Unit = {
@@ -71,8 +75,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
           gameController.checkGuess(coordinates, gameController.getGridPlayer2)
           gameController.setLastGuess(coordinates)
-        }
-        else {
+        } else {
           gameController.checkGuess(coordinates, gameController.getGridPlayer1)
           gameController.setLastGuess(coordinates)
         }
@@ -127,7 +130,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         out ! Json.obj("event" -> "cell-changed").toString()
       case event: PlayerChanged =>
         println("player-changed:" + event)
-        if (isFirst){
+        if (isFirst) {
           out ! Json.obj("event" -> "start-game").toString()
           if (!isLast)
             isFirst = false
@@ -150,8 +153,8 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         } else if (gameController.getGameState == GameState.SHIPSETTING) {
           val eingabe = x.split(" ");
           setShip(eingabe(0) + " " + eingabe(1) + " " + eingabe(2) + " " + eingabe(3))
-        } else if (gameController.getGameState == GameState.PLAYERSETTING){
-          if (gameController.getPlayerState == PlayerState.PLAYER_ONE){
+        } else if (gameController.getGameState == GameState.PLAYERSETTING) {
+          if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
             out ! Json.obj("event" -> "send-id", "object" -> "player1").toString()
           } else {
             out ! Json.obj("event" -> "send-id", "object" -> "player2").toString()

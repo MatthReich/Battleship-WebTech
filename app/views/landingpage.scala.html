@@ -1,0 +1,39 @@
+@main("Battleship") {
+    <body id="body_landingpage">
+        <br>
+        <br>
+        <h1>Battleship</h1>
+        <hr>
+        <br>
+        <div class="video_div">
+            <video autoplay loop id="video_landingpage">
+                <source src="@routes.Assets.versioned("images/battleship_intro.mp4")" type="video/mp4">
+            </video>
+        </div>
+        <br>
+        <hr>
+        <br>
+
+        <br>
+        <hr>
+        <h2>How to start</h2>
+        <div class="text_landingpage">
+            <p>This is just the server page. To switch to the game just click the button:</p>
+            <div class="middleButton">
+                <button type="button" class="btn btn-primary middleButton" onclick="window.location.href = 'http://localhost:8080/vuejs-pwa/#/'">
+                    Play</button>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <h2>More Information</h2>
+        <div class="text_landingpage">
+            <p>you can switch to the <a href="http://localhost:8080/#/about">ABOUT</a> Page
+                to see more informations </p>
+        </div>
+        <br>
+        <hr>
+        <br>
+    </body>
+}

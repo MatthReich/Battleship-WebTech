@@ -1,11 +1,11 @@
 package controllers
 
 import Battleship.Game
-import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
+import Battleship.controller.ControllerBaseImpl.{ CellChanged, GameState, PlayerChanged, PlayerState }
 import Battleship.controller.InterfaceController
-import akka.actor.{ActorSystem, _}
+import akka.actor.{ ActorSystem, _ }
 import javax.inject._
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{ JsValue, Json }
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 import utils.GridtoJson
@@ -19,7 +19,7 @@ class BattleshipController @Inject() (cc: ControllerComponents)(implicit system:
   var isLast = true
 
   def playAgain(): Action[AnyContent] = Action {
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    Ok("200").withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def setPlayer(): Action[AnyContent] = Action { implicit request =>
@@ -27,7 +27,7 @@ class BattleshipController @Inject() (cc: ControllerComponents)(implicit system:
     selection.map { args =>
       gameController.setPlayers(args("namePlayer1").head)
       gameController.setPlayers(args("namePlayer2").head)
-      Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+      Ok("200").withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
     }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
   }
 
@@ -37,16 +37,16 @@ class BattleshipController @Inject() (cc: ControllerComponents)(implicit system:
 
   def save: Action[AnyContent] = Action {
     gameController.save()
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    Ok("200").withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def load: Action[AnyContent] = Action {
     gameController.load()
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    Ok("200").withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def landingpage: Action[AnyContent] = Action {
-    Ok(views.html.landingpage()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    Ok("200").withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def jsonInput: Action[JsValue] = Action(parse.json) {

@@ -31,17 +31,17 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">Silhouette Seed Template</a>
+                <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">Battleship</a>
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" href="@controllers.routes.ApplicationController.index">@messages("home")</a>
-                        <a class="nav-item nav-link" href="https://github.com/mohiva/play-silhouette-seed">GitHub</a>
                     </div>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup2">
                     <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="https://github.com/MatthReich/Battleship-WebTech">GitHub</a>
                         @user.map { u =>
                         <a class="nav-link" href="@controllers.routes.ApplicationController.index">@u.name</a>
                         @if(u.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {

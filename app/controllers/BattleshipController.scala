@@ -1,15 +1,15 @@
 package controllers
 
 import Battleship._
-import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
+import Battleship.controller.ControllerBaseImpl.{ CellChanged, GameState, PlayerChanged, PlayerState }
 import Battleship.controller.InterfaceController
-import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.actor.{ Actor, ActorRef, ActorSystem, Props }
 import akka.stream.Materializer
 import com.mohiva.play.silhouette.api.Silhouette
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
-import javax.inject.{Inject, Singleton}
-import play.api.libs.json.{JsValue, Json}
+import javax.inject.{ Inject, Singleton }
+import play.api.libs.json.{ JsValue, Json }
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 import utils.GridtoJson

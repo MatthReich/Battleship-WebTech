@@ -17,39 +17,60 @@
 @main(messages("home.title"), Some(user)) {
     <div class="user col-md-6 col-md-offset-3">
         <div class="row">
-            <hr class="col-md-12" />
-            <h4 class="col-md-8">@messages("welcome.signed.in")</h4>
-            <div class="col-md-4 text-right">
-                <img src="@user.avatarURL.getOrElse(assets.path("images/silhouette.png"))" height="40px" />
-            </div>
-            <hr class="col-md-12" />
+            <h1>Battleship</h1>
         </div>
         <div class="row data">
             <div class="col-md-12">
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("first.name")
-                        :</strong></p><p class="col-md-6">@user.firstName.getOrElse("None")</p>
-                </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("last.name")
-                        :</strong></p><p class="col-md-6">@user.lastName.getOrElse("None")</p>
-                </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("full.name")
-                        :</strong></p><p class="col-md-6">@user.fullName.getOrElse("None")</p>
-                </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("email")
-                        :</strong></p><p class="col-md-6">@user.email.getOrElse("None")</p>
-                </div>
+                <p>
+                    The game is played on four grids, two for each player. The grids are
+                    typically square – usually 10×10 – and the individual squares in the
+                    grid are identified by letter and number. On one grid the player
+                    arranges ships and records the shots by the opponent. On the other grid
+                    the player records their own shots. Before play begins, each player
+                    secretly arranges their ships on their primary grid. Each ship occupies
+                    a number of consecutive squares on the grid, arranged either
+                    horizontally or vertically. The number of squares for each ship is
+                    determined by the type of the ship. The ships cannot overlap (i.e., only
+                    one ship can occupy any given square in the grid). The types and numbers
+                    of ships allowed are the same for each player.
+                </p>
+                <h3>Gamestates:</h3>
+                <br />
+                <p>
+                    <strong>Playersetting:</strong>
+                    <br />
+                    Just hit the start button on the <a href="/#/">HOME</a> Page and write
+                    your Name. Then wait for player 2
+                </p>
+                <p>
+                    <strong>Shipsetting:</strong>
+                    <br />
+                    the ships has to set the start and the end of the ship
+                </p>
+                <p>
+                    <strong>Idle:</strong>
+                    <br />
+                    Just press the field you think the opponent has placed a ship
+                </p>
+                <p><strong>Solved</strong><br />it's a secret ;)</p>
+                <p>
+                    <strong>Saved</strong><br />press SAVE in the navbar
+                </p>
+                <p>
+                    <strong>Loaded</strong><br />press LAOD in the navbar
+                </p>
             </div>
-        </div>
-        <div class="row data">
-            <div class="form-group">
-                <div>
-
-                    <button onclick="location.href=''" class="btn btn-lg btn-primary btn-block">Play Game</button>
-                </div>
+            <hr />
+            <br />
+            <br />
+            <hr />
+            <br />
+            <h2>Developer</h2>
+            <div class="developer_aboutpage">
+                <br />
+                <p>Marcel Gaiser</p>
+                <p>Matthias Reichenbach</p>
+            </div>
             </div>
         </div>
     </div>

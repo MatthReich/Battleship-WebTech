@@ -6,11 +6,15 @@ name := "play-silhouette-seed"
 
 version := "6.0.0"
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.12.2"
 
 resolvers += Resolver.jcenterRepo
 
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+
+resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+
+resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
 libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "6.1.1",
@@ -29,11 +33,32 @@ libraryDependencies ++= Seq(
   "com.enragedginger" %% "akka-quartz-scheduler" % "1.8.3-akka-2.6.x",
   "com.adrianhurt" %% "play-bootstrap" % "1.5.1-P27-B4",
   "com.mohiva" %% "play-silhouette-testkit" % "6.1.1" % "test",
+  "com.google.inject" % "guice" % "3.0",
   specs2 % Test,
   ehcache,
   guice,
-  filters
+  filters,
+  jdbc,
+  ws
 )
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+
+libraryDependencies += "com.h2database" % "h2" % "1.4.196"
+
+libraryDependencies += "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3"
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
+
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.6"
+
+libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.8.0"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 

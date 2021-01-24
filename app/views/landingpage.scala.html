@@ -1,0 +1,49 @@
+@import com.mohiva.play.silhouette.impl.providers.{GoogleTotpCredentials, GoogleTotpInfo}
+@import controllers.AssetsFinder
+@import forms.TotpSetupForm.Data
+@import org.webjars.play.WebJarsUtil
+@import play.api.data._
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+
+@this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
+
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+
+@main(messages("home.title"), Some(user)) {
+    <body id="body_landingpage">
+        <br>
+        <br>
+        <h1>Battleship</h1>
+        <hr>
+        <br>
+        <br>
+        <hr>
+        <br>
+
+        <br>
+        <hr>
+        <h2>How to start</h2>
+        <div class="text_landingpage">
+            <p>This is just the server page. To switch to the game just click the button:</p>
+            <div class="middleButton">
+                <button type="button" class="btn btn-primary middleButton" onclick="window.location.href = 'http://localhost:8080/vuejs-pwa/#/'">
+                    Play</button>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <h2>More Information</h2>
+        <div class="text_landingpage">
+            <p>you can switch to the <a href="http://localhost:8080/#/about">ABOUT</a> Page
+                to see more informations </p>
+        </div>
+        <br>
+        <hr>
+        <br>
+    </body>
+}

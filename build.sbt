@@ -1,5 +1,4 @@
 import com.typesafe.sbt.SbtScalariform._
-
 import scalariform.formatter.preferences._
 
 name := "battleship"
@@ -25,7 +24,6 @@ libraryDependencies ++= Seq(
   "org.webjars" %% "webjars-play" % "2.8.0",
   "org.webjars" % "bootstrap" % "4.4.1" exclude("org.webjars", "jquery"),
   "org.webjars" % "jquery" % "3.2.1",
-  "net.codingwell" %% "scala-guice" % "4.2.6",
   "com.iheart" %% "ficus" % "1.4.7",
   "com.typesafe.play" %% "play-mailer" % "7.0.1",
   "com.typesafe.play" %% "play-mailer-guice" % "7.0.1",
@@ -42,21 +40,17 @@ libraryDependencies ++= Seq(
   ws
 )
 
-libraryDependencies += guice
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
-libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 
-libraryDependencies += "junit" % "junit" % "4.8" % "test"
+libraryDependencies += "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3"
 
-libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
 
-libraryDependencies += "com.google.inject" % "guice" % "3.0"
-
-libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
-
-libraryDependencies += "com.typesafe.play" %% "play-json" % "2.8.0"
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.6"
 
 libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
 

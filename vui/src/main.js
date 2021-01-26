@@ -10,6 +10,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Vuelidate from 'vuelidate'
+import Vuetify from "./plugins/vuetify";
 
 library.add(fas, fab)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -17,7 +18,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
-
+Vue.use(Vuetify);
 Vue.use(VueResource);
 Vue.use(Buefy, {
     defaultIconComponent: 'font-awesome-icon',
@@ -45,5 +46,6 @@ Vue.http.interceptors.push(function(request) {
 new Vue({
   router,
   store,
-  render: h => h(App)
+    Vuetify,
+    render: h => h(App)
 }).$mount('#app')

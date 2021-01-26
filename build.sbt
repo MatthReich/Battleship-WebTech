@@ -11,6 +11,10 @@ lazy val playSlickVersion = "4.0.2"
 
 resolvers += Resolver.jcenterRepo
 
+resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+
+resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
+
 libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "6.1.0",
   "com.mohiva" %% "play-silhouette-password-bcrypt" % "6.1.0",
@@ -24,11 +28,16 @@ libraryDependencies ++= Seq(
   "com.iheart" %% "ficus" % "1.4.3",
   "com.typesafe.play" %% "play-slick"               % playSlickVersion,
   "com.typesafe.play" %% "play-slick-evolutions"    % playSlickVersion,
+  specs2 % Test,
   caffeine,
   guice,
   filters,
+  ws,
   "com.sendgrid" % "sendgrid-java" % "4.4.1"
 )
+
+libraryDependencies += "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3"
+
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 

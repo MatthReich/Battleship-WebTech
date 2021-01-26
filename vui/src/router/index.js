@@ -15,6 +15,8 @@ import OtherAdminPage from '../components/OtherAdminPage.vue'
 import Todo from '../components/Todo.vue'
 import Changelog from '../components/Changelog.vue'
 import About from '../components/About.vue'
+import Game from '../components/Game.vue'
+import TmpHome from '../components/TmpHome.vue'
 import SiteLayout from '../components/SiteLayout.vue'
 import store from '../store'
 
@@ -101,6 +103,16 @@ const routes = [
                 path: 'about',
                 name: 'about',
                 component: About
+            },
+            {
+                path: 'tmphome',
+                name: 'tmphome',
+                component: TmpHome
+            },
+            {
+                path: 'battleship',
+                name: 'battleship',
+                component: Game
             },
             {
                 path: 'signin',

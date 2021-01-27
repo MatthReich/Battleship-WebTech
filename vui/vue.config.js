@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require('webpack')
 
 module.exports = {
-    transpileDependencies: ["vuetify"],
+    transpileDependencies: ['vuetify'],
     outputDir: path.resolve(__dirname, "../public/ui"),
     assetsDir: process.env.NODE_ENV === 'production' ? 'static':'',
     devServer: {

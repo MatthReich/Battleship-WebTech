@@ -6,5 +6,8 @@
   },
   "scripts": {
     "postinstall": "cd vui && npm install && npm run build"
+  },
+  "devDependencies": {
+    "vue-cli-plugin-vuetify": "~2.0.9"
   }
 }

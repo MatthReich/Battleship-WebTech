@@ -2,44 +2,43 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-### User SignIn && SignUp
-GET         /signOut                         controllers.ApplicationController.signOut
-POST        /signIn                          controllers.SignInController.submit
-POST        /signUp                          controllers.SignUpController.submit
-GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
-GET         /link-account/:provider          controllers.SocialAuthController.linkAccount(provider)
-POST        /password/forgot                 controllers.ForgotPasswordController.submit
-POST        /password/reset/:token           controllers.ResetPasswordController.submit(token: java.util.UUID)
-POST        /password/change                 controllers.ChangePasswordController.submit
-GET         /account/email/:email            controllers.ActivateAccountController.send(email: String)
-GET         /account/activate/:token         controllers.ActivateAccountController.activate(token: java.util.UUID)
+# Home page
+GET         /                               controllers.ApplicationController.index
+GET         /signOut                        controllers.ApplicationController.signOut
+GET         /authenticate/:provider         controllers.SocialAuthController.authenticate(provider)
 
+GET         /signUp                         controllers.SignUpController.view
+POST        /signUp                         controllers.SignUpController.submit
 
-# Returns a list of linked accounts for user
-GET         /api/user/:userId/linked-accounts    controllers.UserController.fetchLinkedAccounts(userId: java.util.UUID)
+GET         /signIn                         controllers.SignInController.view
+POST        /signIn                         controllers.SignInController.submit
 
-### User management
-# Returns a list of all availalble user roles
-GET         /api/user/role                       controllers.UserManagerController.userRoles()
-# Changes role for user by id
-POST        /api/user/:userId/role               controllers.UserManagerController.changeUserRole(userId: java.util.UUID)
-# Returns a list of users
-GET         /api/user                            controllers.UserManagerController.users()
+GET         /totp                           controllers.TotpController.view(userId: java.util.UUID, sharedKey: String, rememberMe: Boolean)
+GET         /enableTotp                     controllers.TotpController.enableTotp
+GET         /disableTotp                    controllers.TotpController.disableTotp
+POST        /totpSubmit                     controllers.TotpController.submit
+POST        /enableTotpSubmit               controllers.TotpController.enableTotpSubmit
+
+GET         /totpRecovery                   controllers.TotpRecoveryController.view(userID: java.util.UUID, sharedKey: String, rememberMe: Boolean)
+POST        /totpRecoverySubmit             controllers.TotpRecoveryController.submit
+
+GET         /password/forgot                controllers.ForgotPasswordController.view
+POST        /password/forgot                controllers.ForgotPasswordController.submit
+GET         /password/reset/:token          controllers.ResetPasswordController.view(token: java.util.UUID)
+POST        /password/reset/:token          controllers.ResetPasswordController.submit(token: java.util.UUID)
+GET         /password/change                controllers.ChangePasswordController.view
+POST        /password/change                controllers.ChangePasswordController.submit
+
+GET         /account/email/:email           controllers.ActivateAccountController.send(email: String)
+GET         /account/activate/:token        controllers.ActivateAccountController.activate(token: java.util.UUID)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /static/*file              controllers.Assets.at(path="/public/ui/static", file)
+GET         /assets/*file                   controllers.Assets.versioned(file)
+->          /webjars                        webjars.Routes
 
-GET         /websocket                     controllers.BattleshipController.socket
+GET         /websocket                      controllers.BattleshipController.socket
 
-GET         /save                          controllers.BattleshipController.save
-
-GET         /load                          controllers.BattleshipController.load
-
-GET         /playAgain                     controllers.BattleshipController.playAgain()
 
 +nocsrf
-POST        /battleship/api/command        controllers.BattleshipController.jsonInput
-GET         /json                          controllers.BattleshipController.getJson
-
-
-GET         /$any<.*>                  controllers.ApplicationController.vueapp(any)
+POST        /battleship/api/command         controllers.BattleshipController.jsonInput
+GET         /json                           controllers.BattleshipController.getJson

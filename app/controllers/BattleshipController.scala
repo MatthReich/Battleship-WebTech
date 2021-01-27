@@ -3,48 +3,35 @@ package controllers
 import Battleship._
 import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
 import Battleship.controller.InterfaceController
-import akka.actor.{ActorSystem, _}
-import akka.stream.ActorMaterializer
-
-import javax.inject._
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.stream.Materializer
+import com.mohiva.play.silhouette.api.Silhouette
+import com.mohiva.play.silhouette.api.actions.SecuredRequest
+import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+import javax.inject.{Inject, Singleton}
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 import utils.GridtoJson
+import utils.auth.DefaultEnv
 
+import scala.concurrent.ExecutionContext
 import scala.swing.Reactor
 
 @Singleton
-class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
+class BattleshipController @Inject()(
+                                      scc: SilhouetteControllerComponents,
+                                      silhouette: Silhouette[DefaultEnv]
+                                    )(implicit ex: ExecutionContext, system: ActorSystem, mat: Materializer) extends SilhouetteController(scc) {
+
   var gameController: InterfaceController = Game.controller
   var isFirst = false
   var isLast = true
 
-  def playAgain(): Action[AnyContent] = Action {
-    Ok("").withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
-  def setPlayer(): Action[AnyContent] = Action { implicit request =>
-    val selection = request.body.asFormUrlEncoded
-    selection.map { args =>
-      gameController.setPlayers(args("namePlayer1").head)
-      gameController.setPlayers(args("namePlayer2").head)
-      Ok("").withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-    }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
-  }
-
-  def getJson: Action[AnyContent] = Action(parse.json) {
-    Ok(toJson).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
-  def save: Action[AnyContent] = Action {
-    gameController.save()
-    Ok("").withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
-  }
-
-  def load: Action[AnyContent] = Action {
-    gameController.load()
-    Ok("").withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+  def getJson() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
+    authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
+      Ok(toJson)
+    }
   }
 
   def jsonInput: Action[JsValue] = Action(parse.json) {
@@ -57,7 +44,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
       }
 
     }
-      Ok(toJson).withHeaders("Acces-Control-Allow-Origin"->"http://localhost:8080")
+      Ok(toJson).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
   }
 
   def idle(coordinates: String): Unit = {
@@ -72,15 +59,13 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
           gameController.checkGuess(coordinates, gameController.getGridPlayer2)
           gameController.setLastGuess(coordinates)
-        }
-        else {
+        } else {
           gameController.checkGuess(coordinates, gameController.getGridPlayer1)
           gameController.setLastGuess(coordinates)
         }
       }
     }
   }
-
   def setShip(coordinates: String): Unit = {
     if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.getPlayerState match {
@@ -104,7 +89,6 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
       }
     }
   }
-
   def toJson: String = {
     val gridtoJson = new GridtoJson()
     gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState, gameController.getPlayer1, gameController.getPlayer2)
@@ -115,12 +99,10 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
   }
 
   def socket: WebSocket = WebSocket.accept[String, String] { request =>
-    implicit val materializer: ActorMaterializer = ActorMaterializer()
     ActorFlow.actorRef {
       out => Props(new MyWebSocketActor(out))
     }
   }
-
   class MyWebSocketActor(out: ActorRef) extends Actor with Reactor {
     listenTo(gameController)
     reactions += {
@@ -129,7 +111,7 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         out ! Json.obj("event" -> "cell-changed").toString()
       case event: PlayerChanged =>
         println("player-changed:" + event)
-        if (isFirst){
+        if (isFirst) {
           out ! Json.obj("event" -> "start-game").toString()
           if (!isLast)
             isFirst = false
@@ -152,8 +134,8 @@ class BattleshipController @Inject()(cc: ControllerComponents)(implicit system: 
         } else if (gameController.getGameState == GameState.SHIPSETTING) {
           val eingabe = x.split(" ");
           setShip(eingabe(0) + " " + eingabe(1) + " " + eingabe(2) + " " + eingabe(3))
-        } else if (gameController.getGameState == GameState.PLAYERSETTING){
-          if (gameController.getPlayerState == PlayerState.PLAYER_ONE){
+        } else if (gameController.getGameState == GameState.PLAYERSETTING) {
+          if (gameController.getPlayerState == PlayerState.PLAYER_ONE) {
             out ! Json.obj("event" -> "send-id", "object" -> "player1").toString()
           } else {
             out ! Json.obj("event" -> "send-id", "object" -> "player2").toString()

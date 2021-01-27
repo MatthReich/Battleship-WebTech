@@ -1,14 +1,14 @@
 <template>
-  <v-main>
+  <v-main data-app>
     <v-container class="mx-auto text-center">
       <h1>Battleship</h1>
-      <br />
+      <br/>
       <v-img
           class="mx-auto"
           max-width="960"
           src="https://media.giphy.com/media/RKS1aUdDGFUKxRecSL/source.gif"
       />
-      <br />
+      <br/>
       <v-dialog v-model="dialog" persistent max-width="480">
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="my-4" color="light-blue" dark v-bind="attrs" v-on="on">

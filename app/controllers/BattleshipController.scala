@@ -49,13 +49,13 @@ class BattleshipController @Inject() (
       selection.map { args =>
         gameController.setPlayers(args("namePlayer1").head)
         gameController.setPlayers(args("namePlayer2").head)
-        Ok(setShipView(request.identity, totpInfoOpt, gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+        Ok(setShipView(request.identity, totpInfoOpt, gameController))
       }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
     }
   }
 
   def getJson = Action(parse.json) {
-    Ok(toJson()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    Ok(toJson())
   }
   /*
   def save: Action[AnyContent] = Action { implicit request =>
@@ -104,7 +104,7 @@ class BattleshipController @Inject() (
         }
 
       }
-      Ok(toJson()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+      Ok(toJson())
   }
 
   def toIdle() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>

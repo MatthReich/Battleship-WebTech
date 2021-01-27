@@ -7,6 +7,7 @@ let websocket
 let websocketClosed = false
 
 function handleShipSetClick(row, col) {
+    console.log("testtttstst")
     if (startIsSet) {
         startIsSet = false
         try {
@@ -25,6 +26,7 @@ function handleShipSetClick(row, col) {
 }
 
 function handleClick(row, col) {
+    console.log("testttt567567stst")
     try {
         websocket.send(row + " " + col + " " + "test" + " " + "test")
     } catch (e) {

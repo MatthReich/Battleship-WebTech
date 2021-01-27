@@ -40,7 +40,7 @@ function handleClick(row, col) {
 function connectWebSocket() {
     if (!websocketClosed) {
         console.log("Connecting to Websocket");
-        websocket = new WebSocket("ws://localhost:9000/websocket");
+        websocket = new WebSocket("wss://battleship-webtech.herokuapp.com/websocket");
         console.log("Connected to Websocket");
     }
 

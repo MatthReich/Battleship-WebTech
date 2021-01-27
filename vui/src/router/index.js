@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/Home.vue'
 import ErrorPage from '../components/ErrorPage.vue'
 import SignIn from '../components/SignIn.vue'
 import OAuth from '../components/OAuth'
@@ -57,8 +56,8 @@ const routes = [
         children: [
             {
                 path: '',
-                name: 'home',
-                component: Home
+                name: 'tmpHome',
+                component: TmpHome
             },
             {
                 path: 'error',
@@ -103,11 +102,6 @@ const routes = [
                 path: 'about',
                 name: 'about',
                 component: About
-            },
-            {
-                path: 'tmphome',
-                name: 'tmphome',
-                component: TmpHome
             },
             {
                 path: 'battleship',

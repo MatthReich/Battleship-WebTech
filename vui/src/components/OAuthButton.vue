@@ -5,19 +5,20 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
-    import {openAuthenticationWindow} from './services/oauth.js'
-    export default {
-        name: 'OAuthButton',
-        props: ['provider', 'redirectTo', 'icon', 'title'],
-        methods: {
-            ...mapActions('user', ['setUser']),
-            authorize: function () {
-                const vi = this;
-                const url = `/authenticate/${this.provider}`;
-                openAuthenticationWindow(url, url, function(result) {
-                    vi.setUser(result)
-                    const nextTo = vi.redirectTo ? vi.redirectTo : '/profile'
+import {mapActions} from 'vuex'
+import {openAuthenticationWindow} from './services/oauth.js'
+
+export default {
+  name: 'OAuthButton',
+  props: ['provider', 'redirectTo', 'icon', 'title'],
+  methods: {
+    ...mapActions('user', ['setUser']),
+    authorize: function () {
+      const vi = this;
+      const url = `http://localhost:9000/authenticate/${this.provider}`;
+      openAuthenticationWindow(url, url, function (result) {
+        vi.setUser(result)
+        const nextTo = vi.redirectTo ? vi.redirectTo : '/'
                     vi.$router.push(nextTo)
                 });
             }

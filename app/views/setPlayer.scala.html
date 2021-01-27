@@ -1,0 +1,36 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data._
+@import forms.TotpSetupForm.Data
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+@import Battleship.controller.ControllerBaseImpl.PlayerState
+@import Battleship.controller.ControllerBaseImpl.GameState
+
+@this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], controller: Battleship.controller.InterfaceController, totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+@main(messages("home.title"), Some(user)) {
+    <div class="user col-md-6 col-md-offset-3">
+        <body>
+            @* And here's where we render the `Html` object containing
+            * the page content. *@
+            @{
+                if(controller.getGameState == GameState.PLAYERSETTING) {
+                    if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                        "Player 1, please add your name :-)"
+                    } else if (controller.getPlayerState == PlayerState.PLAYER_TWO) {
+                        "Player 2, please add your name :-)"
+                    }
+                } else {
+                    "your in the state: " + controller.getGameState +  " please look at about page for more infos"
+                }
+            }
+
+        </body>
+    </div>
+}

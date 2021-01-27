@@ -36,12 +36,18 @@ GET         /account/activate/:token         controllers.ActivateAccountControll
 GET         /assets/*file                    controllers.Assets.versioned(file)
 ->          /webjars                         webjars.Routes
 
-GET         /about                         controllers.BattleshipController.aboutpage
-GET         /battleship                    controllers.BattleshipController.landingpageCall
+
 GET         /playAgain                     controllers.BattleshipController.playAgain
+
+GET         /winningpage                   controllers.BattleshipController.winningpage
+GET         /toIdle                        controllers.BattleshipController.toIdle
 
 GET         /websocket                     controllers.BattleshipController.socket
 
+
+POST        /setPlayer/name                controllers.BattleshipController.setPlayer
+
+GET         /about                         controllers.BattleshipController.aboutpage
 
 +nocsrf
 POST        /battleship/api/command        controllers.BattleshipController.jsonInput

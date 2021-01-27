@@ -22,19 +22,14 @@ import scala.swing.Reactor
 class BattleshipController @Inject() (
   scc: SilhouetteControllerComponents,
   about: views.html.about,
-  landingpage: views.html.landingpage,
-  silhouette: Silhouette[DefaultEnv]
-)(implicit ex: ExecutionContext, system: ActorSystem, mat: Materializer) extends SilhouetteController(scc) {
-
+  setShipView: views.html.setShip,
+  setPlayerView: views.html.setPlayer,
+  idlepageView: views.html.idlepage,
+  winningpage: views.html.winningpage,
+  landingpage: views.html.landingpage)(implicit ex: ExecutionContext, system: ActorSystem, mat: Materializer) extends SilhouetteController(scc) {
   var gameController: InterfaceController = Game.controller
   var isFirst = false
   var isLast = true
-
-  def aboutpage() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
-    authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-      Ok(about(request.identity, totpInfoOpt))
-    }
-  }
 
   def playAgain() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
@@ -42,19 +37,63 @@ class BattleshipController @Inject() (
     }
   }
 
-  def getJson() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
+  def aboutpage() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-      Ok(toJson)
+      Ok(about(request.identity, totpInfoOpt))
     }
   }
 
-  def landingpageCall() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
+  def setPlayer() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-      Ok(landingpage(request.identity, totpInfoOpt))
+      val selection = request.body.asFormUrlEncoded
+      selection.map { args =>
+        gameController.setPlayers(args("namePlayer1").head)
+        gameController.setPlayers(args("namePlayer2").head)
+        Ok(setShipView(request.identity, totpInfoOpt, gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+      }.getOrElse(InternalServerError("Ooopa - Internal Server Error"))
     }
   }
 
-  def jsonInput: Action[JsValue] = Action(parse.json) {
+  def getJson = Action(parse.json) {
+    Ok(toJson()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+  }
+  /*
+  def save: Action[AnyContent] = Action { implicit request =>
+    if (gameController.getGameState == GameState.PLAYERSETTING) {
+      gameController.save()
+      Ok(views.html.setPlayer(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else if (gameController.getGameState == GameState.SHIPSETTING) {
+      gameController.save()
+      Ok(views.html.setShip(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else if (gameController.getGameState == GameState.IDLE) {
+      gameController.save()
+      Ok(views.html.idlepage(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else if (gameController.getGameState == GameState.SOLVED) {
+      gameController.save()
+      Ok(views.html.winningpage(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else {
+      gameController.save()
+      Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    }
+  }
+
+  def load: Action[AnyContent] = Action { implicit request =>
+    gameController.load()
+    if (gameController.getGameState == GameState.PLAYERSETTING) {
+      Ok(views.html.setPlayer(null)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else if (gameController.getGameState == GameState.SHIPSETTING) {
+      Ok(views.html.setShip(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else if (gameController.getGameState == GameState.IDLE) {
+      Ok(views.html.idlepage(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else if (gameController.getGameState == GameState.SOLVED) {
+      Ok(views.html.winningpage(gameController)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    } else {
+      Ok(views.html.landingpage()(request)).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+    }
+  }
+*/
+
+  def jsonInput = Action(parse.json) {
     request: Request[JsValue] =>
       {
         val data = readCommand(request.body)
@@ -65,7 +104,13 @@ class BattleshipController @Inject() (
         }
 
       }
-      Ok(toJson).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+      Ok(toJson()).withHeaders("Acces-Control-Allow-Origin" -> "http://localhost:8080")
+  }
+
+  def toIdle() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
+    authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
+      Ok(idlepageView(request.identity, totpInfoOpt, gameController))
+    }
   }
 
   def idle(coordinates: String): Unit = {
@@ -87,6 +132,7 @@ class BattleshipController @Inject() (
       }
     }
   }
+
   def setShip(coordinates: String): Unit = {
     if (gameController.getGameState == GameState.SHIPSETTING) {
       gameController.getPlayerState match {
@@ -110,7 +156,8 @@ class BattleshipController @Inject() (
       }
     }
   }
-  def toJson: String = {
+
+  def toJson(): String = {
     val gridtoJson = new GridtoJson()
     gridtoJson.save(gameController.getGridPlayer1, gameController.getGridPlayer2, gameController.getNrPlayer1(), gameController.getNrPlayer2(), gameController.getGameState, gameController.getPlayerState, gameController.getPlayer1, gameController.getPlayer2)
   }
@@ -119,34 +166,42 @@ class BattleshipController @Inject() (
     ((value \ "row").get.toString(), (value \ "col").get.toString(), (value \ "row2").get.toString(), (value \ "col2").get.toString())
   }
 
-  def socket: WebSocket = WebSocket.accept[String, String] { request =>
+  def winningpage() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
+    authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
+      Ok(idlepageView(request.identity, totpInfoOpt, gameController))
+    }
+  }
+
+  def socket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef {
       out => Props(new MyWebSocketActor(out))
     }
   }
+
   class MyWebSocketActor(out: ActorRef) extends Actor with Reactor {
     listenTo(gameController)
     reactions += {
       case event: CellChanged =>
-        println("cell-changed:" + event)
-        out ! Json.obj("event" -> "cell-changed").toString()
+        println("cell-changed")
+        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
       case event: PlayerChanged =>
-        println("player-changed:" + event)
-        if (isFirst) {
+        println("player-changed")
+        if (isFirst == true) {
           out ! Json.obj("event" -> "start-game").toString()
-          if (!isLast)
+          if (isLast == false)
             isFirst = false
           else
             isLast = false
         } else {
-          out ! Json.obj("event" -> "player-changed").toString()
+          out ! Json.obj("event" -> "player-changed", "object" -> toJson()).toString()
         }
       case other => println("Unmanaged event: " + other.getClass.getName)
     }
 
     override def receive: Receive = {
-      case "Connect to Server" =>
-        println("New client is connected")
+      case "Trying to connect to Server" =>
+        println("is connected")
+        out ! Json.obj("event" -> "cell-changed", "object" -> toJson()).toString()
       case x: String if x.nonEmpty =>
         println("eingabe: " + x)
         if (gameController.getGameState == GameState.IDLE) {
@@ -163,6 +218,7 @@ class BattleshipController @Inject() (
             isFirst = true
           }
           gameController.setPlayers(x)
+
         }
     }
   }

@@ -1,7 +1,7 @@
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
 
-name := "battleship"
+name := "battleship-webtech"
 
 version := "1.0.0"
 

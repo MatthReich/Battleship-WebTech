@@ -10,46 +10,21 @@
 <html lang="en">
     <head>
         @* Here's where we render the page title `String`. *@
-        <title>Battleship</title>
+    <title>Battleship</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
 
-            <!-- Bootstrap CSS -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-        <script src="@routes.Assets.versioned("javascripts/jquery-3.5.1.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" ></script>
-        <script src="@routes.Assets.versioned("javascripts/popper.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/gamehandler.js")" type="text/javascript"></script>
-
-        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="https://st.depositphotos.com/1006018/4176/v/450/depositphotos_41762631-stock-illustration-world-war-two-battleship-cartoon.jpg">
-        <link href='https://fonts.googleapis.com/css?family=Big Shoulders Stencil Display' rel='stylesheet'>
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="https://st.depositphotos.com/1006018/4176/v/450/depositphotos_41762631-stock-illustration-world-war-two-battleship-cartoon.jpg">
+    <link href='https://fonts.googleapis.com/css?family=Big Shoulders Stencil Display' rel='stylesheet'>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/">Battleship</a>
             <div class="navbar-collapse collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/setShip">Set Ship</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/idle">Main Game</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/load">Load</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/save">Save</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                </ul>
             </div>
         </nav>
-        @* And here's where we render the `Html` object containing
-        * the page content. *@
         @content
     </body>
 </html>

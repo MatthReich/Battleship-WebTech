@@ -5,6 +5,7 @@ import Battleship.controller.ControllerBaseImpl.{ CellChanged, GameState, Player
 import Battleship.controller.InterfaceController
 import akka.actor.{ Actor, ActorRef, ActorSystem, Props }
 import akka.stream.Materializer
+import com.mohiva.play.silhouette.api.Silhouette
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
 import javax.inject.{ Inject, Singleton }
@@ -12,6 +13,7 @@ import play.api.libs.json.{ JsValue, Json }
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 import utils.GridtoJson
+import utils.auth.DefaultEnv
 
 import scala.concurrent.ExecutionContext
 import scala.swing.Reactor
@@ -21,6 +23,7 @@ class BattleshipController @Inject() (
   scc: SilhouetteControllerComponents,
   about: views.html.about,
   setShipView: views.html.setShip,
+  setPlayerView: views.html.setPlayer,
   idlepageView: views.html.idlepage,
   winningpage: views.html.winningpage,
   landingpage: views.html.landingpage)(implicit ex: ExecutionContext, system: ActorSystem, mat: Materializer) extends SilhouetteController(scc) {
@@ -165,7 +168,7 @@ class BattleshipController @Inject() (
 
   def winningpage() = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-      Ok(winningpage(request.identity, totpInfoOpt, gameController))
+      Ok(idlepageView(request.identity, totpInfoOpt, gameController))
     }
   }
 

@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
   "net.codingwell" %% "scala-guice" % "4.1.0",
   "com.github.tminglei" %% "slick-pg" % "0.18.0",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.18.0",
-  "org.webjars" %% "webjars-play" % "2.8.0",
+  "org.webjars" %% "webjars-play" % "2.7.0",
   "org.webjars" % "bootstrap" % "4.4.1" exclude("org.webjars", "jquery"),
   "org.webjars" % "jquery" % "3.2.1",
   "com.iheart" %% "ficus" % "1.4.3",

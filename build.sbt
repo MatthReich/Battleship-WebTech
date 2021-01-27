@@ -2,6 +2,8 @@ import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
 
 name := "battleship-webtech"
+herokuAppName in Compile := "battleship-webtech"
+herokuJdkVersion in Compile := "1.8"
 
 version := "1.0.0"
 
